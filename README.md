@@ -1,2 +1,0 @@
-# mybook
-Laravel facebook project
