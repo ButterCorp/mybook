@@ -21,7 +21,8 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')->
+            scopes(['user_photos'])->redirect();
     }
 
     /**
@@ -31,7 +32,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->scopes(['user_photos'])->user();
+        $user = Socialite::driver('facebook')->user();
 
         echo '<pre>';
 
