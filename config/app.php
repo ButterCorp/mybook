@@ -181,6 +181,7 @@ return [
          * Manually added providers
          */
         SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -235,6 +236,7 @@ return [
          * Manually added aliases
          */
         'Facebook' => SammyK\LaravelFacebookSdk\FacebookFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
