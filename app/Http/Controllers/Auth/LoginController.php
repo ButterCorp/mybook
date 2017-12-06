@@ -31,7 +31,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->scopes(['user_photos'])->user();
 
         echo '<pre>';
 
