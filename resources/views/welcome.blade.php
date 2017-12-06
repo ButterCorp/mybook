@@ -36,7 +36,7 @@
     <div class="profile-bio">
 
         <p>
-            Créer votre site en un clic en important vos données facebook, vous aurez choisirais ensuite le contenu a afficher
+            Créer votre site en un clic en important vos données facebook, vous aurez juste à choisir le contenu a afficher
         </p>
 
     </div>
