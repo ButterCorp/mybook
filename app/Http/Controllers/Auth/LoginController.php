@@ -33,6 +33,8 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->user();
 
+        echo '<pre>';
+
         var_dump($user);
     }
 }
