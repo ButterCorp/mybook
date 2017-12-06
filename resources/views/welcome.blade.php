@@ -44,12 +44,12 @@
     <!-- some social links to show off -->
     <ul class="profile-social-links">
         <li>
-            <a target="_blank" href="https://www.facebook.com/creativedonut">
+            <a target="_blank" href="">
                 <i class=""></i>
             </a>
         </li>
         <li>
-            <a target="_blank" href="https://www.facebook.com/creativedonut">
+            <a target="_blank" href="https://www.facebook.com/butter.corp.35">
                 <i class="fa fa-facebook"></i>
             </a>
         </li>
