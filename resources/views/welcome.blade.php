@@ -16,7 +16,7 @@
 <aside class="profile-card">
     <header>
         <!-- here’s the avatar -->
-        <a href="/login/facebook">
+        <a href="/facebook/login">
             <img src="{{ asset('/image/facebook-img.png') }}" class="hoverZoomLink">
         </a>
 
