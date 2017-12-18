@@ -21,7 +21,7 @@ Route::get('/indexBack', function () {
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
     // Send an array of permissions to request
-    $login_url = $fb->getLoginUrl(['email']);
+    $login_url = $fb->getLoginUrl(['email','user_photos']);
 
     // Obviously you'd do this in blade :)
     echo '<a href="' . $login_url . '">Login with Facebook</a>';
@@ -75,7 +75,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('/me?fields=id,name,email');
+        $response = $fb->get('/me?fields=id,name,photos{link,picture}');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
