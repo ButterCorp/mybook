@@ -7,7 +7,7 @@
 <div class="row">
 <pre>
     @foreach ($data as $graphNode)
-        <?php var_dump($grahNode); ?>
+        <?php var_dump($graphNode); ?>
         <div class="album col s4">
             <div class="photo-album">
                 @foreach ($graphNode['photos'] as $link)
