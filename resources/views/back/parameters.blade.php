@@ -4,22 +4,17 @@
 
 @section('content')
 
-<div class="row">
-    @foreach ($data as $graphNode)
-        <div class="album col s4">
-            <div class="photo-album">
-                @foreach ($graphNode['photos'] as $link)
+<h2>Configuration</h2>
+<p>Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine</p>
 
-                        <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
-                 @endforeach
-            </div>
-            <div class="title-album">
-                <h3>{{ $graphNode['name'] }}</h3>
+@foreach ($data as $graphNode)
+    @foreach ($graphNode['photos'] as $link)
+        <div class="row">
+            <div class="album col s4">
+                <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
             </div>
         </div>
     @endforeach
+@endforeach
 
-</div>
-
-   
 @endsection
