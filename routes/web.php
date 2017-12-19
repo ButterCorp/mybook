@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    if (!session_id()) {
+        session_start();
+    }
+
     return view('welcome');
 });
 Route::get('/indexBack', function () {
@@ -20,6 +24,10 @@ Route::get('/indexBack', function () {
 // Generate a login URL
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
+    if (!session_id()) {
+        session_start();
+    }
+
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email','user_photos']);
 
@@ -30,6 +38,10 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 // Endpoint that is redirected to after an authentication attempt
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
+    if (!session_id()) {
+        session_start();
+    }
+
     // Obtain an access token.
     try {
         $token = $fb->getAccessTokenFromRedirect();
@@ -75,20 +87,20 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('/me?fields=id,name,photos{link,picture}');
+        $response = $fb->get('/me/albums?fields=name,photos{link,picture}');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
 
     // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
-    $facebook_user = $response->getGraphUser();
+    $facebook_user = $response->getGraphEdge();
 
     // Create the user if it does not exist or update the existing entry.
     // This will only work if you've added the SyncableGraphNodeTrait to your User model.
-    $user = App\User::createOrUpdateGraphNode($facebook_user);
+    //$user = App\User::createOrUpdateGraphNode($facebook_user);
 
     // Log the user into Laravel
-    Auth::login($user);
-
-    return redirect('/')->with('message', 'Successfully logged in with Facebook');
+   // Auth::login($user);
+    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
+    return view('back/index', ['data' => $facebook_user]);
 });

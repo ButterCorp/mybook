@@ -11,6 +11,11 @@
             });
         });
     </script>
+    <?php if (isset($data)) {
+        echo "<pre>";
+        var_dump($data);
+        echo "</pre>";
+    } ?>
     <div class="div-dashboard">
         <div class="row">
             <div class="col s12">
