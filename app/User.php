@@ -4,26 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 
-class User extends Authenticatable
+class User extends Eloquent implements UserInterface
 {
-    use Notifiable;
+    use SyncableGraphNodeTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $hidden = ['access_token'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 }

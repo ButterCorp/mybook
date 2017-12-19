@@ -97,12 +97,10 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Create the user if it does not exist or update the existing entry.
     // This will only work if you've added the SyncableGraphNodeTrait to your User model.
-    
-    //$user = App\User::createOrUpdateGraphNode($facebook_user);
-
+    $user = App\User::createOrUpdateGraphNode($facebook_user);
 
     // Log the user into Laravel
-    //Auth::login($user);
+    Auth::login($user);
 
     return redirect('/')->with('message', 'Successfully logged in with Facebook');
 });
