@@ -10,13 +10,13 @@
 @foreach ($data as $graphNode)
     @foreach ($graphNode['photos'] as $link)
         <div class="row">
-            <div class="album col s4">
+            <div class="album col s3">
                 <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
             </div>
-            <div class="col s1">
+            <div class="col s2">
                 <p>
-                    <input type="checkbox" id="test5" />
-                    <label for="test5">Red</label>
+                    <input type="checkbox" id="{{ $graphNode['name'] }}" />
+                    <label for="{{ $graphNode['name'] }}">Oui, je veux cette photo</label>
                 </p>
             </div>
         </div>
