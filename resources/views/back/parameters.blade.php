@@ -9,7 +9,11 @@
     @foreach ($data as $graphNode)
         <div class="album col s4">
             <div class="photo-album">
-                {{ $graphNode['photos'] }}
+                @foreach ($data['photos'] as $link)
+                    @if ($loop->first)
+                        <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
+                    @endif
+                 @endforeach
             </div>
             <div class="title-album">
                 <h3>{{ $graphNode['name'] }}</h3>
