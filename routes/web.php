@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    if (!session_id()) {
+        session_start();
+    }
+    
     return view('welcome');
 });
 Route::get('/indexBack', function () {
@@ -20,6 +24,10 @@ Route::get('/indexBack', function () {
 // Generate a login URL
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
+    if (!session_id()) {
+        session_start();
+    }
+
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email','user_photos']);
 
@@ -30,6 +38,10 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 // Endpoint that is redirected to after an authentication attempt
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
+    if (!session_id()) {
+        session_start();
+    }
+
     // Obtain an access token.
     try {
         $token = $fb->getAccessTokenFromRedirect();
