@@ -107,7 +107,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     foreach ($facebook_user as $graphNode){
         echo $graphNode['name']."<br><br><br>";
         foreach($graphNode['photos'] as $link)
-            echo '<img src="'.$link.'">';
+            echo '<img src="'.$link["link"].'">';
         echo "<br>";
     }
 
