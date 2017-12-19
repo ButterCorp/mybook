@@ -15,7 +15,7 @@ Route::get('/', function () {
     if (!session_id()) {
         session_start();
     }
-    
+
     return view('welcome');
 });
 Route::get('/indexBack', function () {
@@ -101,6 +101,6 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Log the user into Laravel
    // Auth::login($user);
-    die(var_dump($facebook_user));
-    return redirect('/')->with('message', 'Successfully logged in with Facebook');
+    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
+    return view('welcome', ['data' => $facebook_user]);
 });
