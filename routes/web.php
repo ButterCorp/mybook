@@ -105,7 +105,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     echo "<pre>";
 
     foreach ($facebook_user as $graphNode)
-        echo $graphNode."<br><br><br>";
+        echo $graphNode['name']."<br><br><br>";
 
     echo "</pre>";
     die("<br>here");
