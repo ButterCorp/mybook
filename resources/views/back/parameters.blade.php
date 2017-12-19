@@ -3,18 +3,11 @@
 @section('title', 'MyParameters')
 
 @section('content')
-    <?php/* if (isset($data)) {
+    <?php if (isset($data)) {
         echo "<pre>";
-        var_dump($data);
+        var_dump($data['name']);
         echo "</pre>";
-    }*/
-
-    foreach ($data['name'] as $row) {
-        echo "<pre>";
-        var_dump($row);
-    }
-
-    ?>
+    } ?>
 
     <div class="div-dashboard">
         <div class="row">
