@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 
-class User extends Eloquent implements UserInterface
+class User extends Model implements UserInterface
 {
     use SyncableGraphNodeTrait;
 
