@@ -9,7 +9,7 @@
     @foreach ($data as $graphNode)
         <div class="album col s4">
             <div class="photo-album">
-                {{ $graphNode['photo'] }}
+                {{ $graphNode['photos'] }}
             </div>
             <div class="title-album">
                 <h3>{{ $graphNode['name'] }}</h3>
