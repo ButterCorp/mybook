@@ -5,7 +5,10 @@
 @section('content')
 
 <h2>Configuration</h2>
-<p>Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine</p>
+<p>
+    Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
+    appuyez ensuite sur le bouton valider tout en bas de la page
+</p>
 
 @foreach ($data as $graphNode)
     @foreach ($graphNode['photos'] as $link)
@@ -22,5 +25,7 @@
         </div>
     @endforeach
 @endforeach
+
+<a class="waves-effect waves-light btn">Valider</a>
 
 @endsection
