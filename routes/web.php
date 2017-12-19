@@ -100,11 +100,9 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     
     //$user = App\User::createOrUpdateGraphNode($facebook_user);
 
-    echo '<pre>';
-    var_dump($user);
 
     // Log the user into Laravel
     //Auth::login($user);
 
-    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
+    return redirect('/')->with('message', 'Successfully logged in with Facebook');
 });
