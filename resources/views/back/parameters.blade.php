@@ -6,7 +6,7 @@
 
 <div class="row">
 
-    @foreach ($facebook_user as $graphNode)
+    @foreach ($data as $graphNode)
         <div class="album col s4">
             <div class="photo-album">
                 {{ $graphNode['link'] }}
@@ -17,7 +17,7 @@
         </div>
     @endforeach
 
-</div>
+</div>  
 
    
 @endsection
