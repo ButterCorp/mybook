@@ -13,10 +13,10 @@
             <div class="album col s3">
                 <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
             </div>
-            <div class="col s2">
+            <div class="col s3">
                 <p>
-                    <input type="checkbox" id="{{ $graphNode['name'] }}" />
-                    <label for="{{ $graphNode['name'] }}">Oui, je veux cette photo</label>
+                    <input type="checkbox" id="{{ $link["picture"] }}" />
+                    <label for="{{ $link["picture"] }}">Oui, je veux cette photo</label>
                 </p>
             </div>
         </div>
