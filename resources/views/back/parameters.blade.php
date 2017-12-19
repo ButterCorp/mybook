@@ -5,8 +5,9 @@
 @section('content')
 
 <div class="row">
-
+<pre>
     @foreach ($data as $graphNode)
+        <?php var_dump($grahNode); ?>
         <div class="album col s4">
             <div class="photo-album">
                 @foreach ($graphNode['photos'] as $link)
