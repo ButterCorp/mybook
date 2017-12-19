@@ -5,15 +5,12 @@
 @section('content')
 
 <div class="row">
-<pre>
     @foreach ($data as $graphNode)
-        <?php var_dump($graphNode); ?>
         <div class="album col s4">
             <div class="photo-album">
                 @foreach ($graphNode['photos'] as $link)
-                    @if ($loop->first)
+
                         <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
-                    @endif
                  @endforeach
             </div>
             <div class="title-album">
