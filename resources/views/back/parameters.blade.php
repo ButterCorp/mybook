@@ -5,7 +5,7 @@
 @section('content')
     <?php if (isset($data)) {
         echo "<pre>";
-        var_dump($data['name']);
+        var_dump($data->name);
         echo "</pre>";
     } ?>
 
