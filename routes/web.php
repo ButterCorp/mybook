@@ -106,5 +106,5 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     // Log the user into Laravel
    // Auth::login($user);
     //return redirect('/')->with('message', 'Successfully logged in with Facebook');
-    return view('back/index', ['data' => $facebook_user]);
+    return view('back/parameters', ['data' => $facebook_user]);
 });
