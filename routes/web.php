@@ -21,6 +21,10 @@ Route::get('/', function () {
 Route::get('/indexBack', function () {
     return view('back/index');
 });
+
+Route::get('/parameters', function () {
+    return view('back/parameters');
+});
 // Generate a login URL
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
