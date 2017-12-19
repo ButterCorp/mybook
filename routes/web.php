@@ -35,6 +35,9 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
     echo '<a href="' . $login_url . '">Login with Facebook</a>';
 });
 
+//Faut lui donner les parametres
+Route::post('/parameters', 'ParametersController@parameters'); 
+
 // Endpoint that is redirected to after an authentication attempt
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
 {
