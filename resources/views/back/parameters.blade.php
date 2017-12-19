@@ -14,11 +14,10 @@
                 <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
             </div>
             <div class="col s1">
-                <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Check this custom checkbox</span>
-                </label>
+                <p>
+                    <input type="checkbox" id="test5" />
+                    <label for="test5">Red</label>
+                </p>
             </div>
         </div>
     @endforeach
