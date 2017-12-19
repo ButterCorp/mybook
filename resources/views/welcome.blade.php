@@ -1,3 +1,7 @@
+<?php if (isset($data)) {
+    echo "<pre>";
+    var_dump($data);
+} ?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
