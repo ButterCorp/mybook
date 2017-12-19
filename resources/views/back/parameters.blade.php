@@ -5,7 +5,7 @@
 @section('content')
     <?php if (isset($data)) {
         echo "<pre>";
-        var_dump($data->request);
+        var_dump($data->getRequest());
         echo "</pre>";
     } ?>
     <div class="div-dashboard">
