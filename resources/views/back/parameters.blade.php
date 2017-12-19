@@ -5,7 +5,7 @@
 @section('content')
     <?php if (isset($data)) {
         echo "<pre>";
-        var_dump($data->getGraphEdge());
+        var_dump($data);
         echo "</pre>";
     } ?>
     <div class="div-dashboard">
