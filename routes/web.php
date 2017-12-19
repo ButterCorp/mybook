@@ -102,14 +102,6 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
     $facebook_user = $response->getGraphEdge();
 
-    echo "<pre>";
-
-    foreach ($facebook_user as $graphNode)
-        echo $graphNode['name']."<br><br><br>";
-
-    echo "</pre>";
-    die("<br>here");
-
     // Create the user if it does not exist or update the existing entry.
     // This will only work if you've added the SyncableGraphNodeTrait to your User model.
     //$user = App\User::createOrUpdateGraphNode($facebook_user);

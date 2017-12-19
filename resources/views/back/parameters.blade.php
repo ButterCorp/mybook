@@ -3,20 +3,21 @@
 @section('title', 'MyParameters')
 
 @section('content')
-    <?php if (isset($data)) {
-        echo "<pre>";
-        var_dump($data);
-        echo "</pre>";
-    } ?>
-    <div class="div-dashboard">
-        <div class="row">
-            <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab col s4"><a href="#profile">MyProfile</a></li>
-                </ul>
-            </div>
 
+<div class="row">
+
+    @foreach ($facebook_user as $graphNode)
+        <div class="album col s4">
+            <div class="photo-album">
+                {{ $graphNode['link'] }}
+            </div>
+            <div class="title-album">
+                <h3>{{ $graphNode['name'] }}</h3>
+            </div>
         </div>
-   </div>
+    @endforeach
+
+</div>
+
    
 @endsection

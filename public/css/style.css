@@ -29,3 +29,17 @@ div.div-dashboard {
 .text-align {
     text-align: center;
 }
+
+h3 {
+    font-size: 20px;
+}
+
+div.album {
+    height: 200px;
+    margin: 10px;
+}
+
+div.title-album  {
+    margin-top: 130px;
+    text-align: center;
+}
