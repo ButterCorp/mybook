@@ -11,6 +11,9 @@
 </p>
 
 @foreach ($data as $graphNode)
+
+    <?php
+    if isset($graphNode['photos']){ ?>
     @foreach ($graphNode['photos'] as $link)
         <div class="row">
             <div class="album col s3">
@@ -31,6 +34,7 @@
             </div>
         </div>
     @endforeach
+    <?php } ?>
 @endforeach
 
 <a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
