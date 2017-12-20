@@ -13,24 +13,22 @@
 @foreach ($data as $graphNode)
     @if(isset($graphNode['photos']))
             @foreach ($graphNode['photos'] as $link)
-                <div class="row">
-                    <div class="album col s3">
+                <div class="album col s4">
+                    <div class="photo-album">
                             @if (isset($link["picture"]) && isset($graphNode['name']))
-                                @if ($loop->last)
+                                @if ($loop->first)
                                     <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
                                 @endif
                             @endif
                     </div>
-                    <div class="col s3">
-                        <p>
-                            <input type="checkbox" id="{{ $link["picture"] }}" />
-                            <label for="{{ $link["picture"] }}">Oui, je veux cette photo</label>
-                        </p>
+                    <div class="title-album">
+                        <h3>{{ $graphNode['name'] }}</h3>
                     </div>
                 </div>
             @endforeach
         @endif
 @endforeach
+
 
 <a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
 @endsection
