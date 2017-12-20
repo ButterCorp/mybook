@@ -15,24 +15,20 @@
 <body>
 <aside class="profile-card">
     <header>
-        <!-- here’s the avatar -->
-        <a href="/facebook/login">
+        <a href="{{ $login }}">
             <img src="{{ asset('/image/facebook-img.png') }}" class="hoverZoomLink">
         </a>
 
-        <!-- the username -->
         <h1>
             Ravi de vous rencontrer
         </h1>
 
-        <!-- and role or location -->
         <h2>
             Créez votre site grâce a votre profil facebook
         </h2>
 
     </header>
 
-    <!-- bit of a bio; who are you? -->
     <div class="profile-bio">
 
         <p>
@@ -41,7 +37,6 @@
 
     </div>
 
-    <!-- some social links to show off -->
     <ul class="profile-social-links">
         <li>
             <a target="_blank" href="">

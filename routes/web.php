@@ -11,23 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    if (!session_id()) {
-        session_start();
-    }
-
-    return view('welcome');
-});
-Route::get('/indexBack', function () {
-    return view('back/index');
-});
-
-Route::get('/parameters', function () {
-    return view('back/parameters');
-});
-// Generate a login URL
-Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
-{
+Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     if (!session_id()) {
         session_start();
     }
@@ -35,8 +19,14 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email','user_photos']);
 
-    // Obviously you'd do this in blade :)
-    echo '<a href="' . $login_url . '">Login with Facebook</a>';
+    return view('welcome', ['login' => $login_url]);
+});
+Route::get('/indexBack', function () {
+    return view('back/index');
+});
+
+Route::get('/parameters', function () {
+    return view('back/parameters');
 });
 
 //Faut lui donner les parametres

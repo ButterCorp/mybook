@@ -37,6 +37,7 @@ h3 {
 div.album {
     height: 200px;
     margin: 10px;
+    border: 2px solid red;
 }
 
 div.title-album  {
