@@ -16,19 +16,19 @@
                 <div class="collapsible-header"><i class="material-icons">filter_drama</i>
                     {{ $graphNode['name'] }}  </div>
                 <div class="collapsible-body">
+                    <div class="row">
                     @if(isset($graphNode['photos']))
                         @foreach ($graphNode['photos'] as $link)
-
-
                             @if (isset($link["picture"]) && isset($graphNode['name']))
-                                <div class="col s3">
-                                    <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
-                                </div>
+
+                                    <div class="col s3">
+                                        <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
+                                    </div>
+
                             @endif
-
-
                         @endforeach
                     @endif
+                    </div>
                 </div>
             </li>
         @endforeach

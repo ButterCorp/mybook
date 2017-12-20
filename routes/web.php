@@ -21,6 +21,7 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
     return view('welcome', ['login' => $login_url]);
 });
+
 Route::get('/indexBack', function () {
     return view('back/index');
 });
