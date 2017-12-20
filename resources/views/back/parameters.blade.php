@@ -13,7 +13,8 @@
 @foreach ($data as $graphNode)
 
     <?php
-    if isset($graphNode['photos']){ ?>
+
+    if(isset($graphNode['photos'])){ ?>
     @foreach ($graphNode['photos'] as $link)
         <div class="row">
             <div class="album col s3">
