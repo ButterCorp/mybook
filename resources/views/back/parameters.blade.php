@@ -10,27 +10,29 @@
     appuyez ensuite sur le bouton valider tout en bas de la page
 </p>
 
-@foreach ($data as $graphNode)
-    @if(isset($graphNode['photos']))
-            @foreach ($graphNode['photos'] as $link)
-                <div class="album col s4">
-                    <div class="photo-album">
-                            @if (isset($link["picture"]) && isset($graphNode['name']))
-                                @if ($loop->first)
-                                    <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
-                                @endif
-                            @endif
-                    </div>
-                    <div class="title-album">
-                        @if ($loop->first)
-                            <h3>{{ $graphNode['name'] }}</h3>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        @endif
-@endforeach
+<ul class="collapsible popout" data-collapsible="accordion">
+    @foreach ($data as $graphNode)
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>
+                {{ $graphNode['name'] }}  </div>
+            <div class="collapsible-body">
+        @if(isset($graphNode['photos']))
+                @foreach ($graphNode['photos'] as $link)
 
+
+                                @if (isset($link["picture"]) && isset($graphNode['name']))
+                            <div class="col s3">
+                                <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
+                            </div>
+                                @endif
+
+
+                @endforeach
+            @endif
+            </div>
+        </li>
+    @endforeach
+</ul>
 
 <a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
 @endsection
