@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h2>Configuration</h2>
+    <h2>=== Configuration ===</h2>
     <p>
         Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
         appuyez ensuite sur le bouton valider tout en bas de la page
