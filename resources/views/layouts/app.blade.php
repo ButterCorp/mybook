@@ -26,9 +26,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 <script src="{{ asset('/js/jquery.counterup.min.js') }}"></script>
 <script type="text/javascript">
-    $( ".waves-light" ).click(function() {
-        alert( "A toi de coder la suite ;)" );
-    });
+    Materialize.toast('I am a toast!', 4000)
 </script>
 </body>
 </html>

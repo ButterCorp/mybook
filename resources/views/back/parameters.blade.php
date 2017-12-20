@@ -26,6 +26,5 @@
     @endforeach
 @endforeach
 
-<a class="waves-effect waves-light btn">Valider</a><br><br><br>
-
+<a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
 @endsection
