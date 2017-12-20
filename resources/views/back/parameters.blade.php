@@ -28,9 +28,4 @@
 
 <a class="waves-effect waves-light btn">Valider</a><br><br><br>
 
-<script type="text/javascript">
-    $( ".waves-light" ).click(function() {
-        alert( "A toi de coder la suite ;)" );
-    });
-</script>
 @endsection
