@@ -16,7 +16,9 @@
                 <div class="row">
                     <div class="album col s3">
                             @if (isset($link["picture"]) && isset($graphNode['name']))
-                                <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
+                                @if ($loop->last)
+                                    <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
+                                @endif
                             @endif
                     </div>
                     <div class="col s3">
