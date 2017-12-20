@@ -14,7 +14,14 @@
     @foreach ($graphNode['photos'] as $link)
         <div class="row">
             <div class="album col s3">
-                <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
+                <?php
+                    if (isset($link["picture"]) && isset($graphNode['name'])){
+                        ?>
+
+                        <img src="{{ $link["picture"] }}" alt="{{ $graphNode['name'] }}">
+                    <?php
+                    }
+                ?>
             </div>
             <div class="col s3">
                 <p>
