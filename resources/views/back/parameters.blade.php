@@ -22,7 +22,9 @@
                             @endif
                     </div>
                     <div class="title-album">
-                        <h3>{{ $graphNode['name'] }}</h3>
+                        @if ($loop->first)
+                            <h3>{{ $graphNode['name'] }}</h3>
+                        @endif
                     </div>
                 </div>
             @endforeach
