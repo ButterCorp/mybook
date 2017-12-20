@@ -28,4 +28,7 @@
 
 <a class="waves-effect waves-light btn">Valider</a><br><br><br>
 
+<script type="text/javascript">
+    console.log('aaaa');
+</script>
 @endsection
