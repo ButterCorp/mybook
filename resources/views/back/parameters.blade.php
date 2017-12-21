@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <h2>=== Configuration ===</h2>
+    <h2>Configuration</h2>
+
     <p>
         Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
         appuyez ensuite sur le bouton valider tout en bas de la page
@@ -21,8 +22,10 @@
                         @foreach ($graphNode['photos'] as $link)
                             @if (isset($link["picture"]) && isset($graphNode['name']))
 
+
                                     <div class="col s3">
                                         <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
+                                        <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span>
                                     </div>
 
                             @endif

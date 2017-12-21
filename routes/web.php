@@ -85,7 +85,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('/me/albums?fields=name,photos{link,picture}');
+        $response = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
