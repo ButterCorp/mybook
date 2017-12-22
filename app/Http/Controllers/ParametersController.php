@@ -16,13 +16,6 @@ class ParametersController extends Controller
 {
     public function index(Request $request)
     {
-
-        $value = $request->input('Profile Pictures');
-
-        die($value);
-
-        $photos = $request->input('select');
-
-        die($photos);
+        die(var_dump($request->all()));
     }
 }
