@@ -18,22 +18,29 @@
                     {{ $graphNode['name'] }}  </div>
                 <div class="collapsible-body">
                     <div class="row">
+
+                    <select multiple="multiple" class="image-picker show-html">
                     @if(isset($graphNode['photos']))
                         @foreach ($graphNode['photos'] as $link)
                             @if (isset($link["picture"]) && isset($graphNode['name']))
 
 
-                                    <div class="col s3">
-                                        <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
-                                        <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span>
-                                    </div>
+                                    
+                                        
+                                        <option data-img-src="{{ $link["picture"] }}" value="{{ $i }}"></option>
+                                       <!-- <option><img class="responsive-img" src="" /></option>
+                                       
+                                        <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span> -->
+                                    
 
                             @endif
                         @endforeach
                     @endif
+                    </select>
                     </div>
                 </div>
             </li>
+
         @endforeach
     </ul>
 

@@ -27,7 +27,8 @@ Route::get('/indexBack', function () {
 });
 
 Route::get('/parameters', function () {
-    return view('back/parameters');
+    $i=0;
+    return view('back/parameters', ['i' => $i]);
 });
 
 //Faut lui donner les parametres
