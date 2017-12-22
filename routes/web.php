@@ -21,12 +21,14 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 
     return view('welcome', ['login' => $login_url]);
 });
+
 Route::get('/indexBack', function () {
     return view('back/index');
 });
 
 Route::get('/parameters', function () {
-    return view('back/parameters');
+    $i=0;
+    return view('back/parameters', ['i' => $i]);
 });
 
 //Faut lui donner les parametres
@@ -84,7 +86,7 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('/me/albums?fields=name,photos{link,picture}');
+        $response = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
