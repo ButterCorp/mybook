@@ -27,12 +27,12 @@ Route::get('/indexBack', function () {
 });
 
 Route::get('/parameters', function () {
-    $i=0;
-    return view('back/parameters', ['i' => $i]);
+
+    return view('back/parameters');
 });
 
 //Faut lui donner les parametres
-Route::post('/parameters', 'ParametersController@parameters'); 
+Route::post('back/', 'ParametersController@index');
 
 // Endpoint that is redirected to after an authentication attempt
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)

@@ -10,11 +10,19 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class ParametersController extends Controller
 {
-    public function parameters()
+    public function index(Request $request)
     {
-        //A compléter
+
+        $value = $request->input('Profile Pictures');
+
+        die($value);
+
+        $photos = $request->input('select');
+
+        die($photos);
     }
 }

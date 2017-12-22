@@ -12,30 +12,31 @@
     </p>
 
     <ul class="collapsible popout" data-collapsible="accordion">
+        {!! Form::open(['url' => 'back/']) !!}
         @foreach ($data as $graphNode)
             <li>
                 <div class="collapsible-header"><i class="material-icons">filter_drama</i>
                     {{ $graphNode['name'] }}  </div>
                 <div class="collapsible-body">
                     <div class="row">
-                        @if(isset($graphNode['photos']))
-                            @foreach ($graphNode['photos'] as $link)
-                                @if (isset($link["picture"]) && isset($graphNode['name']))
+                        <select multiple="multiple" name="{{ $graphNode['name'] }}" class="image-picker show-html">
+                            @if(isset($graphNode['photos']))
+                                @foreach ($graphNode['photos'] as $link)
+                                    @if (isset($link["picture"]) && isset($graphNode['name']))
 
+                                        <option data-img-src="{{ $link["picture"] }}" value="{{ $loop->iteration }}"></option>
 
-                                    <div class="col s3">
-                                        <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
-                                        <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span>
-                                    </div>
+                                        <!-- <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span> -->
 
-                                @endif
-                            @endforeach
-                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
                 </div>
             </li>
         @endforeach
     </ul>
-
-    <a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
+        {!! Form::submit('Click Me!'); !!}
+    {!! Form::close() !!}
 @endsection
