@@ -16,6 +16,7 @@ class ParametersController extends Controller
 {
     public function index(Request $request)
     {
-        die(var_dump("<pre>" . $request->all()));
+        echo "<pre>";
+        die(var_dump($request->all()));
     }
 }

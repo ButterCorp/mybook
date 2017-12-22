@@ -86,14 +86,16 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Get basic info on the user from Facebook.
     try {
-        $response = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
+        $albums = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
+        $userinfo = $fb->get('me?fields=id,name,email');
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
         dd($e->getMessage());
     }
 
     // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
-    $facebook_user = $response->getGraphEdge();
-    
+    $albums_user = $albums->getGraphEdge();
+    $info_user = $userinfo->getGraphUser();
+
     // Create the user if it does not exist or update the existing entry.
     // This will only work if you've added the SyncableGraphNodeTrait to your User model.
     //$user = App\User::createOrUpdateGraphNode($facebook_user);
@@ -101,5 +103,5 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     // Log the user into Laravel
    // Auth::login($user);
     //return redirect('/')->with('message', 'Successfully logged in with Facebook');
-    return view('back/parameters', ['data' => $facebook_user]);
+    return view('back/parameters', ['album_user' => $albums_user, 'info_user' => $info_user]);
 });
