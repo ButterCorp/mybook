@@ -11,11 +11,11 @@
         appuyez ensuite sur le bouton valider tout en bas de la page
     </p>
 
+    {!! Form::open(['url' => 'back/']) !!}
     <ul class="collapsible popout" data-collapsible="accordion">
-        {!! Form::open(['url' => 'back/']) !!}
         @foreach ($data as $graphNode)
             <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>
+                <div class="collapsible-header active"><i class="material-icons">filter_drama</i>
                     {{ $graphNode['name'] }}  </div>
                 <div class="collapsible-body">
                     <div class="row">
