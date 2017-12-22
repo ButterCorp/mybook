@@ -4,38 +4,35 @@
 
 @section('content')
 
-    <h2>Configuration</h2>
+<h2>Configuration</h2>
+<p>
+    Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
+    appuyez ensuite sur le bouton valider tout en bas de la page
+</p>
 
-    <p>
-        Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
-        appuyez ensuite sur le bouton valider tout en bas de la page
-    </p>
-
-    <ul class="collapsible popout" data-collapsible="accordion">
-        @foreach ($data as $graphNode)
-            <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>
-                    {{ $graphNode['name'] }}  </div>
-                <div class="collapsible-body">
-                    <div class="row">
-                    @if(isset($graphNode['photos']))
-                        @foreach ($graphNode['photos'] as $link)
-                            @if (isset($link["picture"]) && isset($graphNode['name']))
+<ul class="collapsible popout" data-collapsible="accordion">
+    @foreach ($data as $graphNode)
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>
+                {{ $graphNode['name'] }}  </div>
+            <div class="collapsible-body">
+        @if(isset($graphNode['photos']))
+                @foreach ($graphNode['photos'] as $link)
 
 
-                                    <div class="col s3">
-                                        <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
-                                        <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span>
-                                    </div>
+                                @if (isset($link["picture"]) && isset($graphNode['name']))
+                            <div class="col s3">
+                                <img class="responsive-img materialboxed" data-caption="" src="{{ $link["picture"] }}">
+                            </div>
+                                @endif
 
-                            @endif
-                        @endforeach
-                    @endif
-                    </div>
-                </div>
-            </li>
-        @endforeach
-    </ul>
 
-    <a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
+                @endforeach
+            @endif
+            </div>
+        </li>
+    @endforeach
+</ul>
+
+<a class="btn" onclick="Materialize.toast('A toi de coder la suite !', 4000)">Valider</a><br><br><br>
 @endsection
