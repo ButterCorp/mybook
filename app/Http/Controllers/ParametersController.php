@@ -12,6 +12,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Album;
+use App\Photo;
 
 class ParametersController extends Controller
 {
@@ -19,8 +21,27 @@ class ParametersController extends Controller
     {
         $user = User::firstOrCreate([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'idfacebook' => $request->id,
         ]);
-        dd($request);
+
+        foreach ($request->all() as $key => $value){
+            if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
+                $album = Album::firstOrCreate([
+                    'title' => $key,
+                    'users_id' => "1",
+                ]);
+
+                foreach ($value as $url_photo){
+                    $photo = Photo::firstOrCreate([
+                        'url' => $url_photo,
+                        'albums_id' => "1",
+                    ]);
+                }
+
+            }
+        }
+
+        dd($request->all());
     }
 }
