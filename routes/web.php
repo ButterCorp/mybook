@@ -11,6 +11,8 @@
 |
 */
 
+use App\Photo;
+
 Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     if (!session_id()) {
         session_start();
@@ -23,8 +25,9 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 });
 
 Route::get('/indexBack', function () {
-    return view('back/index');
-});
+    $photos = Photo::all();
+    return view('back/index', ['photos' => $photos]);
+})->name('indexBack');
 
 Route::get('/parameters', function () {
 

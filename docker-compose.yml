@@ -25,3 +25,7 @@ services:
       - MYSQL_DATABASE=demo
       - MYSQL_USER=demo
       - MYSQL_PASSWORD=demo
+  adminer:
+      image: adminer
+      ports:
+        - 8080:8080

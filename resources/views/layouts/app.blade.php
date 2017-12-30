@@ -13,6 +13,8 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/image-picker.css') }}">
 
+
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -31,6 +33,11 @@
          $(document).ready(function() {
             $('select').imagepicker();
          });
+
+         $(document).ready(function(){
+             $('.carousel').carousel();
+         });
+
       </script>
 </body>
 </html>

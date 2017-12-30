@@ -83,15 +83,11 @@
                         <div class="collapsible-header"><i class="material-icons">picture_in_picture</i>Albums</div>
                         <div class="collapsible-body">
                             <div class="row">
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Profile picture" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Uploaded" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Album1" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
+                                @foreach ($photos as $photo)
+                                    <div class="col s4">
+                                        <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </li>
@@ -141,5 +137,10 @@
                     quibusdam vel voluptates.</p>
             </div>
         </div>
+    </div>
+    <div class="carousel">
+        @foreach ($photos as $photo)
+            <a class="carousel-item" href="#{{ $photo->id }}!"><img src="{{ $photo->url }}"></a>
+        @endforeach
     </div>
 @endsection
