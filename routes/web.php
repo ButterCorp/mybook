@@ -11,8 +11,6 @@
 |
 */
 
-use App\Photo;
-
 Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     if (!session_id()) {
         session_start();
@@ -35,76 +33,7 @@ Route::get('/parameters', function () {
 });
 
 //Faut lui donner les parametres
-Route::post('back/', 'ParametersController@index');
+Route::post('/back', 'ParametersController@create');
 
-// Endpoint that is redirected to after an authentication attempt
-Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
-{
-    if (!session_id()) {
-        session_start();
-    }
-
-    // Obtain an access token.
-    try {
-        $token = $fb->getAccessTokenFromRedirect();
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        dd($e->getMessage());
-    }
-
-    // Access token will be null if the user denied the request
-    // or if someone just hit this URL outside of the OAuth flow.
-    if (! $token) {
-        // Get the redirect helper
-        $helper = $fb->getRedirectLoginHelper();
-
-        if (! $helper->getError()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        // User denied the request
-        dd(
-            $helper->getError(),
-            $helper->getErrorCode(),
-            $helper->getErrorReason(),
-            $helper->getErrorDescription()
-        );
-    }
-
-    if (! $token->isLongLived()) {
-        // OAuth 2.0 client handler
-        $oauth_client = $fb->getOAuth2Client();
-
-        // Extend the access token.
-        try {
-            $token = $oauth_client->getLongLivedAccessToken($token);
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    $fb->setDefaultAccessToken($token);
-
-    // Save for later
-    Session::put('fb_user_access_token', (string) $token);
-
-    // Get basic info on the user from Facebook.
-    try {
-        $albums = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
-        $userinfo = $fb->get('me?fields=id,name,email');
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        dd($e->getMessage());
-    }
-
-    // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
-    $albums_user = $albums->getGraphEdge();
-    $info_user = $userinfo->getGraphUser();
-
-    // Create the user if it does not exist or update the existing entry.
-    // This will only work if you've added the SyncableGraphNodeTrait to your User model.
-    //$user = App\User::createOrUpdateGraphNode($facebook_user);
-
-    // Log the user into Laravel
-   // Auth::login($user);
-    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
-    return view('back/parameters', ['album_user' => $albums_user, 'info_user' => $info_user]);
-});
+//callback method to get facebook user infos
+Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
