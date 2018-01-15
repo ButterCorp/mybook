@@ -102,8 +102,13 @@ class ParametersController extends Controller
         foreach ($request->all() as $key => $value){
             if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
                 //We create album if it doesn't exist in database
+
+                $id = explode("-", $key);
+                //die(var_dump($id));
+
                 $album = Album::firstOrCreate([
-                    'title' => $key,
+                    'id' => $id[0],
+                    'title' => $id[1],
                     'users_id' => $request->id,
                 ]);
 
@@ -113,7 +118,7 @@ class ParametersController extends Controller
                     //We create the photo if it doesn't exist in database
                     $photo = Photo::firstOrCreate([
                         'url' => $url_photo,
-                        'albums_id' => $key,
+                        'albums_id' => $id[0],
                     ]);
                 }
 
@@ -128,6 +133,8 @@ class ParametersController extends Controller
         //die(Auth::id());
 
         $photos = Photo::all();
-        return view('back/index', ['photos' => $photos]);
+        $albums = Album::all();
+
+        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
     }
 }

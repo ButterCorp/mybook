@@ -38,7 +38,7 @@
             <div id="book" class="col s12 book">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header active"><i class="material-icons">create</i>Appearence</div>
+                        <div class="collapsible-header"><i class="material-icons">create</i>Appearence</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
                                     <a href="#">General </a>|
@@ -81,7 +81,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">picture_in_picture</i>Albums</div>
+                        <div class="collapsible-header active"><i class="material-icons">picture_in_picture</i>Albums</div>
                         <div class="collapsible-body">
                             <div class="row">
                                 @foreach ($photos as $photo)
@@ -99,7 +99,7 @@
                                 <div class="col s12">
                                     <ul class="tabs">
                                         <li class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
-                                        <li class="tab col s4 disabled"><a class="active" href="#slug-content">Slug</a></li>
+                                        <li class="tab col s4 disabled"><a href="#slug-content">Slug</a></li>
                                         <li class="tab col s4"><a class="active" href="#contact">Contact</a></li>
                                     </ul>
                                 </div>
@@ -142,6 +142,11 @@
     <div class="carousel">
         @foreach ($photos as $photo)
             <a class="carousel-item" href="#{{ $photo->id }}!"><img src="{{ $photo->url }}"></a>
+        @endforeach
+    </div>
+    <div>
+        @foreach ($albums as $album)
+            <span>{{ $album->title }}</span>
         @endforeach
     </div>
 @endsection
