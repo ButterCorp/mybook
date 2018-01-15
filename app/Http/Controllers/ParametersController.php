@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Album;
@@ -20,6 +21,8 @@ use Facebook;
 
 class ParametersController extends Controller
 {
+
+
     public function index()
     {
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
@@ -118,5 +121,13 @@ class ParametersController extends Controller
         }
 
         return redirect()->route('indexBack');
+    }
+
+    public function indexBack(Request $request) {
+
+        //die(Auth::id());
+
+        $photos = Photo::all();
+        return view('back/index', ['photos' => $photos]);
     }
 }

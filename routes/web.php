@@ -1,5 +1,5 @@
 <?php
-
+use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +22,7 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     return view('welcome', ['login' => $login_url]);
 });
 
-Route::get('/indexBack', function () {
-    $photos = Photo::all();
-    return view('back/index', ['photos' => $photos]);
-})->name('indexBack');
+Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 
 Route::get('/parameters', function () {
 
@@ -37,3 +34,7 @@ Route::post('/back', 'ParametersController@create');
 
 //callback method to get facebook user infos
 Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
