@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Album;
 use App\Photo;
+use App\Site;
 use Facebook;
 
 class ParametersController extends Controller
@@ -135,6 +136,17 @@ class ParametersController extends Controller
         $photos = Photo::all();
         $albums = Album::all();
 
+        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
+    }
+
+    public function setUrl(Request $request) {
+        $photos = Photo::all();
+        $albums = Album::all();
+        Site::firstOrCreate([
+           'id_user' => User::first()->id,
+            'site_url' => $request->site_name,
+            'statut' => '1',
+        ]);
         return view('back/index', ['photos' => $photos, 'albums' => $albums]);
     }
 }

@@ -130,12 +130,13 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, assumenda, aut dignissimos dolor
-                    ducimus fugiat ipsum magni natus nobis odit, repellendus reprehenderit. Ex libero nobis praesentium
-                    quos repellendus, temporibus totam.</p>
-                <p>Ab adipisci aliquam aperiam cumque distinctio doloremque eveniet exercitationem fuga hic in itaque,
-                    minus nam quae quaerat quis ratione soluta ullam. Assumenda distinctio eum explicabo illum nemo
-                    quibusdam vel voluptates.</p>
+                {!! Form::open(['url' => 'indexBack/']) !!}
+                <p>Veuillez choisir un nom pour votre site</p>
+                <?php echo Form::label('site_name', 'Nom du site'); ?>
+                <?php echo Form::text('site_name'); ?>
+                {!! Form::submit('Click Me!'); !!}
+                {!! Form::close() !!}
+
             </div>
         </div>
     </div>

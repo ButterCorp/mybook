@@ -23,6 +23,7 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
 });
 
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
+Route::post('/indexBack', 'ParametersController@setUrl');
 
 Route::get('/parameters', function () {
 
