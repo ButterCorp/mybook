@@ -17,7 +17,8 @@ class CreateAlbumsTable extends Migration
             $table->bigInteger('id');
             $table->primary('id');
             $table->string('title');
-            $table->string('users_id');
+            $table->bigInteger('users_id');
+            $table->foreign('users_id', 'users_key')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
