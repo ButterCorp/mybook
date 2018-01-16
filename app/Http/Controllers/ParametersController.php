@@ -94,7 +94,7 @@ class ParametersController extends Controller
         $user = User::firstOrCreate([
             'name' => $request->name,
             'email' => $request->email,
-            'idfacebook' => $request->id,
+            'id' => $request->id,
         ]);
 
 
