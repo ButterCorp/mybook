@@ -189,6 +189,11 @@
                             <label for="albums">Albums</label>
                         </label>
                     </div>
+                    <div  class="col s12">
+                        <button id="cached" class="right">
+                            <i id="icons-cached" class="material-icons">cached</i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col s5  form-margin-top" style="border: 2px solid pink;">
