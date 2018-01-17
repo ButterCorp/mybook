@@ -30,6 +30,7 @@
                     <span class="counter">1,234,567.00</span>
                     <span>$</span><span class="counter">1.99</span>
                     <span class="counter">12345</span>
+
                 </div>
             </div>
 
@@ -37,7 +38,7 @@
             <div id="book" class="col s12 book">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header active"><i class="material-icons">create</i>Appearence</div>
+                        <div class="collapsible-header"><i class="material-icons">create</i>Appearence</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
                                     <a href="#">General </a>||
@@ -48,8 +49,8 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Title</label>
+                                            <input id="title" type="text" class="validate">
+                                            <label for="title">Titre</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -64,8 +65,8 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Slug</label>
+                                            <input id="slug" type="text" class="validate">
+                                            <label for="slug">Slug</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -79,19 +80,29 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">picture_in_picture</i>Albums</div>
+                        <div class="collapsible-header active"><i class="material-icons">picture_in_picture</i>Albums</div>
                         <div class="collapsible-body">
-                            <div class="row">
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Profile picture" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Uploaded" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
-                                <div class="col s4">
-                                    <img class="responsive-img materialboxed" data-caption="Album1" src="https://buttercorp.xyz/public/17975951_10212588540332122_267160819_o.png">
-                                </div>
-                            </div>
+
+                            <ul class="collapsible" data-collapsible="accordion">
+                                @foreach($albums as $album)
+                                    <li>
+                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ $album->title  }}</div>
+                                        <div class="collapsible-body">
+                                            <span>
+                                                <div class="row">
+                                                    @foreach ($photos as $photo)
+                                                        @if($photo->albums_id == $album->id)
+                                                            <div class="col s4">
+                                                                <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </li>
                     <li>
@@ -101,7 +112,7 @@
                                 <div class="col s12">
                                     <ul class="tabs">
                                         <li class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
-                                        <li class="tab col s4 disabled"><a class="active" href="#slug-content">Slug</a></li>
+                                        <li class="tab col s4 disabled"><a href="#slug-content">Slug</a></li>
                                         <li class="tab col s4"><a class="active" href="#contact">Contact</a></li>
                                     </ul>
                                 </div>
@@ -132,14 +143,6 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
-<<<<<<< Updated upstream
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, assumenda, aut dignissimos dolor
-                    ducimus fugiat ipsum magni natus nobis odit, repellendus reprehenderit. Ex libero nobis praesentium
-                    quos repellendus, temporibus totam.</p>
-                <p>Ab adipisci aliquam aperiam cumque distinctio doloremque eveniet exercitationem fuga hic in itaque,
-                    minus nam quae quaerat quis ratione soluta ullam. Assumenda distinctio eum explicabo illum nemo
-                    quibusdam vel voluptates.</p>
-=======
                 {!! Form::open(['url' => 'indexBack/']) !!}
                 <p>Veuillez choisir un nom pour votre site</p>
                 <?php echo Form::label('site_name', 'Nom du site'); ?>
@@ -147,7 +150,6 @@
                 <?php if (isset($error)) { echo $error ;} ?>
                 {!! Form::submit('Click Me!'); !!}
                 {!! Form::close() !!}
-
                 <div id="border_info" class="col s10 offset-s1">
                     <h3>Informations personnelles</h3>
                     <form class="col s12">
@@ -211,9 +213,14 @@
                     </div>
 
                 </div>
-
->>>>>>> Stashed changes
             </div>
         </div>
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
