@@ -150,30 +150,32 @@
                 <?php if (isset($error)) { echo $error ;} ?>
                 {!! Form::submit('Click Me!'); !!}
                 {!! Form::close() !!}
-                <div id="border_info" class="col s10 offset-s1">
-                    <h3>Informations personnelles</h3>
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                                <label for="first_name">Prenom</label>
+                <div class="col s10 offset-s1 border_info">
+                    <div >
+                        <h3>Informations personnelles</h3>
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                    <label for="first_name">Prenom</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="last_name" type="text" class="validate">
+                                    <label for="last_name">Nom</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="email" type="email" class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
                             </div>
-                            <div class="input-field col s4">
-                                <input id="last_name" type="text" class="validate">
-                                <label for="last_name">Nom</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
 
-                <div id="border_info" class="col s5 offset-s1 form-margin-top">
+                <div class="col s5 offset-s1 form-margin-top border_info">
                     <h3>Paramètres généraux</h3>
                     <div class="col s12">
                         <label>
@@ -194,7 +196,7 @@
                     </div>
                 </div>
 
-                <div id="border_info" class="col s4 offset-s1 form-margin-top">
+                <div class="col s4 offset-s1 form-margin-top border_info">
                     <h3>Utilitaire</h3>
                     <div class="col s12">
                         <label>
