@@ -111,17 +111,25 @@
                             <div id="modal1" class="modal">
                                 <div class="modal-content">
                                     <h4>Envoyer une nouvelle photo</h4>
-                                    <form action="#">
+                                    {!! Form::open(
+                                  array(
+                                      'route' => 'upload',
+                                      'class' => 'form',
+                                      'files' => true)) !!}
                                         <div class="file-field input-field">
+                                            {{ csrf_field() }}
                                             <div class="btn">
                                                 <span>File</span>
-                                                <input type="file">
+                                                {!! Form::file('image', null) !!}
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text">
                                             </div>
                                         </div>
-                                    </form>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                  {!! Form::close() !!}
                                 </div>
                                 <div class="modal-footer">
                                     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Quitter</a>

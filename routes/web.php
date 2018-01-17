@@ -33,6 +33,8 @@ Route::get('/parameters', function () {
 //Faut lui donner les parametres
 Route::post('/back', 'ParametersController@create');
 
+Route::post('/upload', 'UploadController@store_picture')->name('upload');
+
 //callback method to get facebook user infos
 Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
 
