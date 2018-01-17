@@ -39,3 +39,6 @@ Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/site/{nom_site}', 'SiteController@show');
+
