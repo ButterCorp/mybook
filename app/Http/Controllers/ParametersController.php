@@ -132,9 +132,11 @@ class ParametersController extends Controller
     public function indexBack(Request $request) {
 
         //die(Auth::id());
-
+        //
+        //Au lieu de all() afficher ->where('id', $iduser)
         $photos = Photo::all();
         $albums = Album::all();
+
 
         return view('back/index', ['photos' => $photos, 'albums' => $albums]);
     }

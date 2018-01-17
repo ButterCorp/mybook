@@ -50,8 +50,8 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Title</label>
+                                            <input id="title" type="text" class="validate">
+                                            <label for="title">Titre</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -66,8 +66,8 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="last_name" type="text" class="validate">
-                                            <label for="last_name">Slug</label>
+                                            <input id="slug" type="text" class="validate">
+                                            <label for="slug">Slug</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -137,6 +137,65 @@
                 {!! Form::submit('Click Me!'); !!}
                 {!! Form::close() !!}
 
+                <div class="col s10 offset-s1" style="border: 2px solid red;">
+                    <h3>Informations personnelles</h3>
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                <label for="first_name">Prenom</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="last_name" type="text" class="validate">
+                                <label for="last_name">Nom</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="email" type="text" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col s5 offset-s1 form-margin-top" style="border: 2px solid pink;">
+                    <h3>Paramètres généraux</h3>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="comments" />
+                            <label for="comments">Commentaires</label>
+                        </label>
+                    </div>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="albums" />
+                            <label for="albums">Albums</label>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col s5  form-margin-top" style="border: 2px solid pink;">
+                    <h3>Utilitaire</h3>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="maintenance" />
+                            <label for="maintenance">Site en maintenance</label>
+                        </label>
+                    </div>
+
+                    <div class="input-field col s12" style="border: 2px solid yellow">
+                        <select>
+                            <option value="" disabled selected>Choix du template</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -151,3 +210,10 @@
         @endforeach
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
