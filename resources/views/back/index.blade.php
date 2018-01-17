@@ -83,13 +83,27 @@
                     <li>
                         <div class="collapsible-header active"><i class="material-icons">picture_in_picture</i>Albums</div>
                         <div class="collapsible-body">
-                            <div class="row">
-                                @foreach ($photos as $photo)
-                                    <div class="col s4">
-                                        <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
-                                    </div>
+
+                            <ul class="collapsible" data-collapsible="accordion">
+                                @foreach($albums as $album)
+                                    <li>
+                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ $album->title  }}</div>
+                                        <div class="collapsible-body">
+                                            <span>
+                                                <div class="row">
+                                                    @foreach ($photos as $photo)
+                                                        @if($photo->albums_id == $album->id)
+                                                            <div class="col s4">
+                                                                <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
                                 @endforeach
-                            </div>
+                            </ul>
                         </div>
                     </li>
                     <li>
@@ -199,11 +213,6 @@
 
             </div>
         </div>
-    </div>
-    <div>
-        @foreach ($albums as $album)
-            <span>{{ $album->title }}</span>
-        @endforeach
     </div>
 @endsection
 
