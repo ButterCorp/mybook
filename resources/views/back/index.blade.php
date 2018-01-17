@@ -83,12 +83,57 @@
                     <li>
                         <div class="collapsible-header active"><i class="material-icons">picture_in_picture</i>Albums</div>
                         <div class="collapsible-body">
-                            <div class="row">
-                                @foreach ($photos as $photo)
-                                    <div class="col s4">
-                                        <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
-                                    </div>
+
+                            <ul class="collapsible" data-collapsible="accordion">
+                                @foreach($albums as $album)
+                                    <li>
+                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ $album->title  }}</div>
+                                        <div class="collapsible-body">
+                                            <span>
+                                                <div class="row">
+                                                    @foreach ($photos as $photo)
+                                                        @if($photo->albums_id == $album->id)
+                                                            <div class="col s4">
+                                                                <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
                                 @endforeach
+                            </ul>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Envoyer une photo</a>
+
+                            <!-- Modal Structure -->
+                            <div id="modal1" class="modal">
+                                <div class="modal-content">
+                                    <h4>Envoyer une nouvelle photo</h4>
+                                    {!! Form::open(
+                                  array(
+                                      'route' => 'upload',
+                                      'class' => 'form',
+                                      'files' => true)) !!}
+                                        <div class="file-field input-field">
+                                            {{ csrf_field() }}
+                                            <div class="btn">
+                                                <span>File</span>
+                                                {!! Form::file('image', null) !!}
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                  {!! Form::close() !!}
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Quitter</a>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -134,6 +179,7 @@
                 <p>Veuillez choisir un nom pour votre site</p>
                 <?php echo Form::label('site_name', 'Nom du site'); ?>
                 <?php echo Form::text('site_name'); ?>
+                <?php if (isset($error)) { echo $error ;} ?>
                 {!! Form::submit('Click Me!'); !!}
                 {!! Form::close() !!}
 
@@ -174,6 +220,11 @@
                             <label for="albums">Albums</label>
                         </label>
                     </div>
+                    <div  class="col s12">
+                        <button id="cached" class="right">
+                            <i id="icons-cached" class="material-icons">cached</i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="col s5  form-margin-top" style="border: 2px solid pink;">
@@ -199,21 +250,14 @@
             </div>
         </div>
     </div>
-    <div class="carousel">
-        @foreach ($photos as $photo)
-            <a class="carousel-item" href="#{{ $photo->id }}!"><img src="{{ $photo->url }}"></a>
-        @endforeach
-    </div>
-    <div>
-        @foreach ($albums as $album)
-            <span>{{ $album->title }}</span>
-        @endforeach
-    </div>
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
     $(document).ready(function() {
+        $('#modal1').modal();
         $('select').material_select();
     });
+
 </script>

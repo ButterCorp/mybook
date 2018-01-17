@@ -44,3 +44,12 @@ div.title-album  {
     margin-top: 130px;
     text-align: center;
 }
+
+#cached{
+    background: none;
+    border: none;
+}
+
+#icons-cached{
+    font-size: 35px;
+}

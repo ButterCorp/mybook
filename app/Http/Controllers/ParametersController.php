@@ -110,11 +110,24 @@ class ParametersController extends Controller
     public function setUrl(Request $request) {
         $photos = Photo::all();
         $albums = Album::all();
-        Site::firstOrCreate([
-           'id_user' => User::first()->id,
-            'site_url' => $request->site_name,
-            'statut' => '1',
-        ]);
-        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
+        //$model = App\Flight::where('legs', '>', 100)->firstOrFail();
+
+        $site = Site::where('site_url', '=', $request->site_name)->first();
+
+        if ($site === null){
+            Site::firstOrCreate([
+                'id_user' => User::first()->id,
+                'site_url' => $request->site_name,
+                'statut' => '1',
+            ]);
+
+            return view('back/index', ['photos' => $photos, 'albums' => $albums]);
+
+        } else {
+            $error = "Ce nom de site existe déjà";
+            return view('back/index', ['photos' => $photos, 'albums' => $albums, 'error' => $error]);
+        }
+
+
     }
 }

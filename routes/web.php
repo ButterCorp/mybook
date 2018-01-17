@@ -17,7 +17,7 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     }
 
     // Send an array of permissions to request
-    $login_url = $fb->getLoginUrl(['email','user_photos']);
+    $login_url = $fb->getLoginUrl(['email','user_photos', 'publish_actions']);
 
     return view('welcome', ['login' => $login_url]);
 });
@@ -36,8 +36,13 @@ Route::get('/parameters', function () {
 //Faut lui donner les parametres
 Route::post('/back', 'ParametersController@create');
 
+Route::post('/upload', 'UploadController@store_picture')->name('upload');
+
 //callback method to get facebook user infos
 Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/site/{nom_site}', 'SiteController@show');
+
