@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     protected $fillable = [
-        'id', 'title', 'users_id',
+        'id','album_id', 'title', 'users_id',
     ];
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

@@ -23,7 +23,6 @@ use Facebook;
 class ParametersController extends Controller
 {
 
-
     public function index()
     {
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
@@ -86,48 +85,15 @@ class ParametersController extends Controller
         // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
-        return view('back/parameters', ['album_user' => $albums_user, 'info_user' => $info_user]);
+        $user = User::where('facebook', $info_user["id"])->get();
+        if($user){
 
-    }
-    public function create(Request $request)
-    {
-        //We create user if he doesn't exist in database
-        $user = User::firstOrCreate([
-            'name' => $request->name,
-            'email' => $request->email,
-            'id' => $request->id,
-        ]);
-
-
-        //Foreach albums
-        foreach ($request->all() as $key => $value){
-            if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
-                //We create album if it doesn't exist in database
-
-                $id = explode("-", $key);
-                //die(var_dump($id));
-
-                $album = Album::firstOrCreate([
-                    'id' => $id[0],
-                    'title' => $id[1],
-                    'users_id' => $request->id,
-                ]);
-
-
-                //Foreach photos
-                foreach ($value as $url_photo){
-                    //We create the photo if it doesn't exist in database
-                    $photo = Photo::firstOrCreate([
-                        'url' => $url_photo,
-                        'albums_id' => $id[0],
-                    ]);
-                }
-
-            }
+            return redirect()->route('indexBack');
         }
+        return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
-        return redirect()->route('indexBack');
     }
+
 
     public function indexBack(Request $request) {
 

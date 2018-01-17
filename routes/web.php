@@ -22,6 +22,9 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     return view('welcome', ['login' => $login_url]);
 });
 
+Route::get('/login', 'Auth\LoginController@create')->name('login');
+Route::get('/logout', 'LoginController@logout');
+
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 Route::post('/indexBack', 'ParametersController@setUrl');
 
@@ -36,6 +39,5 @@ Route::post('/back', 'ParametersController@create');
 //callback method to get facebook user infos
 Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

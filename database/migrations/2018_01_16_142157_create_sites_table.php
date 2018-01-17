@@ -15,8 +15,8 @@ class CreateSitesTable extends Migration
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('id_user');
-            $table->foreign('id_user', 'id_user_key')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->text('site_url');
             $table->smallInteger('statut');
             $table->timestamps();
