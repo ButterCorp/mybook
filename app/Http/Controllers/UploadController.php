@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use App\Http\Controllers\Controller;
@@ -49,8 +50,7 @@ class UploadController extends Controller
             exit;
         }
 
-        $photos = Photo::all();
-        $albums = Album::all();
-        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
+        Session::flash('message', "Votre photo a été uploader, cliquez ici pour faire un import");
+        return Redirect::back();
     }
 }

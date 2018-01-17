@@ -258,6 +258,10 @@
     $(document).ready(function() {
         $('#modal1').modal();
         $('select').material_select();
+
+        @if (Session::has('message'))
+            Materialize.toast("{{ Session::get('message') }}", 10000);
+        @endif
     });
 
 </script>

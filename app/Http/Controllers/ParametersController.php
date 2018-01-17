@@ -86,8 +86,8 @@ class ParametersController extends Controller
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
         $user = User::where('facebook', $info_user["id"])->get();
-        if($user){
 
+        if($user != "[]"){
             return redirect()->route('indexBack');
         }
         return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);

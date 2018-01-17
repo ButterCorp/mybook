@@ -61,7 +61,7 @@ class LoginController extends Controller
         $user = session('info_user');
 
         $userToFind = User::where('facebook', $user["id"])->get();
-        if($userToFind){
+        if($userToFind != "[]"){
             return $userToFind;
         }
         $userSaved = User::create([
@@ -71,6 +71,7 @@ class LoginController extends Controller
         ]);
 
         $albums = session('album_user');
+
         foreach ($albums as $album)
         {
             $albumSaved = Album::create([
