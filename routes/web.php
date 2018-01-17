@@ -17,7 +17,7 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     }
 
     // Send an array of permissions to request
-    $login_url = $fb->getLoginUrl(['email','user_photos']);
+    $login_url = $fb->getLoginUrl(['email','user_photos', 'publish_actions']);
 
     return view('welcome', ['login' => $login_url]);
 });

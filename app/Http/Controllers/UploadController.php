@@ -48,5 +48,9 @@ class UploadController extends Controller
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
         }
+
+        $photos = Photo::all();
+        $albums = Album::all();
+        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
     }
 }
