@@ -41,7 +41,7 @@
                         <div class="collapsible-header"><i class="material-icons">create</i>Appearence</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
-                                    <a href="#">General </a>||
+                                    <a href="#">General </a>|
                                     <a href="#">Template </a>|
                                     <a href="#">Font</a>
                                 </div>
