@@ -104,6 +104,29 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Envoyer une photo</a>
+
+                            <!-- Modal Structure -->
+                            <div id="modal1" class="modal">
+                                <div class="modal-content">
+                                    <h4>Envoyer une nouvelle photo</h4>
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Quitter</a>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li>
@@ -223,7 +246,10 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
     $(document).ready(function() {
+        $('#modal1').modal();
         $('select').material_select();
     });
+
 </script>
