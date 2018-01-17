@@ -134,6 +134,7 @@
                 <p>Veuillez choisir un nom pour votre site</p>
                 <?php echo Form::label('site_name', 'Nom du site'); ?>
                 <?php echo Form::text('site_name'); ?>
+                <?php if (isset($error)) { echo $error ;} ?>
                 {!! Form::submit('Click Me!'); !!}
                 {!! Form::close() !!}
 
@@ -198,11 +199,6 @@
 
             </div>
         </div>
-    </div>
-    <div class="carousel">
-        @foreach ($photos as $photo)
-            <a class="carousel-item" href="#{{ $photo->id }}!"><img src="{{ $photo->url }}"></a>
-        @endforeach
     </div>
     <div>
         @foreach ($albums as $album)
