@@ -18,6 +18,30 @@ div.div-dashboard {
     padding: 30px;
 }
 
+#cached{
+    background: none;
+    border: none;
+}
+
+#icons-cached{
+    font-size: 35px;
+}
+
+#border_info{
+    /*border: 2px solid red;*/
+    border-radius: 7px;
+    /*border: 2px solid red;*/
+    background: #F5F5F5;
+    box-shadow:0px 4px 7px rgba(0, 0, 0, 0.3);
+    
+}
+
+#border_info:hover{
+    background: #EEEEEE;
+    box-shadow:0px 21px 34px rgba(0, 0, 0, 0.3);
+   opacity: 0.99;
+}
+
 .link-appearence-dashboard {
     text-align: center;
 }
@@ -44,3 +68,7 @@ div.title-album  {
     margin-top: 130px;
     text-align: center;
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

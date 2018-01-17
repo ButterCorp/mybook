@@ -40,8 +40,7 @@
                         <div class="collapsible-header active"><i class="material-icons">create</i>Appearence</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
-                                    <a href="#">General </a>|
-                                    <a href="#">Menu </a>|
+                                    <a href="#">General </a>||
                                     <a href="#">Template </a>|
                                     <a href="#">Font</a>
                                 </div>
@@ -71,7 +70,7 @@
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
                                                 <input type="checkbox" id="sidebar" />
-                                                <label for="sidebar">Sidebar</label>
+                                                <label for="sidebar">Slug</label>
                                             </label>
                                         </div>
                                     </div>
@@ -133,12 +132,87 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
+<<<<<<< Updated upstream
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, assumenda, aut dignissimos dolor
                     ducimus fugiat ipsum magni natus nobis odit, repellendus reprehenderit. Ex libero nobis praesentium
                     quos repellendus, temporibus totam.</p>
                 <p>Ab adipisci aliquam aperiam cumque distinctio doloremque eveniet exercitationem fuga hic in itaque,
                     minus nam quae quaerat quis ratione soluta ullam. Assumenda distinctio eum explicabo illum nemo
                     quibusdam vel voluptates.</p>
+=======
+                {!! Form::open(['url' => 'indexBack/']) !!}
+                <p>Veuillez choisir un nom pour votre site</p>
+                <?php echo Form::label('site_name', 'Nom du site'); ?>
+                <?php echo Form::text('site_name'); ?>
+                <?php if (isset($error)) { echo $error ;} ?>
+                {!! Form::submit('Click Me!'); !!}
+                {!! Form::close() !!}
+
+                <div id="border_info" class="col s10 offset-s1">
+                    <h3>Informations personnelles</h3>
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                <label for="first_name">Prenom</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="last_name" type="text" class="validate">
+                                <label for="last_name">Nom</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="border_info" class="col s5 offset-s1 form-margin-top">
+                    <h3>Paramètres généraux</h3>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="comments" />
+                            <label for="comments">Commentaires</label>
+                        </label>
+                    </div>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="albums" />
+                            <label for="albums">Albums</label>
+                        </label>
+                    </div>
+                    <div  class="col s12">
+                        <button id="cached" class="right">
+                            <i id="icons-cached" class="material-icons">cached</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="border_info" class="col s4 offset-s1 form-margin-top">
+                    <h3>Utilitaire</h3>
+                    <div class="col s12">
+                        <label>
+                            <input type="checkbox" id="maintenance" />
+                            <label for="maintenance">Site en maintenance</label>
+                        </label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <select>
+                            <option value="" disabled selected>Choix du template</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+
+                </div>
+
+>>>>>>> Stashed changes
             </div>
         </div>
     </div>
