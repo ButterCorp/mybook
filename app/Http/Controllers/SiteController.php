@@ -5,9 +5,7 @@
  * Date: 17/01/2018
  * Time: 12:00
  */
-
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -19,7 +17,6 @@ use App\Album;
 use App\Photo;
 use App\Site;
 use Facebook;
-
 class SiteController extends Controller
 {
     /*
@@ -28,7 +25,6 @@ class SiteController extends Controller
      * Affiche le site, si le site existe, sinon renvoie sur une page d'erreur 404
      */
     public function show($nom_site){
-
         $site = Site::where('site_url', '=', $nom_site)->first();
 
         if ($site === null)
@@ -37,5 +33,6 @@ class SiteController extends Controller
         $photos = Photo::all();
 
         return view('front/index', ['photos' => $photos, 'site' => $site]);
+
     }
 }
