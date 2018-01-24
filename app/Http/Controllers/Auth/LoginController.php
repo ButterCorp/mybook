@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Album;
 use App\Http\Controllers\Controller;
 use App\Photo;
+use App\Site;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,16 @@ class LoginController extends Controller
             'name' => $user['name'],
             'email' => $user['email'],
             'facebook' => $user['id']
+        ]);
+
+        //die($userSaved['id']);
+
+        Site::create([
+            'user_id' => $userSaved['id'],
+            'site_url' => str_replace(' ', '', strtolower($user['name'])),
+            'statut' => "1",
+            'created_at' => date('now'),
+            'updated_at' => date('now')
         ]);
 
         $albums = session('album_user');
