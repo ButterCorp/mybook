@@ -47,11 +47,15 @@
                                     <a href="#">Font</a>
                                 </div>
                             <div class="row">
-                                <form class="col s12">
+
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="title" type="text" class="validate">
-                                            <label for="title">Titre</label>
+                                            {!! Form::open(['url' => 'indexBack/']) !!}
+                                            <?php echo Form::label('site_name', 'Nom du site'); ?>
+                                            <?php echo Form::text('site_name'); ?>
+                                            <?php if (isset($error)) { echo $error ;} ?>
+                                            {!! Form::submit('Click Me!'); !!}
+                                            {!! Form::close() !!}
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -60,7 +64,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </form>
+
                             </div>
                             <div class="row">
                                 <form class="col s12">
@@ -175,13 +179,6 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
-                {!! Form::open(['url' => 'indexBack/']) !!}
-                <p>Veuillez choisir un nom pour votre site</p>
-                <?php echo Form::label('site_name', 'Nom du site'); ?>
-                <?php echo Form::text('site_name'); ?>
-                <?php if (isset($error)) { echo $error ;} ?>
-                {!! Form::submit('Click Me!'); !!}
-                {!! Form::close() !!}
 
                 <div class="col s10 offset-s1" style="border: 2px solid red;">
                     <h3>Informations personnelles</h3>

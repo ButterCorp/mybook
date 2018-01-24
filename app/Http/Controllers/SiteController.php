@@ -31,14 +31,12 @@ class SiteController extends Controller
 
         $site = Site::where('site_url', '=', $nom_site)->first();
 
+
         if ($site === null){
             return abort(404);
         } else {
-            echo "<h1>Bienvenue sur le site $nom_site </h1>";
             $photos = Photo::all();
-            foreach ($photos as $photo){
-                echo $photo->url.'<br>';
-            }
+            return view('sites/index', ['photos' => $photos, 'nom_site' => $nom_site]);
         }
 
     }

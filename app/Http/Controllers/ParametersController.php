@@ -114,9 +114,11 @@ class ParametersController extends Controller
 
         $site = Site::where('site_url', '=', $request->site_name)->first();
 
+        $id_utilisateur = User::first()->id;
+
         if ($site === null){
             Site::firstOrCreate([
-                'id_user' => User::first()->id,
+                'user_id' => $id_utilisateur,
                 'site_url' => $request->site_name,
                 'statut' => '1',
             ]);
