@@ -112,13 +112,11 @@ class ParametersController extends Controller
         $albums = Album::all();
         //$model = App\Flight::where('legs', '>', 100)->firstOrFail();
 
-        $site = Site::where('site_url', '=', $request->site_name)->first();
-
         $id_utilisateur = User::first()->id;
 
         if ($site === null){
             Site::firstOrCreate([
-                'user_id' => $id_utilisateur,
+                'id_user' => User::first()->id,
                 'site_url' => $request->site_name,
                 'statut' => '1',
             ]);
