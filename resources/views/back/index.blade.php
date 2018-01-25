@@ -11,6 +11,7 @@
             });
         });
     </script>
+
     <div class="div-dashboard">
         <div class="row">
             <div class="col s12">
@@ -54,7 +55,7 @@
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
-                                                <input type="checkbox" id="footer" />
+                                                <input onChange="verif();" type="checkbox" id="footer" class="footer" />
                                                 <label for="footer">Footer</label>
                                             </label>
                                         </div>
@@ -65,12 +66,12 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="slug" type="text" class="validate">
+                                            <input id="slug" onChange="verif();" type="text" class="validate">
                                             <label for="slug">Slug</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
-                                                <input type="checkbox" id="sidebar" />
+                                                <input onChange="verif();" type="checkbox" id="sidebar" />
                                                 <label for="sidebar">Slug</label>
                                             </label>
                                         </div>
@@ -111,12 +112,12 @@
                             <div class="row">
                                 <div class="col s12">
                                     <ul class="tabs">
-                                        <li class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
-                                        <li class="tab col s4 disabled"><a href="#slug-content">Slug</a></li>
+                                        <li id="1" class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
+                                        <li id="2" class="tab col s4 disabled"><a href="#slug-content">Slug</a></li>
                                         <li class="tab col s4"><a class="active" href="#contact">Contact</a></li>
                                     </ul>
                                 </div>
-                                <div id="footer-content" class="col s12">Test 1</div>
+                                <div id="footer-content" class="col s12 ">Test 1</div>
                                 <div id="slug-content" class="col s12">Test 2</div>
                                 <div id="contact" class="col s12 div-dashboard">
                                     <div class="row">
@@ -226,3 +227,39 @@
         $('select').material_select();
     });
 </script>
+
+
+<script type="text/javascript">
+         function verif ()
+        {
+
+            var etatFooter = document.getElementById('footer').checked;
+            var etatSlug = document.getElementById('sidebar').checked;
+
+
+            var footerDiv = document.getElementById('footer-content');
+            var slugDiv = document.getElementById('slug-content');
+
+             
+            if(etatFooter)
+            {
+            document.getElementById('1').classList.remove('disabled');
+            
+            }
+            if (!etatFooter)
+            {
+            document.getElementById('1').classList.add('disabled');
+
+            }
+
+            if (etatSlug) {
+            document.getElementById('2').classList.remove('disabled');
+
+            } 
+            if (!etatSlug) {
+            document.getElementById('2').classList.add('disabled');
+
+            }
+
+        };
+    </script>
