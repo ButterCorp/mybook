@@ -245,7 +245,7 @@
                         </label>
                     </div>
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
-                        <div class="input-field col s12" style="border: 2px solid yellow">
+                        <div class="input-field col s12">
                             {{ csrf_field() }}
                             <select name="template">
                                 <option disabled {{ ($site->template_selectionned) ?  '' : 'selected="selected"' }}>Choix du template</option>
@@ -310,5 +310,5 @@
 
             }
 
-        };
+        }
     </script>
