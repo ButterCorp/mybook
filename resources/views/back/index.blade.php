@@ -117,8 +117,12 @@
                                         <li class="tab col s4"><a class="active" href="#contact">Contact</a></li>
                                     </ul>
                                 </div>
-                                <div id="footer-content" class="col s12 ">Test 1</div>
-                                <div id="slug-content" class="col s12">Test 2</div>
+                                <div id="footer-content" class="input-field col s5 offset-s1 active">
+                                    <input placeholder="Footer Title" type="text" class="validate"> 
+                                </div>
+                                <div id="slug-content" class="input-field col s6 offset-s1 active">
+                                    <input placeholder="Slug" type="text" class="validate">
+                                </div>
                                 <div id="contact" class="col s12 div-dashboard">
                                     <div class="row">
                                         <form class="col s12">
