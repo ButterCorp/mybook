@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Providers\Auth\EloquentUserProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -24,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        /* custom Auth provider set up */
+        Auth::provider('facebook-user-provider', function ($app, array $config) {
+        return new EloquentUserProvider($config['model']);
+    });
     }
 }

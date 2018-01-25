@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Template;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -22,7 +23,6 @@ use Facebook;
 
 class ParametersController extends Controller
 {
-
 
     public function index()
     {
@@ -86,82 +86,48 @@ class ParametersController extends Controller
         // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
-        return view('back/parameters', ['album_user' => $albums_user, 'info_user' => $info_user]);
+        $user = User::where('facebook', $info_user["id"])->get();
 
-    }
-    public function create(Request $request)
-    {
-        //We create user if he doesn't exist in database
-        $user = User::firstOrCreate([
-            'name' => $request->name,
-            'email' => $request->email,
-            'id' => $request->id,
-        ]);
-
-
-        //Foreach albums
-        foreach ($request->all() as $key => $value){
-            if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
-                //We create album if it doesn't exist in database
-
-                $id = explode("-", $key);
-                //die(var_dump($id));
-
-                $album = Album::firstOrCreate([
-                    'id' => $id[0],
-                    'title' => $id[1],
-                    'users_id' => $request->id,
-                ]);
-
-
-                //Foreach photos
-                foreach ($value as $url_photo){
-                    //We create the photo if it doesn't exist in database
-                    $photo = Photo::firstOrCreate([
-                        'url' => $url_photo,
-                        'albums_id' => $id[0],
-                    ]);
-                }
-
-            }
+        if($user != "[]"){
+            return redirect()->route('indexBack');
         }
+        return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
-        return redirect()->route('indexBack');
     }
+
 
     public function indexBack(Request $request) {
 
         //die(Auth::id());
         //
         //Au lieu de all() afficher ->where('id', $iduser)
-        $photos = Photo::all();
-        $albums = Album::all();
+        $user = User::where('id', '=', 1)->first();
+
+        $site = Site::where('user_id', '=', $user->id)->first();
+
+        $albums = Album::where('users_id', '=', $site->user_id)->get();
+
+        $albumsID = [];
 
 
-        return view('back/index', ['photos' => $photos, 'albums' => $albums]);
+        //Get all albums ID
+        foreach ($albums as $album)
+            array_push($albumsID, $album->id );
+
+        //Get all photos of a user
+        $photos = Photo::whereIn('albums_id', $albumsID)->get();
+
+        $templates = Template::all();
+
+        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site]);
     }
 
-    public function setUrl(Request $request) {
-        $photos = Photo::all();
-        $albums = Album::all();
-        //$model = App\Flight::where('legs', '>', 100)->firstOrFail();
+    public function editTemplate(Request $request) {
 
-        $site = Site::where('site_url', '=', $request->site_name)->first();
+        Site::where('id', 1)
+            ->update(['template_selectionned' => $request->template]);
 
-        if ($site === null){
-            Site::firstOrCreate([
-                'id_user' => User::first()->id,
-                'site_url' => $request->site_name,
-                'statut' => '1',
-            ]);
-
-            return view('back/index', ['photos' => $photos, 'albums' => $albums]);
-
-        } else {
-            $error = "Ce nom de site existe déjà";
-            return view('back/index', ['photos' => $photos, 'albums' => $albums, 'error' => $error]);
-        }
-
-
+        //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
+        return redirect()->route('indexBack')->with('message', 'Le template à été mis en place');
     }
 }

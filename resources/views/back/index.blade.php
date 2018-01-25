@@ -47,11 +47,15 @@
                                     <a href="#">Font</a>
                                 </div>
                             <div class="row">
-                                <form class="col s12">
+
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            <input id="title" type="text" class="validate">
-                                            <label for="title">Titre</label>
+                                            {!! Form::open(['url' => 'indexBack/']) !!}
+                                            <?php echo Form::label('site_name', 'Nom du site'); ?>
+                                            <?php echo Form::text('site_name'); ?>
+                                            <?php if (isset($error)) { echo $error ;} ?>
+                                            {!! Form::submit('Click Me!'); !!}
+                                            {!! Form::close() !!}
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -60,7 +64,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </form>
+
                             </div>
                             <div class="row">
                                 <form class="col s12">
@@ -104,6 +108,37 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Envoyer une photo</a>
+
+                            <!-- Modal Structure -->
+                            <div id="modal1" class="modal">
+                                <div class="modal-content">
+                                    <h4>Envoyer une nouvelle photo</h4>
+                                    {!! Form::open(
+                                  array(
+                                      'route' => 'upload',
+                                      'class' => 'form',
+                                      'files' => true)) !!}
+                                        <div class="file-field input-field">
+                                            {{ csrf_field() }}
+                                            <div class="btn">
+                                                <span>File</span>
+                                                {!! Form::file('image', null) !!}
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                  {!! Form::close() !!}
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Quitter</a>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li>
@@ -209,15 +244,22 @@
                             <label for="maintenance">Site en maintenance</label>
                         </label>
                     </div>
-
-                    <div class="input-field col s12">
-                        <select>
-                            <option value="" disabled selected>Choix du template</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                    </div>
+                        {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
+                        <div class="input-field col s12" style="border: 2px solid yellow">
+                            {{ csrf_field() }}
+                            <select name="template">
+                                <option disabled {{ ($site->template_selectionned) ?  '' : 'selected="selected"' }}>Choix du template</option>
+                                @foreach($templates as $template)
+                                    @if($template->template_name == $site->template_selectionned)
+                                        <option value="{{ $template->template_name }}" selected="selected">{{ $template->template_name }}</option>
+                                    @else
+                                        <option value="{{ $template->template_name }}">{{ $template->template_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        {!! Form::submit('Click Me!'); !!}
+                    {!! Form::close() !!}
 
                 </div>
             </div>
@@ -227,13 +269,16 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
     $(document).ready(function() {
+        $('#modal1').modal();
         $('select').material_select();
+
+        @if (Session::has('message'))
+            Materialize.toast("{{ Session::get('message') }}", 10000);
+        @endif
     });
-</script>
 
-
-<script type="text/javascript">
          function verif ()
         {
 
@@ -244,11 +289,11 @@
             var footerDiv = document.getElementById('footer-content');
             var slugDiv = document.getElementById('slug-content');
 
-             
+
             if(etatFooter)
             {
             document.getElementById('1').classList.remove('disabled');
-            
+
             }
             if (!etatFooter)
             {
@@ -259,7 +304,7 @@
             if (etatSlug) {
             document.getElementById('2').classList.remove('disabled');
 
-            } 
+            }
             if (!etatSlug) {
             document.getElementById('2').classList.add('disabled');
 

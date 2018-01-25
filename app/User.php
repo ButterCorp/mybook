@@ -2,21 +2,18 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
-    use SyncableGraphNodeTrait;
-
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Get the comments for the blog post.
      */
     protected $fillable = [
-       'id', 'name', 'email', 'idfacebook',
+        'id', 'name', 'email','facebook'
     ];
+    public function albums()
+    {
+        return $this->hasMany('App\Albums');
+    }
 }
