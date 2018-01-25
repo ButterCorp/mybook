@@ -46,3 +46,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/site/{nom_site}', 'SiteController@show');
 
+Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
+

@@ -232,15 +232,22 @@
                             <label for="maintenance">Site en maintenance</label>
                         </label>
                     </div>
-
-                    <div class="input-field col s12" style="border: 2px solid yellow">
-                        <select>
-                            <option value="" disabled selected>Choix du template</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                    </div>
+                        {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
+                        <div class="input-field col s12" style="border: 2px solid yellow">
+                            {{ csrf_field() }}
+                            <select name="template">
+                                <option disabled {{ ($site->template_selectionned) ?  '' : 'selected="selected"' }}>Choix du template</option>
+                                @foreach($templates as $template)
+                                    @if($template->template_name == $site->template_selectionned)
+                                        <option value="{{ $template->template_name }}" selected="selected">{{ $template->template_name }}</option>
+                                    @else
+                                        <option value="{{ $template->template_name }}">{{ $template->template_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        {!! Form::submit('Click Me!'); !!}
+                    {!! Form::close() !!}
 
                 </div>
 

@@ -17,6 +17,10 @@ use App\Album;
 use App\Photo;
 use App\Site;
 use Facebook;
+use App\Template;
+
+
+
 class SiteController extends Controller
 {
     /*
@@ -30,9 +34,24 @@ class SiteController extends Controller
         if ($site === null)
             return abort(404);
 
-        $photos = Photo::all();
+        if ($site->template_selectionned === null)
+            return abort(404);
 
-        return view('front/index', ['photos' => $photos, 'site' => $site]);
+        $albums = Album::where('users_id', '=', $site->user_id)->get();
 
+        $albumsID = [];
+
+        //Get all albums ID
+        foreach ($albums as $album)
+            array_push($albumsID, $album->id );
+
+        //Get all photos of a user
+        $photos = Photo::whereIn('albums_id', $albumsID)->get();
+
+        //$template = Template::where('template_name', '=', $site->template_selectionned)->first();
+
+        //dd($site->template_selectionned);
+
+        return view('front/' . $site->template_selectionned, ['photos' => $photos, 'site' => $site]);
     }
 }

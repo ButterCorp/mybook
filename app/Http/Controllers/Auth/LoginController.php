@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/indexBack';
+    protected $redirectTo = '/parameters';
 
     /**
      * Create a new controller instance.
