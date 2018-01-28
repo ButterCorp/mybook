@@ -31,10 +31,7 @@ class SiteController extends Controller
     public function show($nom_site){
         $site = Site::where('site_url', '=', $nom_site)->first();
 
-        if ($site === null)
-            return abort(404);
-
-        if ($site->template_selectionned === null)
+        if ($site === null || $site->template_selectionned === null || $site->statut == 0)
             return abort(404);
 
         $albums = Album::where('users_id', '=', $site->user_id)->get();

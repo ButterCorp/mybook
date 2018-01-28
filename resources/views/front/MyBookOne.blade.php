@@ -267,7 +267,7 @@
     <!--=================================
      footer -->
 
-    <footer class="footer page-section-pt black-bg">
+    <footer class="footer page-section-pt black-bg" {{ ($site->footer_statut) ? '' : 'hidden' }}>
         <div class="container">
             <div class="row">
             </div>

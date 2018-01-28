@@ -25,6 +25,7 @@
 
             <div id="profile" class="col s12">
                 <div class="row">
+                    <h2><a href="/site/{{ $site->site_url }}">Voir mon site</a></h2>
                     <h3 class="text-align" style="color: #424242;">Trending this week</h3>
                 </div>
                 <div class="col s6 offset-s3">
@@ -42,24 +43,23 @@
                         <div class="collapsible-header"><i class="material-icons">create</i>Appearence</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
-                                    <a href="#">General </a>|
+                                    {{--<a href="#">General </a>|
                                     <a href="#">Template </a>|
-                                    <a href="#">Font</a>
+                                    <a href="#">Font</a>--}}
                                 </div>
                             <div class="row">
 
                                     <div class="row">
                                         <div class="input-field col s3 offset-s1">
-                                            {!! Form::open(['url' => 'indexBack/']) !!}
-                                            <?php echo Form::label('site_name', 'Nom du site'); ?>
-                                            <?php echo Form::text('site_name'); ?>
+                                            {!! Form::open( array( 'route' => 'edit-site', 'method' => 'post' )) !!}
+                                            {!! Form::label('site_name', 'Nom du site')  !!}
+                                            {!! Form::text('site_name', ($site->title) ? $site->title : '') !!}
+                                            {{-- //qui a mis ça ? ca sert a quoi????? --}}
                                             <?php if (isset($error)) { echo $error ;} ?>
-                                            {!! Form::submit('Click Me!'); !!}
-                                            {!! Form::close() !!}
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
-                                                <input onChange="verif();" type="checkbox" id="footer" class="footer" />
+                                                <input onChange="verif();" name="footer" {{ ($site->footer_statut) ? 'checked' : '' }} type="checkbox" id="footer" class="footer" />
                                                 <label for="footer">Footer</label>
                                             </label>
                                         </div>
@@ -69,19 +69,22 @@
                             <div class="row">
                                 <form class="col s12">
                                     <div class="row">
-                                        <div class="input-field col s3 offset-s1">
-                                            <input id="slug" onChange="verif();" type="text" class="validate">
-                                            <label for="slug">Slug</label>
+                                        <div class="col s3 offset-s1 form-margin-top">
+                                            <input id="social_network" onChange="verif();" type="checkbox" class="validate">
+                                            <label for="social_network">Réseaux sociaux</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
-                                                <input onChange="verif();" type="checkbox" id="sidebar" />
-                                                <label for="sidebar">Slug</label>
+                                                <input onChange="verif();" name="slug" {{ ($site->slug_statut) ? 'checked' : '' }} type="checkbox" id="slug" />
+                                                <label for="slug">Slug</label>
                                             </label>
                                         </div>
                                     </div>
-                                </form>
                             </div>
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                {!! Form::close() !!}
                         </div>
                     </li>
                     <li>
@@ -183,13 +186,6 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
-                {!! Form::open(['url' => 'indexBack/']) !!}
-                <p>Veuillez choisir un nom pour votre site</p>
-                <?php echo Form::label('site_name', 'Nom du site'); ?>
-                <?php echo Form::text('site_name'); ?>
-                <?php if (isset($error)) { echo $error ;} ?>
-                {!! Form::submit('Click Me!'); !!}
-                {!! Form::close() !!}
                 <div class="col s10 offset-s1 border_info">
                     <div >
                         <h3>Informations personnelles</h3>
@@ -238,13 +234,13 @@
 
                 <div class="col s4 offset-s1 form-margin-top border_info">
                     <h3>Utilitaire</h3>
-                    <div class="col s12">
-                        <label>
-                            <input type="checkbox" id="maintenance" />
-                            <label for="maintenance">Site en maintenance</label>
-                        </label>
-                    </div>
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
+                        <div class="col s12">
+                            <label>
+                                <input type="checkbox" {{ ($site->statut) ? '' : 'checked' }} name="maintenance" id="maintenance" />
+                                <label for="maintenance">Site en maintenance</label>
+                            </label>
+                        </div>
                         <div class="input-field col s12">
                             {{ csrf_field() }}
                             <select name="template">
@@ -258,7 +254,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        {!! Form::submit('Click Me!'); !!}
+                        <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
                     {!! Form::close() !!}
 
                 </div>
@@ -277,13 +275,15 @@
         @if (Session::has('message'))
             Materialize.toast("{{ Session::get('message') }}", 10000);
         @endif
+
+        verif();
     });
 
          function verif ()
         {
 
             var etatFooter = document.getElementById('footer').checked;
-            var etatSlug = document.getElementById('sidebar').checked;
+            var etatSlug = document.getElementById('slug').checked;
 
 
             var footerDiv = document.getElementById('footer-content');

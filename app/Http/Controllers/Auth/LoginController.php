@@ -83,6 +83,7 @@ class LoginController extends Controller
 
         $albums = session('album_user');
 
+        //ne pas tout inserer ici
         foreach ($albums as $album)
         {
             $albumSaved = Album::create([

@@ -101,7 +101,7 @@ class ParametersController extends Controller
         //die(Auth::id());
         //
         //Au lieu de all() afficher ->where('id', $iduser)
-        $user = User::where('id', '=', 1)->first();
+        $user = User::findOrFail(1);
 
         $site = Site::where('user_id', '=', $user->id)->first();
 
@@ -124,10 +124,29 @@ class ParametersController extends Controller
 
     public function editTemplate(Request $request) {
 
+        //Recuperer l'user_id pour modifier les requetes plutot que int static
         Site::where('id', 1)
-            ->update(['template_selectionned' => $request->template]);
+            ->update([
+                'template_selectionned' => $request->template,
+                'statut' => (isset($request->maintenance)) ? 0 : 1
+            ]);
+
+        return redirect()->route('indexBack')->with('message', 'Le template à été mis en place');
+    }
+
+    public function editSite(Request $request) {
+
+        //dd((isset($request->footer)) . " - " . (isset($request->slug)));
+
+        //Recuperer l'user_id pour modifier les requetes plutot que int static
+        Site::where('id', 1)
+            ->update([
+                'title' => $request->site_name,
+                'footer_statut' => (isset($request->footer)) ? 1 : 0,
+                'slug_statut' => (isset($request->slug)) ? 1 : 0,
+                ]);
 
         //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
-        return redirect()->route('indexBack')->with('message', 'Le template à été mis en place');
+        return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
     }
 }
