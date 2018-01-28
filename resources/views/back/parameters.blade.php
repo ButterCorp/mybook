@@ -11,12 +11,8 @@
         appuyez ensuite sur le bouton valider tout en bas de la page
     </p>
 
-    {!! Form::open(['url' => 'back/']) !!}
-        {{ Form::hidden('id', $info_user['id']) }}
-        {{ Form::hidden('name', $info_user['name']) }}
-        {{ Form::hidden('email', $info_user['email']) }}
     <ul class="collapsible popout" data-collapsible="accordion">
-        @foreach ($album_user as $graphNode)
+        @foreach ($albums as $graphNode)
             <li>
                 <div class="collapsible-header active"><i class="material-icons">filter_drama</i>
                     {{ $graphNode['name'] }}  </div>
@@ -40,6 +36,4 @@
             </li>
         @endforeach
     </ul>
-        {!! Form::submit('Click Me!'); !!}
-    {!! Form::close() !!}
 @endsection

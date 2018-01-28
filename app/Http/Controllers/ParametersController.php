@@ -23,6 +23,12 @@ use Facebook;
 
 class ParametersController extends Controller
 {
+    protected $fb;
+
+    public function __construct()
+    {
+        $this->fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
+    }
 
     public function index()
     {
@@ -88,20 +94,27 @@ class ParametersController extends Controller
         $info_user = $userinfo->getGraphUser();
         $user = User::where('facebook', $info_user["id"])->get();
 
-        if($user != "[]"){
-            return redirect()->route('indexBack');
-        }
         return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
     }
 
+    public function firstSetUp() {
+        if(Auth::check() == false){
+            return abort(404);
+        }
+        $albums = session('album_user');
+        return view('back/parameters', ['albums' => $albums]);
+
+    }
 
     public function indexBack(Request $request) {
-
+        if(Auth::check() == false){
+            return abort(404);
+        }
         //die(Auth::id());
         //
         //Au lieu de all() afficher ->where('id', $iduser)
-        $user = User::findOrFail(1);
+        $user = User::findOrFail(Auth::id());
 
         $site = Site::where('user_id', '=', $user->id)->first();
 

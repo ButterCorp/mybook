@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Photo;
 use App\Site;
 use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -20,58 +19,36 @@ class LoginController extends Controller
     | This controller handles authenticating users for the application and
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
+     CUSTOMS !
+    The login is processing via ID and we populate / update the albums and photos
+   via Facebook
     |
     */
-
-    use AuthenticatesUsers;
-
     /**
-     * Where to redirect users after login.
+     * Handle an authentication attempt.
      *
-     * @var string
+     * @return Response
      */
-    protected $redirectTo = '/parameters';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function authenticate()
     {
-        $this->middleware('guest')->except('logout');
-    }
-    public function showLoginForm()
-    {
-        return view('welcome');
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('custom');
-    }
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create()
-    {
-
+        /* Get the user Fb information from session data */
         $user = session('info_user');
 
+        /* UserToFind is an eloquent collection-array of User Objects */
         $userToFind = User::where('facebook', $user["id"])->get();
         if($userToFind != "[]"){
-            return $userToFind;
+
+            if (Auth::attempt(['id' =>  $userToFind[0]->id])) {
+                return redirect()->intended('indexBack');
+            }
         }
+
+        /* UserSaved is an object User */
         $userSaved = User::create([
             'name' => $user['name'],
             'email' => $user['email'],
             'facebook' => $user['id']
         ]);
-
-        //die($userSaved['id']);
 
         Site::create([
             'user_id' => $userSaved['id'],
@@ -80,17 +57,19 @@ class LoginController extends Controller
             'created_at' => date('now'),
             'updated_at' => date('now')
         ]);
-
         $albums = session('album_user');
+        if (Auth::attempt(['id' =>  $userSaved['id']])) {
+            return redirect()->intended('/parameters')->with(['album_user' => $albums]);
+        }
 
         //ne pas tout inserer ici
-        foreach ($albums as $album)
+        /*foreach ($albums as $album)
         {
             $albumSaved = Album::create([
                 'album_id'=> $album['id'],
                 'title' => $album['name'],
                 'users_id'=> $userSaved['id']
-                ]);
+            ]);
             foreach($album["photos"] as $photo)
             {
                 Photo::create([
@@ -98,8 +77,9 @@ class LoginController extends Controller
                     'albums_id' => $albumSaved['id']
                 ]);
             }
-        }
-        return $userSaved;
+        }*/
+
+
     }
 
     public function update()

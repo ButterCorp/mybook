@@ -1,6 +1,7 @@
 <?php
 namespace App\Providers\Auth;
 
+use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 interface UserProvider
@@ -42,9 +43,9 @@ interface UserProvider
     /**
      * Validate a user against the given credentials.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \App\User  $user
      * @param  array  $credentials
      * @return bool
      */
-    public function validateCredentials(Authenticatable $user, array $credentials);
+    public function validateCredentials(User $user, array $credentials);
 }

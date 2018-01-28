@@ -22,16 +22,13 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     return view('welcome', ['login' => $login_url]);
 });
 
-Route::get('/login', 'Auth\LoginController@create')->name('login');
+Route::get('/login', 'Auth\LoginController@authenticate')->name('login');
 Route::get('/logout', 'LoginController@logout');
 
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 Route::post('/indexBack', 'ParametersController@setUrl');
 
-Route::get('/parameters', function () {
-
-    return view('back/parameters');
-});
+Route::get('/parameters', 'ParametersController@firstSetUp')->name('indexBack');
 
 //Faut lui donner les parametres
 Route::post('/back', 'ParametersController@create');
