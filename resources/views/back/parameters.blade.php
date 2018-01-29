@@ -10,7 +10,8 @@
         Veuillez sélectionner les photos que vous souhaitez afficher sur votre site vitrine,
         appuyez ensuite sur le bouton valider tout en bas de la page
     </p>
-
+    {!! Form::open( array( 'route' => 'parametersUpload', 'method' => 'post' )) !!}
+    {{ csrf_field() }}
     <ul class="collapsible popout" data-collapsible="accordion">
         @foreach ($albums as $graphNode)
             <li>
@@ -36,4 +37,7 @@
             </li>
         @endforeach
     </ul>
+    {!! Form::submit() !!}
+    {!! Form::close() !!}
+
 @endsection

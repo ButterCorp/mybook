@@ -28,7 +28,8 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 Route::post('/indexBack', 'ParametersController@setUrl');
 
-Route::get('/parameters', 'ParametersController@firstSetUp')->name('indexBack');
+Route::get('/parameters', 'ParametersController@firstSetUp')->name('parameter');
+Route::post('/parameters', 'ParametersController@firstSetUpUpload')->name('parametersUpload');
 
 //Faut lui donner les parametres
 Route::post('/back', 'ParametersController@create');

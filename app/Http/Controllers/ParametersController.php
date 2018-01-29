@@ -105,6 +105,39 @@ class ParametersController extends Controller
 
     }
 
+    public function firstSetUpUpload(Request $request) {
+        if(Auth::check() == false){
+            return abort(404);
+        }
+
+        //Foreach albums
+        foreach ($request->all() as $key => $value){
+            if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
+                //We create album if it doesn't exist in database
+                $id = explode("-", $key);
+
+                $album = Album::firstOrCreate([
+                    'album_id' => $id[0],
+                    'title' => $id[1],
+                    'users_id' => Auth::id(),
+                    'created_at' => date('now'),
+                    'updated_at' => date('now')
+                ]);
+                //Foreach photos
+                foreach ($value as $url_photo){
+                    //We create the photo if it doesn't exist in database
+                    $photo = Photo::firstOrCreate([
+                        'url' => $url_photo,
+                        'albums_id' => $album->id,
+                        'created_at' => date('now'),
+                        'updated_at' => date('now')
+                    ]);
+                }
+            }
+        }
+        return redirect()->route('indexBack');
+    }
+
     public function indexBack(Request $request) {
         if(Auth::check() == false){
             return abort(404);
