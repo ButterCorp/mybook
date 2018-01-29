@@ -22,9 +22,9 @@
                         <select multiple="multiple" name="{{ $graphNode['id'] }}-{{ $graphNode['name'] }}[]" class="image-picker show-html">
                             @if(isset($graphNode['photos']))
                                 @foreach ($graphNode['photos'] as $link)
-                                    @if (isset($link["picture"]) && isset($graphNode['name']))
+                                    @if (isset($link["images"][0]["source"]) && isset($graphNode['name']))
 
-                                        <option data-img-src="{{ $link["picture"] }}" value="{{ $link["picture"] }}"></option>
+                                        <option data-img-src="{{ $link["images"][0]["source"] }}" value="{{ $link["images"][0]["source"] }}"></option>
 
                                         <!-- <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span> -->
 

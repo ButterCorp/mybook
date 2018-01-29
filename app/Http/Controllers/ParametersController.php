@@ -82,7 +82,7 @@ class ParametersController extends Controller
 
         // Get basic info on the user from Facebook.
         try {
-            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
+            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true)}');
             $userinfo = $this->fb->get('me?fields=id,name,email');
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             dd($e->getMessage());
@@ -169,7 +169,8 @@ class ParametersController extends Controller
     public function editTemplate(Request $request) {
 
         //Recuperer l'user_id pour modifier les requetes plutot que int static
-        Site::where('id', 1)
+
+        Site::where('user_id', Auth::id())
             ->update([
                 'template_selectionned' => $request->template,
                 'statut' => (isset($request->maintenance)) ? 0 : 1
@@ -183,7 +184,7 @@ class ParametersController extends Controller
         //dd((isset($request->footer)) . " - " . (isset($request->slug)));
 
         //Recuperer l'user_id pour modifier les requetes plutot que int static
-        Site::where('id', 1)
+        Site::where('user_id', Auth::id())
             ->update([
                 'title' => $request->site_name,
                 'footer_statut' => (isset($request->footer)) ? 1 : 0,
