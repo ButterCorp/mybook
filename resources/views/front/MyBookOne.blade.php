@@ -71,7 +71,15 @@
                     <!-- menu links -->
                     <div class="menu-bar">
                         <ul class="menu-links">
-
+                            <li class="active">
+                                <a style="text-align: center;">
+                                    @if(!$site->slug_statut && $site->slug)
+                                            Réalisez votre site en deux clics grâce a votre compte facebook
+                                        @else
+                                            {{ $site->slug }}
+                                    @endif
+                                </a>
+                            </li>
                             <!-- <li class="active"><a href="javascript:void(0)">Home <i class="fa fa-angle-down fa-indicator"></i></a>
                                    <!-- drop down full width
                                    <div class="drop-down grid-col-12">
@@ -274,17 +282,13 @@
             <div class="footer-widget mt-20">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 xs-mb-20">
-                        <p class="mt-15">&copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved</p>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 text-right xs-text-left">
-                        <div class="footer-widget-social">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i> </a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i> </a></li>
-                            </ul>
-                        </div>
+                        <p class="mt-15">
+                            @if(!$site->footer_statut && $site->footer_content)
+                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
+                            @else
+                                {{ $site->footer_content }}
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>

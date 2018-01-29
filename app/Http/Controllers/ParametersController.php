@@ -169,7 +169,7 @@ class ParametersController extends Controller
     public function editTemplate(Request $request) {
 
         //Recuperer l'user_id pour modifier les requetes plutot que int static
-        Site::where('id', 1)
+        Site::where('user_id', Auth::id())
             ->update([
                 'template_selectionned' => $request->template,
                 'statut' => (isset($request->maintenance)) ? 0 : 1
@@ -183,7 +183,7 @@ class ParametersController extends Controller
         //dd((isset($request->footer)) . " - " . (isset($request->slug)));
 
         //Recuperer l'user_id pour modifier les requetes plutot que int static
-        Site::where('id', 1)
+        Site::where('user_id', Auth::id())
             ->update([
                 'title' => $request->site_name,
                 'footer_statut' => (isset($request->footer)) ? 1 : 0,
@@ -192,5 +192,30 @@ class ParametersController extends Controller
 
         //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
         return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
+    }
+
+    public function editSiteContent(Request $request) {
+
+        if($request->post('footer-content'))
+            if(!Site::where('user_id',  Auth::id())->where('footer_statut', '=', 1)->first())
+                return redirect()->route('indexBack')->with('message', 'Vous devez activer le footer pour le modifier');
+        else
+            $footer_content = $request->post('footer-content');
+
+        if($request->post('slug-content'))
+            if(!Site::where('user_id',  Auth::id())->where('slug_statut', '=', 1)->first())
+                return redirect()->route('indexBack')->with('message', 'Vous devez activer le slogan pour le modifier');
+        else
+            $slug_content =  $request->post('slug-content');
+
+        //Recuperer l'user_id pour modifier les requetes plutot que int static
+        Site::where('user_id', Auth::id())
+            ->update([
+                'footer_content' => ($footer_content) ? $footer_content : null,
+                'slug' => ($slug_content) ? $slug_content : null,
+                ]);
+
+        //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
+        return redirect()->route('indexBack')->with('message', 'Le contenu du site à été actualisé');
     }
 }

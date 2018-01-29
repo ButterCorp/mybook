@@ -46,4 +46,5 @@ Route::get('/site/{nom_site}', 'SiteController@show');
 
 Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
 Route::post('/indexBack/edit/site', 'ParametersController@editSite')->name('edit-site');
+Route::post('/indexBack/edit/site/content', 'ParametersController@editSiteContent')->name('edit-site-content');
 

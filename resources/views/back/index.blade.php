@@ -94,7 +94,7 @@
                             <ul class="collapsible" data-collapsible="accordion">
                                 @foreach($albums as $album)
                                     <li>
-                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ $album->title  }}</div>
+                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{!! str_replace('_', ' ', $album->title) !!} </div>
                                         <div class="collapsible-body">
                                             <span>
                                                 <div class="row">
@@ -148,38 +148,39 @@
                         <div class="collapsible-header"><i class="material-icons">folder</i>Content</div>
                         <div class="collapsible-body">
                             <div class="row">
+                                {!! Form::open( array( 'route' => 'edit-site-content', 'method' => 'post' )) !!}
                                 <div class="col s12">
                                     <ul class="tabs">
                                         <li id="1" class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
-                                        <li id="2" class="tab col s4 disabled"><a href="#slug-content">Slug</a></li>
-                                        <li class="tab col s4"><a class="active" href="#contact">Contact</a></li>
+                                        <li id="2" class="tab col s4 disabled"><a href="#slug-content">Slogan</a></li>
+                                        <li class="tab col s4"><a class="active" href="#contact">Réseaux sociaux</a></li>
                                     </ul>
                                 </div>
-                                <div id="footer-content" class="input-field col s5 offset-s1 active">
-                                    <input placeholder="Footer Title" type="text" class="validate"> 
+                                <div id="footer-content" class="input-field col s6 offset-s3">
+                                    <input {{ ($site->footer_content) ? 'value=' . $site->footer_content .'' : 'placeholder="Contenu du footer' }} name="footer-content" type="text" class="validate">
                                 </div>
-                                <div id="slug-content" class="input-field col s6 offset-s1 active">
-                                    <input placeholder="Slug" type="text" class="validate">
+                                <div id="slug-content" class="input-field col s6 offset-s3">
+                                    <input {{ ($site->slug) ? 'value=' . $site->slug .'' : 'placeholder="Slogan' }} name="slug-content" type="text" class="validate">
                                 </div>
                                 <div id="contact" class="col s12 div-dashboard">
                                     <div class="row">
-                                        <form class="col s12">
                                             <div class="row">
                                                 <div class="input-field col s6">
-                                                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                                                    <label for="first_name">Phone number</label>
+                                                    <input placeholder="Placeholder" id="phonenumber" name="phone" type="text" class="validate">
+                                                    <label for="phonenumber">Phone number</label>
                                                 </div>
                                                 <div class="input-field col s6">
-                                                    <input id="last_name" type="text" class="validate">
-                                                    <label for="last_name">Email</label>
+                                                    <input id="email" type="text" name="email" class="validate">
+                                                    <label for="email">Email</label>
                                                 </div>
                                             </div>
-                                        </form>
                                         <div class="row">
 
                                         </div>
                                     </div>
                                 </div>
+                                {{ Form::submit() }}
+                                {{ Form::close() }}
                             </div>
                         </div>
                     </li>
