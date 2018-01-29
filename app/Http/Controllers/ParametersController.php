@@ -32,14 +32,13 @@ class ParametersController extends Controller
 
     public function index()
     {
-        $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
         if (!session_id()) {
             session_start();
         }
 
         // Obtain an access token.
         try {
-            $token = $fb->getAccessTokenFromRedirect();
+            $token = $this->fb->getAccessTokenFromRedirect();
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
 
             dd($e->getMessage());
@@ -49,7 +48,7 @@ class ParametersController extends Controller
         // or if someone just hit this URL outside of the OAuth flow.
         if (! $token) {
             // Get the redirect helper
-            $helper = $fb->getRedirectLoginHelper();
+            $helper = $this->fb->getRedirectLoginHelper();
 
             if (! $helper->getError()) {
                 abort(403, 'Unauthorized action.');
@@ -66,7 +65,7 @@ class ParametersController extends Controller
 
         if (! $token->isLongLived()) {
             // OAuth 2.0 client handler
-            $oauth_client = $fb->getOAuth2Client();
+            $oauth_client = $this->fb->getOAuth2Client();
 
             // Extend the access token.
             try {
@@ -76,15 +75,15 @@ class ParametersController extends Controller
             }
         }
 
-        $fb->setDefaultAccessToken($token);
+        $this->fb->setDefaultAccessToken($token);
 
         // Save for later
         Session::put('fb_user_access_token', (string) $token);
 
         // Get basic info on the user from Facebook.
         try {
-            $albums = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
-            $userinfo = $fb->get('me?fields=id,name,email');
+            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
+            $userinfo = $this->fb->get('me?fields=id,name,email');
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             dd($e->getMessage());
         }
@@ -92,7 +91,6 @@ class ParametersController extends Controller
         // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
-        $user = User::where('facebook', $info_user["id"])->get();
 
         return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
