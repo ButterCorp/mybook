@@ -32,7 +32,6 @@
 
 
 </head>
-
 <body>
 
 <div class="wrapper vertical-header">
@@ -138,138 +137,70 @@
     <!--=================================
      portfolio -->
 
+    <?php
+        $nbTotalPhotos = count($photos);
+        $nbDivToDisplay = $nbTotalPhotos / 3;
+        //On arrondi à l'entier supérieur (ex: 7 photos / 3 = 2.3, du coup il faut 3 div)
+        $nbDivToDisplay = ceil($nbDivToDisplay);
+        $i = 0;
+        foreach ($photos as $photo){
+            $tab[$i] = $photo->url;
+            $i++;
+        }
+    ?>
+
     <section class="white-bg masonry-main o-hidden">
+        @for ($i = 0; $i < $nbDivToDisplay; $i++)
+            <?php $idPhoto = $i *3; ?>
+
         <div class="masonry columns-3 popup-gallery no-padding">
             <div class="grid-sizer"></div>
-            <div class="masonry-item photography illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
             <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
                         <h4 class="text-white">Post vimeo video</h4>
                         <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item photography branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/03.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/03.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item web-design">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/04.gif') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/04.gif') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item photography illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/05.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/05.jpg') }}><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
+            <?php $idPhoto++; ?>
             <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/06.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
                         <h4 class="text-white">Post vimeo video</h4>
                         <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/06.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item">
+            <?php $idPhoto++; ?>
+            <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/07.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                        <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
+                        <h4 class="text-white">Post vimeo video</h4>
+                        <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/07.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                     <?php if(array_key_exists($idPhoto, $tab)): ?>
+                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                     <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item photography branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/08.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/08.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/09.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/09.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/10.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/10.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/01.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/01.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="#"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-
         </div>
-
-        <pre>
-            @foreach($photos as $photo)
-                <img src="{{ $photo->url }}" alt="">    
-            @endforeach
-        </pre>
-        
+        @endfor
     </section>
 
     <!--=================================
@@ -322,4 +253,7 @@
 <script type="text/javascript" src="{{ asset('js/template/MyBookOne/custom.js') }}"></script>
 
 </body>
+</div>
 </html>
+
+</style>
