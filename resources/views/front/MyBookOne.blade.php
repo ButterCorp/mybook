@@ -73,10 +73,10 @@
                         <ul class="menu-links">
                             <li class="active">
                                 <a style="text-align: center;">
-                                    @if(!$site->slug_statut && $site->slug)
-                                            Réalisez votre site en deux clics grâce a votre compte facebook
-                                        @else
+                                    @if($site->slug && $site->slug_statut)
                                             {{ $site->slug }}
+                                        @elseif(!$site->slug && $site->slug_statut)
+                                            Réalisez votre site en deux clics grâce a votre compte facebook
                                     @endif
                                 </a>
                             </li>
@@ -120,11 +120,23 @@
         <div class="menu-widgets text-white">
             <div class="social-icons border rounded color-hover text-center">
                 <ul>
-                    <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="social-instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="social-google"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="social-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    @if($site->network_statut)
+                        @if(isset($site->facebook_url))
+                            <li class="social-facebook"><a href="{{ $site->facebook_url }}"><i class="fa fa-facebook"></i></a></li>
+                        @endif
+                        @if(isset($site->instagram_url))
+                                <li class="social-instagram"><a href="{{ $site->instagram_url }}"><i class="fa fa-instagram"></i></a></li>
+                        @endif
+                        @if(isset($site->google_url))
+                                <li class="social-google"><a href="{{ $site->google_url }}"><i class="fa fa-google-plus"></i></a></li>
+                        @endif
+                        @if(isset($site->twitter_url))
+                                <li class="social-twitter"><a href="{{ $site->twitter_url }}"><i class="fa fa-twitter"></i></a></li>
+                        @endif
+                        @if(isset($site->linkedin_url))
+                                <li class="social-linkedin"><a href="{{ $site->linkedin_url }}"><i class="fa fa-linkedin"></i></a></li>
+                        @endif
+                    @endif
                 </ul>
             </div>
         </div>
@@ -283,10 +295,10 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 xs-mb-20">
                         <p class="mt-15">
-                            @if(!$site->footer_statut && $site->footer_content)
-                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
-                            @else
+                            @if($site->footer_content && $site->footer_statut)
                                 {{ $site->footer_content }}
+                            @elseif(!$site->footer_content && $site->footer_statut)
+                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
                             @endif
                         </p>
                     </div>
