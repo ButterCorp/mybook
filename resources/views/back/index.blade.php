@@ -70,8 +70,10 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="col s3 offset-s1 form-margin-top">
-                                            <input id="social_network" onChange="verif();" type="checkbox" class="validate">
-                                            <label for="social_network">Réseaux sociaux</label>
+                                            <label>
+                                                <input onChange="verif();" name="social_network" {{ ($site->social_network) ? 'checked' : '' }} type="checkbox" id="social_network">
+                                                <label for="social_network">Réseaux sociaux</label>
+                                            </label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -153,7 +155,7 @@
                                     <ul class="tabs">
                                         <li id="1" class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
                                         <li id="2" class="tab col s4 disabled"><a href="#slug-content">Slogan</a></li>
-                                        <li class="tab col s4"><a class="active" href="#contact">Réseaux sociaux</a></li>
+                                        <li id="3" class="tab col s4 disabled"><a href="#social_network-content">Réseaux sociaux</a></li>
                                     </ul>
                                 </div>
                                 <div id="footer-content" class="input-field col s6 offset-s3">
@@ -162,7 +164,7 @@
                                 <div id="slug-content" class="input-field col s6 offset-s3">
                                     <input {{ ($site->slug) ? 'value=' . $site->slug .'' : 'placeholder="Slogan' }} name="slug-content" type="text" class="validate">
                                 </div>
-                                <div id="contact" class="col s12 div-dashboard">
+                                <div id="social_network-content" class="col s12 div-dashboard">
                                     <div class="row">
                                             <div class="row">
                                                 <div class="input-field col s6">
@@ -285,10 +287,12 @@
 
             var etatFooter = document.getElementById('footer').checked;
             var etatSlug = document.getElementById('slug').checked;
+            var etatSocial_network = document.getElementById('social_network').checked;
 
 
             var footerDiv = document.getElementById('footer-content');
             var slugDiv = document.getElementById('slug-content');
+            var social_networkDiv = document.getElementById('social_network-content');
 
 
             if(etatFooter)
@@ -308,6 +312,15 @@
             }
             if (!etatSlug) {
             document.getElementById('2').classList.add('disabled');
+
+            }
+
+            if (etatSocial_network) {
+            document.getElementById('3').classList.remove('disabled');
+
+            }
+            if (!etatSocial_network) {
+            document.getElementById('3').classList.add('disabled');
 
             }
 
