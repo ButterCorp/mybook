@@ -46,5 +46,7 @@ Route::get('/site/{nom_site}', 'SiteController@show');
 
 Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
 Route::post('/indexBack/edit/site', 'ParametersController@editSite')->name('edit-site');
-Route::post('/indexBack/edit/site/content', 'ParametersController@editSiteContent')->name('edit-site-content');
+Route::post('/indexBack/edit/site/footer', 'SiteController@editSiteFooter')->name('edit-site-footer');
+Route::post('/indexBack/edit/site/slug', 'SiteController@editSiteSlug')->name('edit-site-slug');
+Route::post('/indexBack/edit/site/network', 'SiteController@editSiteNetwork')->name('edit-site-network');
 

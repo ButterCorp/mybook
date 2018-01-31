@@ -58,26 +58,10 @@ class LoginController extends Controller
             'updated_at' => date('now')
         ]);
         $albums = session('album_user');
+
         if (Auth::attempt(['id' =>  $userSaved['id']])) {
             return redirect()->intended('/parameters')->with(['album_user' => $albums]);
         }
-
-        //ne pas tout inserer ici
-        /*foreach ($albums as $album)
-        {
-            $albumSaved = Album::create([
-                'album_id'=> $album['id'],
-                'title' => $album['name'],
-                'users_id'=> $userSaved['id']
-            ]);
-            foreach($album["photos"] as $photo)
-            {
-                Photo::create([
-                    'url' => $photo['picture'],
-                    'albums_id' => $albumSaved['id']
-                ]);
-            }
-        }*/
 
 
     }
