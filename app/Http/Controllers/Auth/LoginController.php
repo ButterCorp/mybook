@@ -1,41 +1,73 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brixton le Brave
- * Date: 06/12/2017
- * Time: 09:28
- */
 
 namespace App\Http\Controllers\Auth;
 
-
+use App\Album;
 use App\Http\Controllers\Controller;
-use Laravel\Socialite\Facades\Socialite;
+use App\Photo;
+use App\Site;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+     CUSTOMS !
+    The login is processing via ID and we populate / update the albums and photos
+   via Facebook
+    |
+    */
     /**
-     * Redirect the user to the GitHub authentication page.
+     * Handle an authentication attempt.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function redirectToProvider()
+    public function authenticate()
     {
-        return Socialite::driver('facebook')->
-            scopes(['user_photos'])->redirect();
+        /* Get the user Fb information from session data */
+        $user = session('info_user');
+
+        /* UserToFind is an eloquent collection-array of User Objects */
+        $userToFind = User::where('facebook', $user["id"])->get();
+        if($userToFind != "[]"){
+
+            if (Auth::attempt(['id' =>  $userToFind[0]->id])) {
+                return redirect()->intended('indexBack');
+            }
+        }
+
+        /* UserSaved is an object User */
+        $userSaved = User::create([
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'facebook' => $user['id']
+        ]);
+
+        Site::create([
+            'user_id' => $userSaved['id'],
+            'site_url' => str_replace(' ', '', strtolower($user['name'])),
+            'statut' => "1",
+            'created_at' => date('now'),
+            'updated_at' => date('now')
+        ]);
+        $albums = session('album_user');
+
+        if (Auth::attempt(['id' =>  $userSaved['id']])) {
+            return redirect()->intended('/parameters')->with(['album_user' => $albums]);
+        }
+
+
     }
 
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
+    public function update()
     {
-        $user = Socialite::driver('facebook')->user();
 
-        echo '<pre>';
-
-        var_dump($user);
     }
 }

@@ -1,22 +1,22 @@
 version: "3.3"
 services:
-  zf:
+  mybookphp3:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${SKEL_EXTERNAL_PORT:-80}:80"
+      - "${SKEL_EXTERNAL_PORT:-8090}:80"
     volumes:
       - .:/var/www
     depends_on:
-      - database
+      - mybookdatabase3
     environment:
       - SKEL_DB_HOST=database
       - SKEL_DB_NAME=demo
       - SKEL_DB_USER=demo
       - SKEL_DB_PASS=demo
       - SKEL_DB_PORT=3306
-  database:
+  mybookdatabase3:
     image: mysql:5.7
     expose:
       - "3306"
@@ -25,3 +25,7 @@ services:
       - MYSQL_DATABASE=demo
       - MYSQL_USER=demo
       - MYSQL_PASSWORD=demo
+  adminer:
+      image: adminer
+      ports:
+        - 8080:8080

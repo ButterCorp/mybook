@@ -1,5 +1,5 @@
 <?php
-
+use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,89 +17,36 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     }
 
     // Send an array of permissions to request
-    $login_url = $fb->getLoginUrl(['email','user_photos']);
+    $login_url = $fb->getLoginUrl(['email','user_photos', 'publish_actions']);
 
     return view('welcome', ['login' => $login_url]);
 });
 
-Route::get('/indexBack', function () {
-    return view('back/index');
-});
+Route::get('/login', 'Auth\LoginController@authenticate')->name('login');
+Route::get('/logout', 'LoginController@logout');
 
-Route::get('/parameters', function () {
+Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
+Route::post('/indexBack', 'ParametersController@setUrl');
 
-    return view('back/parameters');
-});
+Route::get('/parameters', 'ParametersController@firstSetUp')->name('parameter');
+Route::post('/parameters', 'ParametersController@firstSetUpUpload')->name('parametersUpload');
 
 //Faut lui donner les parametres
-Route::post('back/', 'ParametersController@index');
+Route::post('/back', 'ParametersController@create');
 
-// Endpoint that is redirected to after an authentication attempt
-Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
-{
-    if (!session_id()) {
-        session_start();
-    }
+Route::post('/upload', 'UploadController@store_picture')->name('upload');
 
-    // Obtain an access token.
-    try {
-        $token = $fb->getAccessTokenFromRedirect();
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        dd($e->getMessage());
-    }
+//callback method to get facebook user infos
+Route::get('/facebook/callback', 'ParametersController@index')->name('landing');
 
-    // Access token will be null if the user denied the request
-    // or if someone just hit this URL outside of the OAuth flow.
-    if (! $token) {
-        // Get the redirect helper
-        $helper = $fb->getRedirectLoginHelper();
 
-        if (! $helper->getError()) {
-            abort(403, 'Unauthorized action.');
-        }
+Route::get('/home', 'HomeController@index')->name('home');
 
-        // User denied the request
-        dd(
-            $helper->getError(),
-            $helper->getErrorCode(),
-            $helper->getErrorReason(),
-            $helper->getErrorDescription()
-        );
-    }
+Route::get('/site/{nom_site}', 'SiteController@show');
 
-    if (! $token->isLongLived()) {
-        // OAuth 2.0 client handler
-        $oauth_client = $fb->getOAuth2Client();
+Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
+Route::post('/indexBack/edit/site', 'ParametersController@editSite')->name('edit-site');
+Route::post('/indexBack/edit/site/footer', 'SiteController@editSiteFooter')->name('edit-site-footer');
+Route::post('/indexBack/edit/site/slug', 'SiteController@editSiteSlug')->name('edit-site-slug');
+Route::post('/indexBack/edit/site/network', 'SiteController@editSiteNetwork')->name('edit-site-network');
 
-        // Extend the access token.
-        try {
-            $token = $oauth_client->getLongLivedAccessToken($token);
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    $fb->setDefaultAccessToken($token);
-
-    // Save for later
-    Session::put('fb_user_access_token', (string) $token);
-
-    // Get basic info on the user from Facebook.
-    try {
-        $response = $fb->get('me/albums?fields=name,photos{link,picture,likes.limit(0).summary(true)}');
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        dd($e->getMessage());
-    }
-
-    // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
-    $facebook_user = $response->getGraphEdge();
-    
-    // Create the user if it does not exist or update the existing entry.
-    // This will only work if you've added the SyncableGraphNodeTrait to your User model.
-    //$user = App\User::createOrUpdateGraphNode($facebook_user);
-
-    // Log the user into Laravel
-   // Auth::login($user);
-    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
-    return view('back/parameters', ['data' => $facebook_user]);
-});
