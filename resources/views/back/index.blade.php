@@ -24,13 +24,11 @@
 
             <div id="profile" class="col s12">
                 <div class="row">
-                    <h2><a href="/site/{{ $site->site_url }}">Voir mon site</a></h2>
+                    <h2 class="center"><a href="/site/{{ $site->site_url }}" target="_blank">Voir mon site</a></h2>
                     <h3 class="text-align" style="color: #424242;">Trending this week</h3>
                 </div>
                 <div class="col s6 offset-s3">
-                    <span class="counter">1,234,567.00</span>
-                    <span>$</span><span class="counter">1.99</span>
-                    <span class="counter">12345</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque dolor exercitationem expedita explicabo id laboriosam maxime minima minus mollitia nam nisi odit officiis quaerat quasi quidem suscipit tempora, tenetur.</p>
 
                 </div>
             </div>
@@ -156,8 +154,7 @@
                                 </div>
                                 <div id="footer-content" class="input-field col s6 offset-s3">
                                     {!! Form::open( array( 'route' => 'edit-site-footer', 'method' => 'post' )) !!}
-                                        <textarea name="footer-content" class="materialize-textarea" data-length="120">
-                                            {{ ($site->footer_content) ?  $site->footer_content  : '©Copyright 2018 ButterCorp All Rights Reserved' }}
+                                        <textarea name="footer-content" class="materialize-textarea" data-length="120">{{ ($site->footer_content) ?  $site->footer_content  : '©Copyright 2018 ButterCorp All Rights Reserved' }}
                                         </textarea>
                                         <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier le footer
                                             <i class="material-icons right">send</i>

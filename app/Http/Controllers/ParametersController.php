@@ -126,8 +126,10 @@ class ParametersController extends Controller
                 //Foreach photos
                 foreach ($value as $url_photo){
                     //We create the photo if it doesn't exist in database
+                    $url_photo = explode('|', $url_photo);
                     $photo = Photo::firstOrCreate([
-                        'url' => $url_photo,
+                        'url' => $url_photo[0],
+                        'nb_likes' => intval($url_photo[1]),
                         'albums_id' => $album->id,
                         'created_at' => date('now'),
                         'updated_at' => date('now')

@@ -37,9 +37,8 @@
 
                                     @if (isset($link["images"][0]["source"]) && isset($graphNode['name']))
 
-                                        <option data-img-src="{{ $source }}" value="{{ $source }}"></option>
+                                        <option data-img-src="{{ $source }}" value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}"></option>
 
-                                        <!-- <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span> -->
 
                                     @endif
                                 @endforeach
