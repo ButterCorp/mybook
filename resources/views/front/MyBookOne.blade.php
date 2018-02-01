@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Webster - Multi-Purpose HTML5 Template" />
-    <meta name="author" content="potenzaglobalsolutions.com" />
+    <meta name="keywords" content="Butter Template" />
+    <meta name="description" content="MyBook - Easy website builder" />
+    <meta name="author" content="@ButterCorp" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>{{ ($site->title == null) ? "MyBookOne" : $site->title . " - MyBookOne" }}</title>
 
@@ -49,7 +49,7 @@
 
     <!--=================================
      header -->
-    <div class="menu-responsive"><a href="#"> <b>Webster</b></a> <a class="but" href="#"><span class="ti-menu"></span> </a></div>
+    <div class="menu-responsive"><a href="#"> <b>MyBook</b></a> <a class="but" href="#"><span class="ti-menu"></span> </a></div>
 
     <header id="left-header" class="header vertical-menu">
 
@@ -72,9 +72,9 @@
                         <ul class="menu-links">
                             <li class="active">
                                 <a style="text-align: center;">
-                                    @if($site->slug && $site->slug_statut)
-                                            {{ $site->slug }}
-                                        @elseif(!$site->slug && $site->slug_statut)
+                                    @if($site->slug_content && $site->slug_statut)
+                                            {{ $site->slug_content }}
+                                        @elseif(!$site->slug_content && $site->slug_statut)
                                             Réalisez votre site en deux clics grâce a votre compte facebook
                                     @endif
                                 </a>
@@ -161,7 +161,7 @@
         }
     ?>
 
-    <section class="white-bg masonry-main o-hidden">
+    <section class="white-bg masonry-main o-hidden" style="background-color: red;">
         @for ($i = 0; $i < $nbDivToDisplay; $i++)
             <?php $idPhoto = $i *3; ?>
 

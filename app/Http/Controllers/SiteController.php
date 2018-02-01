@@ -63,6 +63,7 @@ class SiteController extends Controller
     }
 
     public function editSiteSlug(Request $request) {
+
         if($request->post('slug-content'))
             if(!Site::where('user_id',  Auth::id())->where('slug_statut', '=', 1)->first())
                 return redirect()->route('indexBack')->with('message', 'Vous devez activer le slogan pour le modifier');

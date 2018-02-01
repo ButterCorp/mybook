@@ -11,7 +11,6 @@
             });
         });
     </script>
-
     <div class="div-dashboard">
         <div class="row">
             <div class="col s12">
@@ -70,7 +69,7 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="col s3 offset-s1 form-margin-top">
-                                            <input id="social_network" onChange="verif();" type="checkbox" class="validate">
+                                            <input id="social_network" onChange="verif();" name="network" {{ ($site->network_statut) ? 'checked' : '' }} type="checkbox" class="validate">
                                             <label for="social_network">Réseaux sociaux</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
@@ -101,7 +100,7 @@
                                                     @foreach ($photos as $photo)
                                                         @if($photo->albums_id == $album->id)
                                                             <div class="col s4">
-                                                                <img class="responsive-img materialboxed" data-caption="Envoyer sur MyBook le : {{ $photo->updated_at    }}" src="{{ $photo->url }}">
+                                                                <img class="responsive-img materialboxed" onclick="toastDelete()" data-caption="Envoyer sur MyBook le : {{ $photo->updated_at    }}" src="{{ $photo->url }}">
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -145,7 +144,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">folder</i>Content</div>
+                        <div class="collapsible-header"><i class="material-icons">folder</i>Contenu</div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12">
@@ -168,7 +167,7 @@
                                 <div id="slug-content" class="input-field col s6 offset-s3">
                                     {!! Form::open( array( 'route' => 'edit-site-slug', 'method' => 'post' )) !!}
                                         <textarea name="slug-content" class="materialize-textarea" data-length="120">
-                                            {{ ($site->slug) ? $site->slug : 'Réalisez votre site en deux clics grâce a votre compte facebook' }}
+                                            {{ ($site->slug_content) ? $site->slug_content : 'Réalisez votre site en deux clics grâce a votre compte facebook' }}
                                         </textarea>
                                         <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier le slogan
                                             <i class="material-icons right">send</i>
@@ -330,5 +329,10 @@
 
             }
 
+        }
+
+        function toastDelete() {
+            var $toastContent = $('<span>Pour supprimer une photo</span>').add($('<a href="/parameters"><button class="btn-flat toast-action">Cliquer ici</button></a>'));
+            Materialize.toast($toastContent, 2000);
         }
     </script>

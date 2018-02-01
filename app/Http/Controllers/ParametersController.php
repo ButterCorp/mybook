@@ -184,17 +184,14 @@ class ParametersController extends Controller
 
     public function editSite(Request $request) {
 
-        //dd((isset($request->footer)) . " - " . (isset($request->slug)));
-
-        //Recuperer l'user_id pour modifier les requetes plutot que int static
         Site::where('user_id', Auth::id())
             ->update([
                 'title' => $request->site_name,
                 'footer_statut' => (isset($request->footer)) ? 1 : 0,
                 'slug_statut' => (isset($request->slug)) ? 1 : 0,
+                'network_statut' => (isset($request->network)) ? 1 : 0,
                 ]);
 
-        //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
         return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
     }
 }

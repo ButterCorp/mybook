@@ -21,6 +21,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+@if(Route::current()->getName() == 'indexBack')
+    <a class="btn-floating btn-large waves-effect waves-light red" style="margin: 15px;" title="Ajouter des photos" href="/parameters"><i class="material-icons">add</i></a>
+@endif
 <div class="container">
     @yield('content')
 </div>
