@@ -11,7 +11,6 @@
             });
         });
     </script>
-
     <div class="div-dashboard">
         <div class="row">
             <div class="col s12">
@@ -40,7 +39,7 @@
             <div id="book" class="col s12 book">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">create</i>Appearence</div>
+                        <div class="collapsible-header"><i class="material-icons">create</i>Général</div>
                             <div class="collapsible-body">
                                 <div class="row link-appearence-dashboard">
                                     {{--<a href="#">General </a>|
@@ -70,10 +69,8 @@
                                 <form class="col s12">
                                     <div class="row">
                                         <div class="col s3 offset-s1 form-margin-top">
-                                            <label>
-                                                <input onChange="verif();" name="social_network" {{ ($site->social_network) ? 'checked' : '' }} type="checkbox" id="social_network">
-                                                <label for="social_network">Réseaux sociaux</label>
-                                            </label>
+                                            <input id="social_network" onChange="verif();" name="network" {{ ($site->network_statut) ? 'checked' : '' }} type="checkbox" class="validate" >
+                                            <label for="social_network">Réseaux sociaux</label>
                                         </div>
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
@@ -83,7 +80,7 @@
                                         </div>
                                     </div>
                             </div>
-                                <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">Mettre à jour
                                     <i class="material-icons right">send</i>
                                 </button>
                                 {!! Form::close() !!}
@@ -103,7 +100,7 @@
                                                     @foreach ($photos as $photo)
                                                         @if($photo->albums_id == $album->id)
                                                             <div class="col s4">
-                                                                <img class="responsive-img materialboxed" data-caption="{{ $photo->id }}" src="{{ $photo->url }}">
+                                                                <img class="responsive-img materialboxed" onclick="toastDelete()" data-caption="Envoyer sur MyBook le : {{ $photo->updated_at    }}" src="{{ $photo->url }}">
                                                             </div>
                                                         @endif
                                                     @endforeach
@@ -135,7 +132,7 @@
                                                 <input class="file-path validate" type="text">
                                             </div>
                                         </div>
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <button class="btn waves-effect waves-light" type="submit" name="action">Envoyer
                                             <i class="material-icons right">send</i>
                                         </button>
                                   {!! Form::close() !!}
@@ -147,10 +144,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">folder</i>Content</div>
+                        <div class="collapsible-header"><i class="material-icons">folder</i>Contenu</div>
                         <div class="collapsible-body">
                             <div class="row">
-                                {!! Form::open( array( 'route' => 'edit-site-content', 'method' => 'post' )) !!}
                                 <div class="col s12">
                                     <ul class="tabs">
                                         <li id="1" class="tab col s4 disabled"><a href="#footer-content">Footer</a></li>
@@ -159,30 +155,62 @@
                                     </ul>
                                 </div>
                                 <div id="footer-content" class="input-field col s6 offset-s3">
-                                    <input {{ ($site->footer_content) ? 'value=' . $site->footer_content .'' : 'placeholder="Contenu du footer' }} name="footer-content" type="text" class="validate">
+                                    {!! Form::open( array( 'route' => 'edit-site-footer', 'method' => 'post' )) !!}
+                                        <textarea name="footer-content" class="materialize-textarea" data-length="120">
+                                            {{ ($site->footer_content) ?  $site->footer_content  : '©Copyright 2018 ButterCorp All Rights Reserved' }}
+                                        </textarea>
+                                        <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier le footer
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    {{ Form::close() }}
                                 </div>
                                 <div id="slug-content" class="input-field col s6 offset-s3">
-                                    <input {{ ($site->slug) ? 'value=' . $site->slug .'' : 'placeholder="Slogan' }} name="slug-content" type="text" class="validate">
+                                    {!! Form::open( array( 'route' => 'edit-site-slug', 'method' => 'post' )) !!}
+                                        <textarea name="slug-content" class="materialize-textarea" data-length="120">
+                                            {{ ($site->slug_content) ? $site->slug_content : 'Réalisez votre site en deux clics grâce a votre compte facebook' }}
+                                        </textarea>
+                                        <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier le slogan
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    {{ Form::close() }}
                                 </div>
                                 <div id="social_network-content" class="col s12 div-dashboard">
-                                    <div class="row">
+                                        <div class="row">
+                                            {!! Form::open( array( 'route' => 'edit-site-network', 'method' => 'post' )) !!}
                                             <div class="row">
-                                                <div class="input-field col s6">
-                                                    <input placeholder="Placeholder" id="phonenumber" name="phone" type="text" class="validate">
-                                                    <label for="phonenumber">Phone number</label>
+                                                <div class="input-field col s8 offset-s2">
+                                                    <i class="material-icons prefix"><i class="fa fa-facebook-square"></i></i>
+                                                    <input id="icon_prefix" type="text" name="url_facebook" class="validate" value="{{ (isset($site->facebook_url) ? $site->facebook_url : '') }}">
+                                                    <label for="icon_prefix">URL du compte Facebook</label>
                                                 </div>
-                                                <div class="input-field col s6">
-                                                    <input id="email" type="text" name="email" class="validate">
-                                                    <label for="email">Email</label>
+                                                <div class="input-field col s8 offset-s2">
+                                                    <i class="material-icons prefix"><i class="fa fa-instagram"></i></i>
+                                                    <input id="icon_prefix" type="text" name="url_instagram" class="validate" value="{{ (isset($site->instagram_url) ? $site->instagram_url : '') }}">
+                                                    <label for="icon_prefix">URL du compte Instagram</label>
+                                                </div>
+                                                <div class="input-field col s8 offset-s2">
+                                                    <i class="material-icons prefix"><i class="fa fa-google-plus"></i></i>
+                                                    <input id="icon_prefix" type="text" name="url_google" class="validate" value="{{ (isset($site->google_url) ? $site->google_url : '') }}">
+                                                    <label for="icon_prefix">URL du compte Google+</label>
+                                                </div>
+                                                <div class="input-field col s8 offset-s2">
+                                                    <i class="material-icons prefix"><i class="fa fa-twitter-square"></i></i>
+                                                    <input id="icon_prefix" type="text" name="url_twitter" class="validate" value="{{ (isset($site->twitter_url) ? $site->twitter_url : '') }}">
+                                                    <label for="icon_prefix">URL du compte Twitter</label>
+                                                </div>
+                                                <div class="input-field col s8 offset-s2">
+                                                    <i class="material-icons prefix"><i class="fa fa-linkedin-square"></i></i>
+                                                    <input id="icon_prefix" type="text" name="url_linkedin" class="validate" value="{{ (isset($site->linkedin_url) ? $site->linkedin_url : '') }}">
+                                                    <label for="icon_prefix">URL du compte LinkedIn</label>
                                                 </div>
                                             </div>
-                                        <div class="row">
 
+                                            <button class="btn waves-effect waves-light right" type="submit" name="action">Mettre à jour
+                                                <i class="material-icons right">send</i>
+                                            </button>
+                                            {{ Form::close() }}
                                         </div>
-                                    </div>
                                 </div>
-                                {{ Form::submit() }}
-                                {{ Form::close() }}
                             </div>
                         </div>
                     </li>
@@ -195,15 +223,15 @@
                         <form class="col s12">
                             <div class="row">
                                 <div class="input-field col s4">
-                                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                    <input id="first_name" type="text" value="{{ $firstname }}" class="validate">
                                     <label for="first_name">Prenom</label>
                                 </div>
                                 <div class="input-field col s4">
-                                    <input id="last_name" type="text" class="validate">
+                                    <input id="last_name" type="text" value="{{ $lastname }}" class="validate">
                                     <label for="last_name">Nom</label>
                                 </div>
                                 <div class="input-field col s4">
-                                    <input id="email" type="email" class="validate">
+                                    <input id="email" type="email" value="{{ $email }}" class="validate">
                                     <label for="email">Email</label>
                                 </div>
                                 <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
@@ -214,28 +242,16 @@
                     </div>
                 </div>
 
-                <div class="col s5 offset-s1 form-margin-top border_info">
-                    <h3>Paramètres généraux</h3>
-                    <div class="col s12">
-                        <label>
-                            <input type="checkbox" id="comments" />
-                            <label for="comments">Commentaires</label>
-                        </label>
-                    </div>
-                    <div class="col s12">
-                        <label>
-                            <input type="checkbox" id="albums" />
-                            <label for="albums">Albums</label>
-                        </label>
-                    </div>
+                <div class="col s4 offset-s1 form-margin-top border_info">
+                    <h3>Actualiser les photos</h3>
                     <div  class="col s12">
-                        <button id="cached" class="right">
+                        <button id="cached" class="">
                             <i id="icons-cached" class="material-icons">cached</i>
                         </button>
                     </div>
                 </div>
 
-                <div class="col s4 offset-s1 form-margin-top border_info">
+                <div class="col s4 offset-s2 form-margin-top border_info">
                     <h3>Utilitaire</h3>
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
                         <div class="col s12">
@@ -324,5 +340,10 @@
 
             }
 
+        }
+
+        function toastDelete() {
+            var $toastContent = $('<span>Pour supprimer une photo</span>').add($('<a href="/parameters"><button class="btn-flat toast-action">Cliquer ici</button></a>'));
+            Materialize.toast($toastContent, 2000);
         }
     </script>

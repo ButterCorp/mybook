@@ -147,6 +147,8 @@ class ParametersController extends Controller
         //Au lieu de all() afficher ->where('id', $iduser)
         $user = User::findOrFail(Auth::id());
 
+        $name = explode(" ", $user->name);
+
         $site = Site::where('user_id', '=', $user->id)->first();
 
         $albums = Album::where('users_id', '=', $site->user_id)->get();
@@ -163,7 +165,8 @@ class ParametersController extends Controller
 
         $templates = Template::all();
 
-        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site]);
+        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'firstname' => $name[0],
+            'lastname' => $name[1], 'email' => $user->email]);
     }
 
     public function editTemplate(Request $request) {
@@ -181,42 +184,14 @@ class ParametersController extends Controller
 
     public function editSite(Request $request) {
 
-        //dd((isset($request->footer)) . " - " . (isset($request->slug)));
-
-        //Recuperer l'user_id pour modifier les requetes plutot que int static
         Site::where('user_id', Auth::id())
             ->update([
                 'title' => $request->site_name,
                 'footer_statut' => (isset($request->footer)) ? 1 : 0,
                 'slug_statut' => (isset($request->slug)) ? 1 : 0,
+                'network_statut' => (isset($request->network)) ? 1 : 0,
                 ]);
 
-        //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
         return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
-    }
-
-    public function editSiteContent(Request $request) {
-
-        if($request->post('footer-content'))
-            if(!Site::where('user_id',  Auth::id())->where('footer_statut', '=', 1)->first())
-                return redirect()->route('indexBack')->with('message', 'Vous devez activer le footer pour le modifier');
-        else
-            $footer_content = $request->post('footer-content');
-
-        if($request->post('slug-content'))
-            if(!Site::where('user_id',  Auth::id())->where('slug_statut', '=', 1)->first())
-                return redirect()->route('indexBack')->with('message', 'Vous devez activer le slogan pour le modifier');
-        else
-            $slug_content =  $request->post('slug-content');
-
-        //Recuperer l'user_id pour modifier les requetes plutot que int static
-        Site::where('user_id', Auth::id())
-            ->update([
-                'footer_content' => ($footer_content) ? $footer_content : null,
-                'slug' => ($slug_content) ? $slug_content : null,
-                ]);
-
-        //return redirect($this->indexBack($request))->with(['message', 'Le template a été mis en place']);
-        return redirect()->route('indexBack')->with('message', 'Le contenu du site à été actualisé');
     }
 }

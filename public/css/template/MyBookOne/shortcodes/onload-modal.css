@@ -6,7 +6,7 @@ Design and Developed by: potenzaglobalsolutions.com
 NOTE: This file contains onload modal CSS.
 */
 
-.mfp-container { cursor: url("../../images/close.png") 25 25, pointer; }
+.mfp-container { cursor: url("../../../../image/close.png") 25 25, pointer; }
 
 /*modal-simple-content*/
 .modal-simple-content { background: #ffffff; padding: 50px 30px; border-radius: 3px; margin: 0 auto; max-width: 600px; }

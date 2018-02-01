@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Webster - Multi-Purpose HTML5 Template" />
-    <meta name="author" content="potenzaglobalsolutions.com" />
+    <meta name="keywords" content="Butter Template" />
+    <meta name="description" content="MyBook - Easy website builder" />
+    <meta name="author" content="@ButterCorp" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>{{ ($site->title == null) ? "MyBookOne" : $site->title . " - MyBookOne" }}</title>
 
@@ -32,7 +32,6 @@
 
 
 </head>
-
 <body>
 
 <div class="wrapper vertical-header">
@@ -50,7 +49,7 @@
 
     <!--=================================
      header -->
-    <div class="menu-responsive"><a href="#"> <b>Webster</b></a> <a class="but" href="#"><span class="ti-menu"></span> </a></div>
+    <div class="menu-responsive"><a href="#"> <b>MyBook</b></a> <a class="but" href="#"><span class="ti-menu"></span> </a></div>
 
     <header id="left-header" class="header vertical-menu">
 
@@ -73,10 +72,10 @@
                         <ul class="menu-links">
                             <li class="active">
                                 <a style="text-align: center;">
-                                    @if(!$site->slug_statut && $site->slug)
+                                    @if($site->slug_content && $site->slug_statut)
+                                            {{ $site->slug_content }}
+                                        @elseif(!$site->slug_content && $site->slug_statut)
                                             Réalisez votre site en deux clics grâce a votre compte facebook
-                                        @else
-                                            {{ $site->slug }}
                                     @endif
                                 </a>
                             </li>
@@ -120,11 +119,23 @@
         <div class="menu-widgets text-white">
             <div class="social-icons border rounded color-hover text-center">
                 <ul>
-                    <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="social-instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="social-google"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="social-linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    @if($site->network_statut)
+                        @if(isset($site->facebook_url))
+                            <li class="social-facebook"><a href="{{ $site->facebook_url }}"><i class="fa fa-facebook"></i></a></li>
+                        @endif
+                        @if(isset($site->instagram_url))
+                                <li class="social-instagram"><a href="{{ $site->instagram_url }}"><i class="fa fa-instagram"></i></a></li>
+                        @endif
+                        @if(isset($site->google_url))
+                                <li class="social-google"><a href="{{ $site->google_url }}"><i class="fa fa-google-plus"></i></a></li>
+                        @endif
+                        @if(isset($site->twitter_url))
+                                <li class="social-twitter"><a href="{{ $site->twitter_url }}"><i class="fa fa-twitter"></i></a></li>
+                        @endif
+                        @if(isset($site->linkedin_url))
+                                <li class="social-linkedin"><a href="{{ $site->linkedin_url }}"><i class="fa fa-linkedin"></i></a></li>
+                        @endif
+                    @endif
                 </ul>
             </div>
         </div>
@@ -138,138 +149,70 @@
     <!--=================================
      portfolio -->
 
-    <section class="white-bg masonry-main o-hidden">
+    <?php
+        $nbTotalPhotos = count($photos);
+        $nbDivToDisplay = $nbTotalPhotos / 3;
+        //On arrondi à l'entier supérieur (ex: 7 photos / 3 = 2.3, du coup il faut 3 div)
+        $nbDivToDisplay = ceil($nbDivToDisplay);
+        $i = 0;
+        foreach ($photos as $photo){
+            $tab[$i] = $photo->url;
+            $i++;
+        }
+    ?>
+
+    <section class="white-bg masonry-main o-hidden" style="background-color: red;">
+        @for ($i = 0; $i < $nbDivToDisplay; $i++)
+            <?php $idPhoto = $i *3; ?>
+
         <div class="masonry columns-3 popup-gallery no-padding">
             <div class="grid-sizer"></div>
-            <div class="masonry-item photography illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
             <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
                         <h4 class="text-white">Post vimeo video</h4>
                         <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item photography branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/03.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/03.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item web-design">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/04.gif') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/04.gif') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item photography illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/05.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/05.jpg') }}><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
+            <?php $idPhoto++; ?>
             <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/06.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
                         <h4 class="text-white">Post vimeo video</h4>
                         <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/06.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item">
+            <?php $idPhoto++; ?>
+            <div class="masonry-item photography">
                 <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/07.jpg') }}" alt="">
+                    <?php if(array_key_exists($idPhoto, $tab)): ?>
+                        <img src="{{ $tab[$idPhoto] }}" alt="">
+                    <?php endif; ?>
                     <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
+                        <h4 class="text-white">Post vimeo video</h4>
+                        <h6 class="text-white">Photography | Illustration</h6>
                     </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/07.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
+                     <?php if(array_key_exists($idPhoto, $tab)): ?>
+                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
+                     <?php endif; ?>
                 </div>
             </div>
-            <div class="masonry-item photography branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/08.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/08.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/09.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/09.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item illustration">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/10.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/10.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/01.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="portfolio-single-01.html"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/01.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-            <div class="masonry-item branding">
-                <div class="portfolio-item">
-                    <img src="{{ asset('image/portfolio/masonry/02.jpg') }}" alt="">
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white"> <a href="#"> Post simple image </a> </h4>
-                        <span class="text-white"> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                    </div>
-                    <a class="popup portfolio-img" href="{{ asset('image/portfolio/masonry/02.jpg') }}"><i class="fa fa-arrows-alt"></i></a>
-                </div>
-            </div>
-
         </div>
-
-        <pre>
-            @foreach($photos as $photo)
-                <img src="{{ $photo->url }}" alt="">    
-            @endforeach
-        </pre>
-        
+        @endfor
     </section>
 
     <!--=================================
@@ -283,10 +226,10 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 xs-mb-20">
                         <p class="mt-15">
-                            @if(!$site->footer_statut && $site->footer_content)
-                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
-                            @else
+                            @if($site->footer_content && $site->footer_statut)
                                 {{ $site->footer_content }}
+                            @elseif(!$site->footer_content && $site->footer_statut)
+                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
                             @endif
                         </p>
                     </div>
@@ -322,4 +265,7 @@
 <script type="text/javascript" src="{{ asset('js/template/MyBookOne/custom.js') }}"></script>
 
 </body>
+</div>
 </html>
+
+</style>
