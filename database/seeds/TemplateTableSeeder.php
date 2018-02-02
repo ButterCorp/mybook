@@ -16,7 +16,7 @@ class TemplateTableSeeder extends Seeder
         ]);
 
         DB::table('templates')->insert([
-            'template_name' => "MyBooktwo"
+            'template_name' => "MyBookTwo"
         ]);
     }
 }

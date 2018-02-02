@@ -24,7 +24,7 @@
 
             <div id="profile" class="col s12">
                 <div class="row">
-                    <h2 class="center"><a href="/site/{{ $site->site_url }}" target="_blank">Voir mon site</a></h2>
+                    <h2 class="center"><a href="/site/{{ $site->site_url }}"c>Voir mon site</a></h2>
                     <h3 class="text-align" style="color: #424242;">Trending this week</h3>
                 </div>
                 <div class="col s6 offset-s3">

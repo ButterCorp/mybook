@@ -37,7 +37,7 @@
 
                                     @if (isset($link["images"][0]["source"]) && isset($graphNode['name']))
 
-                                        <option data-img-src="{{ $source }}" value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}"></option>
+                                        <option data-img-src="{{ $source }}" data-img-class="responsive-img materialboxed parameter-photo" value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}"></option>
 
 
                                     @endif
@@ -49,7 +49,8 @@
             </li>
         @endforeach
     </ul>
-    {!! Form::submit() !!}
+    <button class="btn waves-effect waves-light" id="parameter-button" type="submit">Choisir ces photos
+        <i class="material-icons right">send</i>
+    </button>
     {!! Form::close() !!}
-
 @endsection

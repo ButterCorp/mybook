@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>MyBook - Welcome</title>
-
-
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('/image/template/MyBookTwo/favicon.png') }}" />
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="{{ asset('/css/homepage.css') }}">
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li>
-            <a target="_blank" href="https://github.com/vipulsaxena">
+            <a target="_blank" href="https://github.com/ButterCorp/mybook">
                 <i class="fa fa-github"></i>
             </a>
         </li>

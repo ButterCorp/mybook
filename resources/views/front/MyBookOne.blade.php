@@ -148,69 +148,31 @@
 
     <!--=================================
      portfolio -->
-    @php $nbTotalPhotos = count($photos); @endphp
-    @php $nbDivToDisplay = $nbTotalPhotos / 3; @endphp
-    @php $nbDivToDisplay = ceil($nbDivToDisplay); @endphp
-    @php $i = 0; @endphp
-    @foreach($photos as $photo)
-        @php $tab[$i] = $photo->url; @endphp
-        @php $i++; @endphp
-    @endforeach
-
 
     <section class="white-bg masonry-main o-hidden" style="background-color: #302f2f;">
-        @for ($i = 0; $i < $nbDivToDisplay; $i++)
-        {!! $idPhoto = $i *3; !!}
 
-        <div class="masonry columns-3 popup-gallery no-padding">
-            <div class="grid-sizer"></div>
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    @if(array_key_exists($idPhoto, $tab))
-                        <img src="{{ $tab[$idPhoto] }}" alt="">
-                    @endif
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                    @if(array_key_exists($idPhoto, $tab))
-                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                    @endif
+                <div class="masonry columns-3 popup-gallery no-padding">
+                    <div class="grid-sizer"></div>
+
+                    @foreach($photos as $photo)
+
+                        <a class="popup portfolio-img" href="{{ $photo->url }}">
+                        <div class="masonry-item photography">
+                            <div class="portfolio-item">
+                                <img src="{{ $photo->url }}" alt="">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-overlay">
+                                        <h4 class="text-white">{ $photo->description }</h4>
+                                        <h6 class="text-white">{{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | { $photo->nb_comment } <i class="fa fa-comments-o"></i></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    @endforeach
                 </div>
-            </div>
-                {!! $idPhoto++; !!}
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    @if(array_key_exists($idPhoto, $tab))
-                        <img src="{{ $tab[$idPhoto] }}" alt="">
-                    @endif
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                    @if(array_key_exists($idPhoto, $tab))
-                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                    @endif
-                </div>
-            </div>
-            {!! $idPhoto++; !!}
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    @if(array_key_exists($idPhoto, $tab))
-                        <img src="{{ $tab[$idPhoto] }}" alt="">
-                    @endif
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                     @if(array_key_exists($idPhoto, $tab))
-                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                     @endif
-                </div>
-            </div>
-            </div>
-            @endfor
-            </section>
+
+    </section>
 
 <!--=================================
 footer -->

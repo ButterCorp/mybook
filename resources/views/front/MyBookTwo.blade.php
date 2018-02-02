@@ -126,7 +126,7 @@
  portfolio -->
 
 
-        <section class="white-bg masonry-main o-hidden">
+        <section class="white-bg masonry-main o-hidden" style="background-color: #302f2f;">
             <div class="container-fluid p-0">
                 <div class="row">
                     <div class="col-md-12">
@@ -139,8 +139,8 @@
                                 <div class="portfolio-item simple-effect">
                                     <img src="{{ $photo->url }}" alt="">
                                     <div class="portfolio-overlay">
-                                        <h4><a href="{{ $photo->url }}"> Post simple image </a></h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
+                                        <h4><a href="{{ $photo->url }}"> { $photo->description_content } </a></h4>
+                                        <span> <a href="#"> {{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | <a href="#"> { $photo->nb_commentaires } <i class="fa fa-comments-o"></i> </a> </span>
                                     </div>
                                 </div>
                             </div>
@@ -153,6 +153,8 @@
                 </div>
             </div>
         </section>
+
+
 
         <!--=================================
          portfolio -->
