@@ -82,7 +82,7 @@ class ParametersController extends Controller
 
         // Get basic info on the user from Facebook.
         try {
-            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true)}');
+            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true),comments.summary(true).limit(0),name}');
             //$albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true),comments.summary(true).limit(0)}');
             $userinfo = $this->fb->get('me?fields=id,name,email');
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
@@ -131,6 +131,8 @@ class ParametersController extends Controller
                     $photo = Photo::firstOrCreate([
                         'url' => $url_photo[0],
                         'nb_likes' => intval($url_photo[1]),
+                        'nb_comments' => intval($url_photo[2]),
+                        'description' => $url_photo[3],
                         'albums_id' => $album->id,
                         'created_at' => date('now'),
                         'updated_at' => date('now')

@@ -162,8 +162,8 @@
                                 <img src="{{ $photo->url }}" alt="">
                                 <div class="portfolio-overlay">
                                     <div class="portfolio-overlay">
-                                        <h4 class="text-white">{ $photo->description }</h4>
-                                        <h6 class="text-white">{{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | { $photo->nb_comment } <i class="fa fa-comments-o"></i></h6>
+                                        <h4 class="text-white">{{ $photo->description }}</h4>
+                                        <h6 class="text-white">{{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | {{ $photo->nb_comments }} <i class="fa fa-comments-o"></i></h6>
                                     </div>
                                 </div>
                             </div>

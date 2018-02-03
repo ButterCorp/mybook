@@ -139,8 +139,8 @@
                                 <div class="portfolio-item simple-effect">
                                     <img src="{{ $photo->url }}" alt="">
                                     <div class="portfolio-overlay">
-                                        <h4><a href="{{ $photo->url }}"> { $photo->description_content } </a></h4>
-                                        <span> <a href="#"> {{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | <a href="#"> { $photo->nb_commentaires } <i class="fa fa-comments-o"></i> </a> </span>
+                                        <h4><a href="{{ $photo->url }}"> {{ $photo->description }} </a></h4>
+                                        <span> <a href="#"> {{ $photo->nb_likes }} <i class="fa fa-thumbs-o-up"></i> | <a href="#"> {{ $photo->nb_comments }} <i class="fa fa-comments-o"></i> </a> </span>
                                     </div>
                                 </div>
                             </div>
