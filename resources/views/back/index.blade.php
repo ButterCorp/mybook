@@ -62,7 +62,6 @@
 
                             </div>
                             <div class="row">
-                                <form class="col s12">
                                     <div class="row">
                                         <div class="col s3 offset-s1 form-margin-top">
                                             <input id="social_network" onChange="verif();" name="network" {{ ($site->network_statut) ? 'checked' : '' }} type="checkbox" class="validate" >
@@ -75,10 +74,10 @@
                                             </label>
                                         </div>
                                     </div>
-                            </div>
                                 <button class="btn waves-effect waves-light right" type="submit" name="action">Mettre à jour
                                     <i class="material-icons right">send</i>
                                 </button>
+                            </div>
                                 {!! Form::close() !!}
                         </div>
                     </li>
@@ -229,7 +228,7 @@
                                     <input id="email" type="email" value="{{ $email }}" class="validate">
                                     <label for="email">Email</label>
                                 </div>
-                                <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">Changer
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>
@@ -237,17 +236,38 @@
                     </div>
                 </div>
 
-                <div class="col s4 offset-s1 form-margin-top border_info">
-                    <h3>Actualiser les photos</h3>
-                    <div  class="col s12">
-                        <button id="cached" class="">
-                            <i id="icons-cached" class="material-icons">cached</i>
-                        </button>
+                <div class="col s5 offset-s1 form-margin-top border_info">
+                    <h3>Affichage de mes photos</h3>
+                    <div class="row">
+                        {{ Form::open( array( 'route' => 'edit-photo-display', 'method' => 'post' ))  }}
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_count_likes) ? 'checked' : '' }} name="count_likes" id="count_likes" />
+                                    <label for="count_likes">Afficher le nombre de likes</label>
+                                </label>
+                            </div>
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_count_comments) ? 'checked' : '' }} name="count_comments" id="count_comments" />
+                                    <label for="count_comments">Afficher le nombre de commentaires</label>
+                                </label>
+                            </div>
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_photo_description) ? 'checked' : '' }} name="photo_description" id="photo_description" />
+                                    <label for="photo_description">Afficher la description de mes photos</label>
+                                </label>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier
+                                <i class="material-icons right">send</i>
+                            </button>
+                            </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
 
-                <div class="col s4 offset-s2 form-margin-top border_info">
+                <div class="col s4 offset-s1 form-margin-top border_info">
                     <h3>Utilitaire</h3>
+                    <div class="row">
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
                         <div class="col s12">
                             <label>
@@ -267,12 +287,12 @@
                                     @endif
                                 @endforeach
                             </select>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    {!! Form::close() !!}
-
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

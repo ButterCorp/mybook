@@ -193,6 +193,20 @@ class ParametersController extends Controller
         return redirect()->route('indexBack')->with('message', 'Le template à été mis en place');
     }
 
+    public function editObjectToShow(Request $request) {
+
+        //Recuperer l'user_id pour modifier les requetes plutot que int static
+
+        Site::where('user_id', Auth::id())
+            ->update([
+                'show_count_comments' => (isset($request->count_comments)) ? 1 : 0,
+                'show_count_likes' => (isset($request->count_likes)) ? 1 : 0,
+                'show_photo_description' => (isset($request->photo_description)) ? 1 : 0
+            ]);
+
+        return redirect()->route('indexBack')->with('message', 'Les préférences d\'affichage ont été mises à jour');
+    }
+
     public function editSite(Request $request) {
 
         Site::where('user_id', Auth::id())

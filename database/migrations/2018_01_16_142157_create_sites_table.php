@@ -32,6 +32,9 @@ class CreateSitesTable extends Migration
             $table->string('google_url')->nullable();
             $table->string('twitter_url')->nullable();
             $table->string('linkedin_url')->nullable();
+            $table->boolean('show_count_comments')->default(1);
+            $table->boolean('show_count_likes')->default(1);
+            $table->boolean('show_photo_description')->default(1);
             $table->timestamps();
         });
     }
