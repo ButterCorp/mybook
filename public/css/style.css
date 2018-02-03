@@ -72,3 +72,13 @@ div.title-album  {
 div#settings {
     margin-top: 50px;
 }
+
+#parameter-button {
+    position: fixed;
+    left: 70vw;
+    top: 50px;
+}
+
+.parameter-photo {
+    cursor: pointer !important;
+}

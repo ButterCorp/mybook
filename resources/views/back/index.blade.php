@@ -24,14 +24,10 @@
 
             <div id="profile" class="col s12">
                 <div class="row">
-                    <h2><a href="/site/{{ $site->site_url }}">Voir mon site</a></h2>
-                    <h3 class="text-align" style="color: #424242;">Trending this week</h3>
+                    {{-- <h2 class="center"><a href="/site/{{ $site->site_url }}"  target="_blank">Voir mon site</a></h2> --}}
                 </div>
-                <div class="col s6 offset-s3">
-                    <span class="counter">1,234,567.00</span>
-                    <span>$</span><span class="counter">1.99</span>
-                    <span class="counter">12345</span>
-
+                <div class="col s8 offset-s2">
+                    <canvas id="line-chart" width="800" height="450"></canvas>
                 </div>
             </div>
 
@@ -66,7 +62,6 @@
 
                             </div>
                             <div class="row">
-                                <form class="col s12">
                                     <div class="row">
                                         <div class="col s3 offset-s1 form-margin-top">
                                             <input id="social_network" onChange="verif();" name="network" {{ ($site->network_statut) ? 'checked' : '' }} type="checkbox" class="validate" >
@@ -75,14 +70,14 @@
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
                                                 <input onChange="verif();" name="slug" {{ ($site->slug_statut) ? 'checked' : '' }} type="checkbox" id="slug" />
-                                                <label for="slug">Slug</label>
+                                                <label for="slug">Slogan</label>
                                             </label>
                                         </div>
                                     </div>
-                            </div>
                                 <button class="btn waves-effect waves-light right" type="submit" name="action">Mettre à jour
                                     <i class="material-icons right">send</i>
                                 </button>
+                            </div>
                                 {!! Form::close() !!}
                         </div>
                     </li>
@@ -156,8 +151,7 @@
                                 </div>
                                 <div id="footer-content" class="input-field col s6 offset-s3">
                                     {!! Form::open( array( 'route' => 'edit-site-footer', 'method' => 'post' )) !!}
-                                        <textarea name="footer-content" class="materialize-textarea" data-length="120">
-                                            {{ ($site->footer_content) ?  $site->footer_content  : '©Copyright 2018 ButterCorp All Rights Reserved' }}
+                                        <textarea name="footer-content" class="materialize-textarea" data-length="120">{{ ($site->footer_content) ?  $site->footer_content  : '©Copyright 2018 ButterCorp All Rights Reserved' }}
                                         </textarea>
                                         <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier le footer
                                             <i class="material-icons right">send</i>
@@ -234,7 +228,7 @@
                                     <input id="email" type="email" value="{{ $email }}" class="validate">
                                     <label for="email">Email</label>
                                 </div>
-                                <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">Changer
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>
@@ -242,17 +236,38 @@
                     </div>
                 </div>
 
-                <div class="col s4 offset-s1 form-margin-top border_info">
-                    <h3>Actualiser les photos</h3>
-                    <div  class="col s12">
-                        <button id="cached" class="">
-                            <i id="icons-cached" class="material-icons">cached</i>
-                        </button>
+                <div class="col s5 offset-s1 form-margin-top border_info">
+                    <h3>Affichage de mes photos</h3>
+                    <div class="row">
+                        {{ Form::open( array( 'route' => 'edit-photo-display', 'method' => 'post' ))  }}
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_count_likes) ? 'checked' : '' }} name="count_likes" id="count_likes" />
+                                    <label for="count_likes">Afficher le nombre de likes</label>
+                                </label>
+                            </div>
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_count_comments) ? 'checked' : '' }} name="count_comments" id="count_comments" />
+                                    <label for="count_comments">Afficher le nombre de commentaires</label>
+                                </label>
+                            </div>
+                            <div  class="col s12">
+                                <label>
+                                    <input type="checkbox" {{ ($site->show_photo_description) ? 'checked' : '' }} name="photo_description" id="photo_description" />
+                                    <label for="photo_description">Afficher la description de mes photos</label>
+                                </label>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier
+                                <i class="material-icons right">send</i>
+                            </button>
+                            </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
 
-                <div class="col s4 offset-s2 form-margin-top border_info">
+                <div class="col s4 offset-s1 form-margin-top border_info">
                     <h3>Utilitaire</h3>
+                    <div class="row">
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}
                         <div class="col s12">
                             <label>
@@ -272,12 +287,12 @@
                                     @endif
                                 @endforeach
                             </select>
+                            <button class="btn waves-effect waves-light right" type="submit" name="action">Modifier
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    {!! Form::close() !!}
-
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,6 +300,7 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
 
     $(document).ready(function() {
@@ -300,46 +316,31 @@
 
          function verif ()
         {
-
             var etatFooter = document.getElementById('footer').checked;
             var etatSlug = document.getElementById('slug').checked;
             var etatSocial_network = document.getElementById('social_network').checked;
-
 
             var footerDiv = document.getElementById('footer-content');
             var slugDiv = document.getElementById('slug-content');
             var social_networkDiv = document.getElementById('social_network-content');
 
-
             if(etatFooter)
-            {
-            document.getElementById('1').classList.remove('disabled');
+                document.getElementById('1').classList.remove('disabled');
 
-            }
-            if (!etatFooter)
-            {
-            document.getElementById('1').classList.add('disabled');
+            if(!etatFooter)
+                document.getElementById('1').classList.add('disabled');
 
-            }
+            if(etatSlug)
+                document.getElementById('2').classList.remove('disabled');
 
-            if (etatSlug) {
-            document.getElementById('2').classList.remove('disabled');
+            if(!etatSlug)
+                document.getElementById('2').classList.add('disabled');
 
-            }
-            if (!etatSlug) {
-            document.getElementById('2').classList.add('disabled');
+            if(etatSocial_network)
+                document.getElementById('3').classList.remove('disabled');
 
-            }
-
-            if (etatSocial_network) {
-            document.getElementById('3').classList.remove('disabled');
-
-            }
-            if (!etatSocial_network) {
-            document.getElementById('3').classList.add('disabled');
-
-            }
-
+            if(!etatSocial_network)
+                document.getElementById('3').classList.add('disabled');
         }
 
         function toastDelete() {

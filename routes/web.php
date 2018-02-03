@@ -20,10 +20,12 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     $login_url = $fb->getLoginUrl(['email','user_photos', 'publish_actions']);
 
     return view('welcome', ['login' => $login_url]);
-});
+})->name('welcome');
+
+Route::get('/cgu', 'ParametersController@cgu')->name('cgu');
 
 Route::get('/login', 'Auth\LoginController@authenticate')->name('login');
-Route::get('/logout', 'LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 Route::post('/indexBack', 'ParametersController@setUrl');
@@ -44,7 +46,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/site/{nom_site}', 'SiteController@show');
 
+Route::get('/admin', 'AdminController@index')->name('admin');
+Route::post('/admin/site/close', 'AdminController@closeSite')->name('close-site');
+
 Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
+Route::post('/indexBack/edit/template/show', 'ParametersController@editObjectToShow')->name('edit-photo-display');
 Route::post('/indexBack/edit/site', 'ParametersController@editSite')->name('edit-site');
 Route::post('/indexBack/edit/site/footer', 'SiteController@editSiteFooter')->name('edit-site-footer');
 Route::post('/indexBack/edit/site/slug', 'SiteController@editSiteSlug')->name('edit-site-slug');

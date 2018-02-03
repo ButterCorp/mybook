@@ -149,97 +149,57 @@
     <!--=================================
      portfolio -->
 
-    <?php
-        $nbTotalPhotos = count($photos);
-        $nbDivToDisplay = $nbTotalPhotos / 3;
-        //On arrondi à l'entier supérieur (ex: 7 photos / 3 = 2.3, du coup il faut 3 div)
-        $nbDivToDisplay = ceil($nbDivToDisplay);
-        $i = 0;
-        foreach ($photos as $photo){
-            $tab[$i] = $photo->url;
-            $i++;
-        }
-    ?>
+    <section class="white-bg masonry-main o-hidden" style="background-color: #302f2f;">
 
-    <section class="white-bg masonry-main o-hidden" style="background-color: red;">
-        @for ($i = 0; $i < $nbDivToDisplay; $i++)
-            <?php $idPhoto = $i *3; ?>
+                <div class="masonry columns-3 popup-gallery no-padding">
+                    <div class="grid-sizer"></div>
 
-        <div class="masonry columns-3 popup-gallery no-padding">
-            <div class="grid-sizer"></div>
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    <?php if(array_key_exists($idPhoto, $tab)): ?>
-                    <img src="{{ $tab[$idPhoto] }}" alt="">
-                    <?php endif; ?>
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                    <?php if(array_key_exists($idPhoto, $tab)): ?>
-                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                    <?php endif; ?>
+                    @foreach($photos as $photo)
+
+                        <a class="popup portfolio-img" href="{{ $photo->url }}">
+                        <div class="masonry-item photography">
+                            <div class="portfolio-item">
+                                <img src="{{ $photo->url }}" alt="">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-overlay">
+                                        <h4 class="text-white">{{ ($site->show_photo_description) ? $photo->description : '' }}</h4>
+                                        <h6 class="text-white">{{ ($site->show_count_likes) ? $photo->nb_likes : ''}} <i class="fa fa-thumbs-o-up"></i> |
+                                            {{ ($site->show_count_comments) ? $photo->nb_comments : ''}} <i class="fa fa-comments-o"></i></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    @endforeach
                 </div>
-            </div>
-            <?php $idPhoto++; ?>
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    <?php if(array_key_exists($idPhoto, $tab)): ?>
-                    <img src="{{ $tab[$idPhoto] }}" alt="">
-                    <?php endif; ?>
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                    <?php if(array_key_exists($idPhoto, $tab)): ?>
-                    <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php $idPhoto++; ?>
-            <div class="masonry-item photography">
-                <div class="portfolio-item">
-                    <?php if(array_key_exists($idPhoto, $tab)): ?>
-                        <img src="{{ $tab[$idPhoto] }}" alt="">
-                    <?php endif; ?>
-                    <div class="portfolio-overlay">
-                        <h4 class="text-white">Post vimeo video</h4>
-                        <h6 class="text-white">Photography | Illustration</h6>
-                    </div>
-                     <?php if(array_key_exists($idPhoto, $tab)): ?>
-                        <a class="popup portfolio-img" href="{{@$tab[$idPhoto] }}"><i class="fa fa-arrows-alt"></i></a>
-                     <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        @endfor
+
     </section>
 
-    <!--=================================
-     footer -->
+<!--=================================
+footer -->
 
-    <footer class="footer page-section-pt black-bg" {{ ($site->footer_statut) ? '' : 'hidden' }}>
-        <div class="container">
-            <div class="row">
-            </div>
-            <div class="footer-widget mt-20">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 xs-mb-20">
-                        <p class="mt-15">
-                            @if($site->footer_content && $site->footer_statut)
-                                {{ $site->footer_content }}
-                            @elseif(!$site->footer_content && $site->footer_statut)
-                                &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
-                            @endif
-                        </p>
-                    </div>
-                </div>
-            </div>
+<footer class="footer page-section-pt black-bg" {{ ($site->footer_statut) ? '' : 'hidden' }}>
+<div class="container">
+<div class="row">
+</div>
+<div class="footer-widget mt-20">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 xs-mb-20">
+            <p class="mt-15">
+                @if($site->footer_content && $site->footer_statut)
+                    {{ $site->footer_content }}
+                @elseif(!$site->footer_content && $site->footer_statut)
+                    &copy;Copyright <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> ButterCorp </a> All Rights Reserved
+                @endif
+            </p>
         </div>
-    </footer>
+    </div>
+</div>
+</div>
+</footer>
 
-    <!--=================================
-     footer -->
+<!--=================================
+footer -->
 
 </div>
 
@@ -249,7 +209,7 @@
 
 
 <!--=================================
- jquery -->
+jquery -->
 
 <!-- jquery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

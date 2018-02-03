@@ -14,6 +14,7 @@
     {{ csrf_field() }}
     <ul class="collapsible popout" data-collapsible="accordion">
         @foreach ($albums as $graphNode)
+            @if(isset($graphNode['photos']))
             <li>
                 <div class="collapsible-header active"><i class="material-icons">filter_drama</i>
                     {{ $graphNode['name'] }}  </div>
@@ -22,8 +23,6 @@
                         <select multiple="multiple" name="{{ $graphNode['id'] }}-{{ $graphNode['name'] }}[]" class="image-picker show-html">
                             @if(isset($graphNode['photos']))
                                 @foreach ($graphNode['photos'] as $link)
-
-
                                     <?php $source = ""; ?>
                                     @foreach($link["images"] as $item)
                                         @if($item["height"] > 300 && $item["height"] < 600 & $item['width'] > 300 & $item['width'] < 600)
@@ -35,22 +34,28 @@
                                         <?php $source = $link["images"][0]["source"]; ?>
                                     @endif
 
+
                                     @if (isset($link["images"][0]["source"]) && isset($graphNode['name']))
+                                        {!! $name = "" !!}
+                                        @if (isset($link["name"]))
+                                            {!! $name = $link["name"] !!}
+                                         @endif
 
-                                        <option data-img-src="{{ $source }}" value="{{ $source }}"></option>
+                                         <option data-img-src="{{ $source }}" data-img-class="responsive-img materialboxed parameter-photo" value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}|{{ $link["comments"]->getTotalCount() }}|{{$name}}"></option>
 
-                                        <!-- <span class="new badge" data-badge-caption="likes">{{ $link["likes"]->getTotalCount() }}</span> -->
 
-                                    @endif
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-                </div>
-            </li>
-        @endforeach
-    </ul>
-    {!! Form::submit() !!}
-    {!! Form::close() !!}
-
+                                     @endif
+                                 @endforeach
+                             @endif
+                         </select>
+                     </div>
+                 </div>
+             </li>
+            @endif
+         @endforeach
+     </ul>
+     <button class="btn waves-effect waves-light" id="parameter-button" type="submit">Choisir ces photos
+         <i class="material-icons right">send</i>
+     </button>
+     {!! Form::close() !!}
 @endsection

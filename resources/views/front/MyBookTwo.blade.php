@@ -125,107 +125,37 @@
         <!--=================================
  portfolio -->
 
-        <section class="white-bg masonry-main o-hidden">
+
+        <section class="white-bg masonry-main o-hidden" style="background-color: #302f2f;">
             <div class="container-fluid p-0">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="masonry columns-3 popup-gallery no-padding">
                             <div class="grid-sizer"></div>
-                            <div class="masonry-item photography illustration">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/01.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
+
+                            @foreach($photos as $photo)
+
                             <div class="masonry-item photography">
                                 <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/02.jpg') }}" alt="">
+                                    <img src="{{ $photo->url }}" alt="">
                                     <div class="portfolio-overlay">
-                                        <h4><a href="portfolio-04-single.html"> Post simple image </a></h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
+                                        <h4><a href="{{ $photo->url }}"> {{ ($site->show_photo_description) ? $photo->description : '' }} </a></h4>
+                                        <span> <a href="#"> {{ ($site->show_count_likes) ? $photo->nb_likes : ''}} <i class="fa fa-thumbs-o-up"></i> |
+                                                <a href="#"> {{ ($site->show_count_comments) ? $photo->nb_comments : ''}} <i class="fa fa-comments-o"></i> </a> </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="masonry-item photography branding">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/03.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item web-design">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/04.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item photography illustration">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/05.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item photography">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/06.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4><a href="portfolio-04-single.html"> Post simple image </a></h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/07.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item photography branding">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/08.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item illustration">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/09.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="masonry-item illustration">
-                                <div class="portfolio-item simple-effect">
-                                    <img src="{{ asset('image/portfolio/color-image/10.jpg') }}" alt="">
-                                    <div class="portfolio-overlay">
-                                        <h4> <a href="portfolio-04-single.html"> Post simple image </a> </h4>
-                                        <span> <a href="#"> Branding </a> | <a href="#"> Web Design </a> </span>
-                                    </div>
-                                </div>
-                            </div>
+
+                            @endforeach
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+
 
         <!--=================================
          portfolio -->

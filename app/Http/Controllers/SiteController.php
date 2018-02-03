@@ -16,6 +16,7 @@ use App\User;
 use App\Album;
 use App\Photo;
 use App\Site;
+use App\Visitor;
 use Facebook;
 use App\Template;
 
@@ -31,7 +32,7 @@ class SiteController extends Controller
     public function show($nom_site){
         $site = Site::where('site_url', '=', $nom_site)->first();
 
-        if ($site === null || $site->template_selectionned === null || $site->statut == 0)
+        if ($site === null || $site->template_selectionned === null || $site->statut == 0 || $site->is_active == 0)
             return abort(404);
 
         $albums = Album::where('users_id', '=', $site->user_id)->get();
@@ -44,6 +45,11 @@ class SiteController extends Controller
 
         //Get all photos of a user
         $photos = Photo::whereIn('albums_id', $albumsID)->get();
+
+        Visitor::create([
+            'site_id' => $site->id,
+            'date_visit' => date('Y-m-d H:i:s')
+        ]);
 
         return view('front/' . $site->template_selectionned, ['photos' => $photos, 'site' => $site]);
     }

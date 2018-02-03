@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>myBook - @yield('title')</title>
+    <title>MyBook - @yield('title')</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('/image/template/MyBookOne/favicon.png') }}" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css -->
@@ -23,6 +25,11 @@
 <body>
 @if(Route::current()->getName() == 'indexBack')
     <a class="btn-floating btn-large waves-effect waves-light red" style="margin: 15px;" title="Ajouter des photos" href="/parameters"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light blue" style="margin: 15px;" title="Voir mon site" target="_blank" href="/site/{{ $site->site_url }}"><i class="material-icons">send</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red" style="left: 80vw" title="Se deconnecter" href="/logout"><i class="material-icons">cancel</i></a>
+    @if($isAdmin)
+        <a class="btn-floating btn-large waves-effect waves-light blue" style="left: 70vw" title="Administration" target="_blank" href="/admin"><i class="material-icons">account_balance</i></a>
+    @endif
 @endif
 <div class="container">
     @yield('content')
@@ -37,12 +44,29 @@
       <script>
          $(document).ready(function() {
             $('select').imagepicker();
+             $( "div.thumbnail" ).removeClass( "responsive-img materialboxed").addClass( "col s9" );
          });
-
-         $(document).ready(function(){
-             $('.carousel').carousel();
-         });
-
+          @if(Route::current()->getName() == 'indexBack')
+          new Chart(document.getElementById("line-chart"), {
+              type: 'line',
+              data: {
+                  labels: ['Janvier','Février','Mars','Avril','Mai','Juin'],
+                  datasets: [{
+                      data: [0,{{ $visitor }},null,null,null,null],
+                      label: "Visites",
+                      borderColor: "#3e95cd",
+                      fill: false
+                  }
+                  ]
+              },
+              options: {
+                  title: {
+                      display: true,
+                      text: 'Visites sur mon site'
+                  }
+              }
+          });
+          @endif
       </script>
 </body>
 </html>

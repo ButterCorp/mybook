@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Template;
+use App\Visitor;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -82,7 +83,8 @@ class ParametersController extends Controller
 
         // Get basic info on the user from Facebook.
         try {
-            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true)}');
+            $albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true),comments.summary(true).limit(0),name}');
+            //$albums = $this->fb->get('me/albums?fields=name,photos{link,picture,images,likes.limit(0).summary(true),comments.summary(true).limit(0)}');
             $userinfo = $this->fb->get('me?fields=id,name,email');
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             dd($e->getMessage());
@@ -98,7 +100,7 @@ class ParametersController extends Controller
 
     public function firstSetUp() {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
         $albums = session('album_user');
         return view('back/parameters', ['albums' => $albums]);
@@ -107,7 +109,7 @@ class ParametersController extends Controller
 
     public function firstSetUpUpload(Request $request) {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
 
         //Foreach albums
@@ -126,8 +128,12 @@ class ParametersController extends Controller
                 //Foreach photos
                 foreach ($value as $url_photo){
                     //We create the photo if it doesn't exist in database
+                    $url_photo = explode('|', $url_photo);
                     $photo = Photo::firstOrCreate([
-                        'url' => $url_photo,
+                        'url' => $url_photo[0],
+                        'nb_likes' => intval($url_photo[1]),
+                        'nb_comments' => intval($url_photo[2]),
+                        'description' => $url_photo[3],
                         'albums_id' => $album->id,
                         'created_at' => date('now'),
                         'updated_at' => date('now')
@@ -140,12 +146,15 @@ class ParametersController extends Controller
 
     public function indexBack(Request $request) {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
-        //die(Auth::id());
-        //
-        //Au lieu de all() afficher ->where('id', $iduser)
+
+        $isAdmin = false;
+
         $user = User::findOrFail(Auth::id());
+
+        if($user->is_admin)
+            $isAdmin = true;
 
         $name = explode(" ", $user->name);
 
@@ -165,8 +174,10 @@ class ParametersController extends Controller
 
         $templates = Template::all();
 
-        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'firstname' => $name[0],
-            'lastname' => $name[1], 'email' => $user->email]);
+        $visitorsOfMonth = Visitor::getVisitorByMonth($site->id);
+
+        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'isAdmin' => $isAdmin,'firstname' => $name[0],
+            'lastname' => $name[1], 'email' => $user->email, 'visitor' => $visitorsOfMonth]);
     }
 
     public function editTemplate(Request $request) {
@@ -182,6 +193,20 @@ class ParametersController extends Controller
         return redirect()->route('indexBack')->with('message', 'Le template à été mis en place');
     }
 
+    public function editObjectToShow(Request $request) {
+
+        //Recuperer l'user_id pour modifier les requetes plutot que int static
+
+        Site::where('user_id', Auth::id())
+            ->update([
+                'show_count_comments' => (isset($request->count_comments)) ? 1 : 0,
+                'show_count_likes' => (isset($request->count_likes)) ? 1 : 0,
+                'show_photo_description' => (isset($request->photo_description)) ? 1 : 0
+            ]);
+
+        return redirect()->route('indexBack')->with('message', 'Les préférences d\'affichage ont été mises à jour');
+    }
+
     public function editSite(Request $request) {
 
         Site::where('user_id', Auth::id())
@@ -193,5 +218,9 @@ class ParametersController extends Controller
                 ]);
 
         return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
+    }
+
+    public function cgu(){
+        return view('cgu');
     }
 }

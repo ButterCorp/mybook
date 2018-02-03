@@ -17,7 +17,8 @@ class CreateSitesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->smallInteger('statut');
+            $table->boolean('statut')->default(1);
+            $table->boolean('is_active')->default(1);
             $table->text('site_url');
             $table->string('title', 50)->nullable();
             $table->string('template_selectionned')->nullable();
@@ -31,6 +32,9 @@ class CreateSitesTable extends Migration
             $table->string('google_url')->nullable();
             $table->string('twitter_url')->nullable();
             $table->string('linkedin_url')->nullable();
+            $table->boolean('show_count_comments')->default(1);
+            $table->boolean('show_count_likes')->default(1);
+            $table->boolean('show_photo_description')->default(1);
             $table->timestamps();
         });
     }
