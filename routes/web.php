@@ -22,6 +22,8 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     return view('welcome', ['login' => $login_url]);
 })->name('welcome');
 
+Route::get('/cgu', 'ParametersController@cgu')->name('cgu');
+
 Route::get('/login', 'Auth\LoginController@authenticate')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

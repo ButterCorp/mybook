@@ -205,4 +205,8 @@ class ParametersController extends Controller
 
         return redirect()->route('indexBack')->with('message', 'Les paramètres du site ont été actualisés');
     }
+
+    public function cgu(){
+        return view('cgu');
+    }
 }
