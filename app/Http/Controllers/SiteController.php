@@ -16,6 +16,7 @@ use App\User;
 use App\Album;
 use App\Photo;
 use App\Site;
+use App\Visitor;
 use Facebook;
 use App\Template;
 
@@ -44,6 +45,11 @@ class SiteController extends Controller
 
         //Get all photos of a user
         $photos = Photo::whereIn('albums_id', $albumsID)->get();
+
+        Visitor::create([
+            'site_id' => $site->id,
+            'date_visit' => date('Y-m-d H:i:s')
+        ]);
 
         return view('front/' . $site->template_selectionned, ['photos' => $photos, 'site' => $site]);
     }

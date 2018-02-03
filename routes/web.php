@@ -20,10 +20,10 @@ Route::get('/', function (SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     $login_url = $fb->getLoginUrl(['email','user_photos', 'publish_actions']);
 
     return view('welcome', ['login' => $login_url]);
-});
+})->name('welcome');
 
 Route::get('/login', 'Auth\LoginController@authenticate')->name('login');
-Route::get('/logout', 'LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/indexBack', 'ParametersController@indexBack')->name('indexBack');
 Route::post('/indexBack', 'ParametersController@setUrl');
