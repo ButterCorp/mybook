@@ -20,11 +20,20 @@
         </a>
 
         <h1>
-            Ravi de vous rencontrer
+            @if(!Auth::check())
+                Ravi de vous rencontrer
+            @else
+                Ravi de vous revoir, {{ Auth::user()->name }}
+            @endif
         </h1>
 
+
         <h2>
-            Créez votre site grâce a votre profil facebook
+            @if(!Auth::check())
+                Créez votre site grâce a votre profil facebook
+            @else
+                Continuez à créer votre site !
+            @endif
         </h2>
 
     </header>
@@ -32,7 +41,12 @@
     <div class="profile-bio">
 
         <p>
-            Créer votre site en un clic en important vos données facebook, vous aurez juste à choisir le contenu a afficher
+            @if(!Auth::check())
+                Créer votre site en un clic en important vos données facebook, vous aurez juste à choisir le contenu a afficher
+            @else
+                Le saviez vous ? Vous pouvez ré-importer vos photos en <a href="/parameters">suivant ce lien</a>. Déselectionner une photo
+                déjà importée pour la supprimer.
+            @endif
         </p>
 
     </div>

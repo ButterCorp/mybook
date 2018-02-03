@@ -19,7 +19,7 @@ class AdminController extends Controller
         if($userAdmin == 0)
             abort('403');
 
-        $sites = Site::all();
+        $sites = Site::where('is_active', '=', '1')->get();
         $albums = Album::all();
         $photos = Photo::all();
         $visitors = Visitor::all();
