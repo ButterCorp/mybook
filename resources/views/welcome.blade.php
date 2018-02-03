@@ -53,6 +53,11 @@
                 <i class="fa fa-github"></i>
             </a>
         </li>
+        <li>
+            <a target="_blank" href="/cgu">
+                <i class="fa fa-info"></i>
+            </a>
+        </li>
     </ul>
 </aside>
 
