@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('facebook');
+            $table->boolean('is_admin')->default(0);
             $table->timestamps();
         });
     }

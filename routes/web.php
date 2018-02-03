@@ -44,6 +44,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/site/{nom_site}', 'SiteController@show');
 
+Route::get('/admin', 'AdminController@index')->name('admin');
+Route::post('/admin/site/close', 'AdminController@closeSite')->name('close-site');
+
 Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
 Route::post('/indexBack/edit/site', 'ParametersController@editSite')->name('edit-site');
 Route::post('/indexBack/edit/site/footer', 'SiteController@editSiteFooter')->name('edit-site-footer');

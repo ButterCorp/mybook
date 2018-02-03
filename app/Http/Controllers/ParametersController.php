@@ -100,7 +100,7 @@ class ParametersController extends Controller
 
     public function firstSetUp() {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
         $albums = session('album_user');
         return view('back/parameters', ['albums' => $albums]);
@@ -109,7 +109,7 @@ class ParametersController extends Controller
 
     public function firstSetUpUpload(Request $request) {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
 
         //Foreach albums
@@ -146,12 +146,15 @@ class ParametersController extends Controller
 
     public function indexBack(Request $request) {
         if(Auth::check() == false){
-            return abort(404);
+            return abort(403);
         }
-        //die(Auth::id());
-        //
-        //Au lieu de all() afficher ->where('id', $iduser)
+
+        $isAdmin = false;
+
         $user = User::findOrFail(Auth::id());
+
+        if($user->is_admin)
+            $isAdmin = true;
 
         $name = explode(" ", $user->name);
 
@@ -173,7 +176,7 @@ class ParametersController extends Controller
 
         $visitorsOfMonth = Visitor::getVisitorByMonth($site->id);
 
-        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'firstname' => $name[0],
+        return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'isAdmin' => $isAdmin,'firstname' => $name[0],
             'lastname' => $name[1], 'email' => $user->email, 'visitor' => $visitorsOfMonth]);
     }
 

@@ -24,12 +24,10 @@
 
             <div id="profile" class="col s12">
                 <div class="row">
-                    <h2 class="center"><a href="/site/{{ $site->site_url }}"c>Voir mon site</a></h2>
-                    <h3 class="text-align" style="color: #424242;">Trending this week</h3>
+                    {{-- <h2 class="center"><a href="/site/{{ $site->site_url }}"  target="_blank">Voir mon site</a></h2> --}}
                 </div>
-                <div class="col s6 offset-s3">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium atque dolor exercitationem expedita explicabo id laboriosam maxime minima minus mollitia nam nisi odit officiis quaerat quasi quidem suscipit tempora, tenetur.</p>
-
+                <div class="col s8 offset-s2">
+                    <canvas id="line-chart" width="800" height="450"></canvas>
                 </div>
             </div>
 
@@ -73,7 +71,7 @@
                                         <div class="col s3 offset-s3 form-margin-top">
                                             <label>
                                                 <input onChange="verif();" name="slug" {{ ($site->slug_statut) ? 'checked' : '' }} type="checkbox" id="slug" />
-                                                <label for="slug">Slug</label>
+                                                <label for="slug">Slogan</label>
                                             </label>
                                         </div>
                                     </div>
@@ -282,6 +280,7 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
 
     $(document).ready(function() {
@@ -297,46 +296,31 @@
 
          function verif ()
         {
-
             var etatFooter = document.getElementById('footer').checked;
             var etatSlug = document.getElementById('slug').checked;
             var etatSocial_network = document.getElementById('social_network').checked;
-
 
             var footerDiv = document.getElementById('footer-content');
             var slugDiv = document.getElementById('slug-content');
             var social_networkDiv = document.getElementById('social_network-content');
 
-
             if(etatFooter)
-            {
-            document.getElementById('1').classList.remove('disabled');
+                document.getElementById('1').classList.remove('disabled');
 
-            }
-            if (!etatFooter)
-            {
-            document.getElementById('1').classList.add('disabled');
+            if(!etatFooter)
+                document.getElementById('1').classList.add('disabled');
 
-            }
+            if(etatSlug)
+                document.getElementById('2').classList.remove('disabled');
 
-            if (etatSlug) {
-            document.getElementById('2').classList.remove('disabled');
+            if(!etatSlug)
+                document.getElementById('2').classList.add('disabled');
 
-            }
-            if (!etatSlug) {
-            document.getElementById('2').classList.add('disabled');
+            if(etatSocial_network)
+                document.getElementById('3').classList.remove('disabled');
 
-            }
-
-            if (etatSocial_network) {
-            document.getElementById('3').classList.remove('disabled');
-
-            }
-            if (!etatSocial_network) {
-            document.getElementById('3').classList.add('disabled');
-
-            }
-
+            if(!etatSocial_network)
+                document.getElementById('3').classList.add('disabled');
         }
 
         function toastDelete() {
