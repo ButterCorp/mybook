@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Template;
+use App\Visitor;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
@@ -168,8 +169,10 @@ class ParametersController extends Controller
 
         $templates = Template::all();
 
+        $visitorsOfMonth = Visitor::getVisitorByMonth($site->id);
+
         return view('back/index', ['photos' => $photos, 'albums' => $albums, 'templates' => $templates, 'site' => $site, 'firstname' => $name[0],
-            'lastname' => $name[1], 'email' => $user->email]);
+            'lastname' => $name[1], 'email' => $user->email, 'visitor' => $visitorsOfMonth]);
     }
 
     public function editTemplate(Request $request) {
