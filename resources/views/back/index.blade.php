@@ -93,7 +93,7 @@
                                             <span>
                                                 <div class="row">
                                                     @foreach ($photos as $photo)
-                                                        @if($photo->albums_id == $album->id)
+                                                        @if($photo->album_id == $album->id)
                                                             <div class="col s4">
                                                                 <img class="responsive-img materialboxed" onclick="toastDelete()" data-caption="Envoyer sur MyBook le : {{ $photo->updated_at    }}" src="{{ $photo->url }}">
                                                             </div>

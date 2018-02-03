@@ -14,7 +14,7 @@
                             @if($album->user_id = $site->user_id )
                                 @if ($loop->first) {{-- Recuperer le premier album de l'user en cours --}}
                                     @foreach($photos as $photo)
-                                        @if($album->id = $photo->albums_id && $album->user_id = $site->user_id)
+                                        @if($album->id = $photo->album_id && $album->user_id = $site->user_id)
                                             @if ($loop->first) {{-- Recuperer la premiere photo de l'album en cours --}}
                                                 <img src="{{ $photo->url }}">
                                             @endif

@@ -47,10 +47,9 @@ class ParametersController extends Controller
 
         // Access token will be null if the user denied the request
         // or if someone just hit this URL outside of the OAuth flow.
-        if (! $token) {
+        if (!$token) {
             // Get the redirect helper
             $helper = $this->fb->getRedirectLoginHelper();
-
             if (! $helper->getError()) {
                 abort(403, 'Unauthorized action.');
             }
@@ -93,7 +92,10 @@ class ParametersController extends Controller
         // Convert the response to a `Facebook/GraphNodes/GraphUser` collection
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
-
+        if(Auth::check()){
+            //If the user is authenticated, we show him the pictures directly
+            return view('back/parameters', ['albums' => $albums_user]);
+        }
         return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
     }
@@ -103,6 +105,10 @@ class ParametersController extends Controller
             return abort(403);
         }
         $albums = session('album_user');
+        if($albums == null){
+            $login_url =$this->fb->getLoginUrl(['email','user_photos', 'publish_actions']);
+            return redirect()->to($login_url);
+        }
         return view('back/parameters', ['albums' => $albums]);
 
     }
@@ -112,16 +118,24 @@ class ParametersController extends Controller
             return abort(403);
         }
 
+        //Find the current user->album->photos and delete
+        $user = User::find(Auth::id());
+
+        foreach ($user->albums as $album){
+            foreach ($album->photos as $photo){
+                $photo->delete();
+            }
+            $album->delete();
+        }
         //Foreach albums
         foreach ($request->all() as $key => $value){
             if ($key != "_token" && $key != "id" && $key != "name" && $key != "email"){
                 //We create album if it doesn't exist in database
                 $id = explode("-", $key);
-
                 $album = Album::firstOrCreate([
                     'album_id' => $id[0],
                     'title' => $id[1],
-                    'users_id' => Auth::id(),
+                    'user_id' => Auth::id(),
                     'created_at' => date('now'),
                     'updated_at' => date('now')
                 ]);
@@ -134,7 +148,7 @@ class ParametersController extends Controller
                         'nb_likes' => intval($url_photo[1]),
                         'nb_comments' => intval($url_photo[2]),
                         'description' => $url_photo[3],
-                        'albums_id' => $album->id,
+                        'album_id' => $album->id,
                         'created_at' => date('now'),
                         'updated_at' => date('now')
                     ]);
@@ -160,7 +174,7 @@ class ParametersController extends Controller
 
         $site = Site::where('user_id', '=', $user->id)->first();
 
-        $albums = Album::where('users_id', '=', $site->user_id)->get();
+        $albums = Album::where('user_id', '=', $site->user_id)->get();
 
         $albumsID = [];
 
@@ -170,7 +184,7 @@ class ParametersController extends Controller
             array_push($albumsID, $album->id );
 
         //Get all photos of a user
-        $photos = Photo::whereIn('albums_id', $albumsID)->get();
+        $photos = Photo::whereIn('album_id', $albumsID)->get();
 
         $templates = Template::all();
 

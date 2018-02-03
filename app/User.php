@@ -16,6 +16,6 @@ class User extends Authenticatable
     ];
     public function albums()
     {
-        return $this->hasMany('App\Albums');
+        return $this->hasMany('App\Album');
     }
 }

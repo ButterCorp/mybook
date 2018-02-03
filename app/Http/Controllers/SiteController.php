@@ -35,7 +35,7 @@ class SiteController extends Controller
         if ($site === null || $site->template_selectionned === null || $site->statut == 0 || $site->is_active == 0)
             return abort(404);
 
-        $albums = Album::where('users_id', '=', $site->user_id)->get();
+        $albums = Album::where('user_id', '=', $site->user_id)->get();
 
         $albumsID = [];
 
@@ -44,7 +44,7 @@ class SiteController extends Controller
             array_push($albumsID, $album->id );
 
         //Get all photos of a user
-        $photos = Photo::whereIn('albums_id', $albumsID)->get();
+        $photos = Photo::whereIn('album_id', $albumsID)->get();
 
         Visitor::create([
             'site_id' => $site->id,

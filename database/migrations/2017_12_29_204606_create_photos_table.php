@@ -18,9 +18,9 @@ class CreatePhotosTable extends Migration
             $table->string('url');
             $table->integer('nb_likes')->default(0);
             $table->integer('nb_comments')->default(0);
-            $table->integer('albums_id')->unsigned();
+            $table->integer('album_id')->unsigned();
             $table->string('description')->default("");
-            $table->foreign('albums_id')->references('id')->on('albums');
+            $table->foreign('album_id')->references('id')->on('albums');
             $table->timestamps();
         });
     }

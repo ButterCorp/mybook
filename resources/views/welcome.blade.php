@@ -15,7 +15,11 @@
 <body>
 <aside class="profile-card">
     <header>
-        <a href="{{ $login }}">
+        @if(!Auth::check())
+            <a href="{{ $login }}">
+        @else
+            <a href="/indexBack">
+        @endif
             <img src="{{ asset('/image/facebook-img.png') }}" class="hoverZoomLink">
         </a>
 

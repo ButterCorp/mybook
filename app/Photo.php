@@ -12,6 +12,10 @@ class Photo extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'url', 'albums_id', 'nb_likes', 'nb_comments', 'description',
+        'id', 'url', 'album_id', 'nb_likes', 'nb_comments', 'description',
     ];
+    public function album()
+    {
+        return $this->belongsTo('App\Album');
+    }
 }
