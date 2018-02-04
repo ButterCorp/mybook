@@ -9,21 +9,21 @@
             <h2 class="header">{{ $site->site_url }}</h2>
             <div class="card horizontal">
                 <div class="card-image">
+                    @php $find = 0; @endphp
+
                     @foreach($albums as $album)
-
-                            @if($album->user_id = $site->user_id )
-                                @if ($loop->first) {{-- Recuperer le premier album de l'user en cours --}}
-                                    @foreach($photos as $photo)
-                                        @if($album->id = $photo->album_id && $album->user_id = $site->user_id)
-                                            @if ($loop->first) {{-- Recuperer la premiere photo de l'album en cours --}}
-                                                <img src="{{ $photo->url }}">
-                                            @endif
-                                         @endif
-                                    @endforeach
+                        @if($album->user_id == $site->user_id && $find == 0)
+                            @php $find = 1;@endphp
+                            @php $findPhoto = 0; @endphp
+                            @foreach($photos as $photo)
+                                @if($album->id == $photo->album_id && $album->user_id == $site->user_id && $findPhoto == 0)
+                                    <img src="{{ $photo->url }}">
+                                    @php $findPhoto = 1; @endphp
                                 @endif
-                            @endif
-
+                            @endforeach
+                        @endif
                     @endforeach
+
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
@@ -31,10 +31,12 @@
                         <p>Modifié la derniere fois le <strong>{{ $site->updated_at }}</strong>.</p>
                     </div>
                     <div class="card-action">
-                        <a href="{{ $host . '/site/' .$site->site_url }}" title="Voir le site"><i class="material-icons">send</i></a>
+                        <a href="/site/{{$site->site_url }}" title="Voir le site" target="_blank"><i class="material-icons">send</i></a>
                         {!! Form::open( array( 'route' =>array('close-site') , 'method' => 'post' )) !!}
                         <input type="hidden" value="{{  $site->id }}" name="id_site">
-                            <button type="submit" title="Fermer le site"><i class="material-icons">send</i></button>
+                        <button class="btn waves-effect waves-light" type="submit" name="action" title="Fermer le site">Cloturer le site
+                            <i class="material-icons right">send</i>
+                        </button>
                         {!! Form::close() !!}
                     </div>
                 </div>
