@@ -12,10 +12,13 @@ class User extends Authenticatable
      * Get the comments for the blog post.
      */
     protected $fillable = [
-        'id', 'name', 'email','facebook'
+        'id', 'name', 'email','facebook','remeber_token',
     ];
     public function albums()
     {
         return $this->hasMany('App\Album');
     }
+    protected $hidden = [
+        'remember_token',
+    ];
 }

@@ -82,3 +82,8 @@
 
 </body>
 </html>
+<script>
+@if (Session::has('message'))
+    Materialize.toast("{{ Session::get('message') }}", 10000);
+@endif
+</script>

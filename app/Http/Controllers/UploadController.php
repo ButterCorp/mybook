@@ -26,13 +26,12 @@ class UploadController extends Controller
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
         $file_name = $request->file('image')->getClientOriginalName();
 
-        $request->file('image')->move(
-            base_path() . '/public/image/upload', $file_name
+        $path = $request->file('image')->storeAs(
+            'avatars', $request->user()->id
         );
 
         $url = "http://mybook.oklm:8090/image/upload/$file_name";
 
-        $url = "https://cdn.pixabay.com/photo/2017/06/06/06/03/freezing-earth-2376303_960_720.jpg";
 
         $data = [
             'message' => 'My awesome photo upload example.',

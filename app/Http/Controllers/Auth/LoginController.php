@@ -74,6 +74,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        redirect()->route('welcome')->with('message', 'Vous avez été deconnecté');
+        return redirect()->route('welcome')->with('message', 'Vous avez été deconnecté');
     }
 }
