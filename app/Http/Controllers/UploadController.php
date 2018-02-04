@@ -5,14 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\User;
-use App\Album;
-use App\Photo;
-use App\Site;
 use Facebook;
 
 class UploadController extends Controller
@@ -24,17 +17,14 @@ class UploadController extends Controller
     public function store_picture(Request $request){
 
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
-        $file_name = $request->file('image')->getClientOriginalName();
 
-        $path = $request->file('image')->storeAs(
-            'avatars', $request->user()->id
+        $path = $request->file('image')->store(
+            'images'
         );
-
-        $url = "http://mybook.oklm:8090/image/upload/$file_name";
-
+        $url =  "https://mybook.ovh/storage/".$path;
 
         $data = [
-            'message' => 'My awesome photo upload example.',
+            'message' => 'Uploaded via Mybook.',
             'source' => $fb->fileToUpload($url),
         ];
 
@@ -49,7 +39,7 @@ class UploadController extends Controller
             exit;
         }
 
-        Session::flash('message', "Votre photo a été uploader, cliquez ici pour faire un import");
+        Session::flash('message', "Votre photo a été uploadée");
         return Redirect::back();
     }
 }
