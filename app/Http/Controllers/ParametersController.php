@@ -122,10 +122,10 @@ class ParametersController extends Controller
             $login_url =$this->fb->getLoginUrl(['email','user_photos', 'publish_actions']);
             return redirect()->to($login_url);
         }
-        $albums = User::find(Auth::id())->albums;
+        $selectedAlbums = User::find(Auth::id())->albums;
         $photos = [];
-        if(!empty($albums)){
-            foreach ($albums as $album){
+        if(!empty($selectedAlbums)){
+            foreach ($selectedAlbums as $album){
                 if(!empty($album->photos)){
                     foreach ($album->photos as $photo){
                         if(!empty ($photo)){
