@@ -32,8 +32,10 @@ class SiteController extends Controller
     public function show($nom_site){
         $site = Site::where('site_url', '=', $nom_site)->first();
 
-        if ($site === null || $site->template_selectionned === null || $site->statut == 0 || $site->is_active == 0)
+        if ($site === null || $site->statut == 0 || $site->is_active == 0)
             return abort(404);
+        else if($site->template_selectionned === null && $site->statut == 1 && $site->is_active == 1 && $site->user_id == Auth::id())
+            return redirect()->route('indexBack')->with('message', 'Vous devez d\'abord activé un template avant de pouvoir visualisé votre site (MySettings -> Utilitaire)');
 
         $albums = Album::where('user_id', '=', $site->user_id)->get();
 
@@ -85,7 +87,6 @@ class SiteController extends Controller
 
     public function editSiteNetwork(Request $request) {
 
-        //Faire un tableau key => value pour mieux faire la requete
         $url = [];
         foreach ($request->post() as $req)
             array_push($url, $req);

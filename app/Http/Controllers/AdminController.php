@@ -19,12 +19,13 @@ class AdminController extends Controller
         if($userAdmin == 0)
             abort('403');
 
-        $sites = Site::where('is_active', '=', '1')->get();
+        $sitesActive = Site::where('is_active', '=', '1')->get();
+        $sitesNotActive = Site::where('is_active', '=', '0')->get();
         $albums = Album::all();
         $photos = Photo::all();
         $visitors = Visitor::all();
 
-        return view('back/admin', ['sites' => $sites, 'host' => $request->getHttpHost(), 'albums' => $albums, 'photos' => $photos,
+        return view('back/admin', ['sitesActive' => $sitesActive, 'sitesNotActive' => $sitesNotActive, 'host' => $request->getHttpHost(), 'albums' => $albums, 'photos' => $photos,
             'visitors' => $visitors]);
     }
 
@@ -39,5 +40,18 @@ class AdminController extends Controller
             ]);
 
         return redirect()->route('admin')->with('message', 'Le site est maintenant hors-ligne');
+    }
+
+    public function openSite(Request $request)
+    {
+        if(!$request->post('id_site'))
+            abort(403);
+
+        Site::where('id', $request->post('id_site'))
+            ->update([
+                'is_active' => 1,
+            ]);
+
+        return redirect()->route('admin')->with('message', 'Le site est maintenant en ligne');
     }
 }

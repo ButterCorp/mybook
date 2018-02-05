@@ -48,6 +48,7 @@ Route::get('/site/{nom_site}', 'SiteController@show');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::post('/admin/site/close', 'AdminController@closeSite')->name('close-site');
+Route::post('/admin/site/open', 'AdminController@openSite')->name('open-site');
 
 Route::post('/indexBack/edit/template', 'ParametersController@editTemplate')->name('edit-template');
 Route::post('/indexBack/edit/template/show', 'ParametersController@editObjectToShow')->name('edit-photo-display');

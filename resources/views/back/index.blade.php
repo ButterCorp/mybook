@@ -171,7 +171,7 @@
                                         </button>
                                     {{ Form::close() }}
                                 </div>
-                                <div id="social_network-content" class="col s12 div-dashboard">
+                                <div id="social_network-content" class="col s12">
                                         <div class="row">
                                             {!! Form::open( array( 'route' => 'edit-site-network', 'method' => 'post' )) !!}
                                             <div class="row">
@@ -214,7 +214,7 @@
                 </ul>
             </div>
             <div id="settings" class="col s12">
-                <div class="col s10 offset-s1 border_info">
+                <div class="col s10 offset-s1 z-depth-4">
                     <div >
                         <h3>Informations personnelles</h3>
                         <form class="col s12">
@@ -239,7 +239,7 @@
                     </div>
                 </div>
 
-                <div class="col s5 offset-s1 form-margin-top border_info">
+                <div class="col s10 l5 xl5 offset-s1 offset-l1 offset-xl1 form-margin-top z-depth-4">
                     <h3>Affichage de mes photos</h3>
                     <div class="row">
                         {{ Form::open( array( 'route' => 'edit-photo-display', 'method' => 'post' ))  }}
@@ -268,7 +268,7 @@
                     </div>
                 </div>
 
-                <div class="col s4 offset-s1 form-margin-top border_info">
+                <div class="col s10 l4 xl4 offset-s1 offset-l1 offset-xl1 form-margin-top z-depth-4">
                     <h3>Utilitaire</h3>
                     <div class="row">
                         {!! Form::open( array( 'route' => 'edit-template', 'method' => 'post' )) !!}

@@ -24,8 +24,8 @@
 </head>
 <body>
 @if(Route::current()->getName() == 'indexBack')
-    <a class="btn-floating btn-large waves-effect waves-light red" style="margin: 15px;" title="Ajouter des photos" href="/parameters"><i class="material-icons">add</i></a>
-    <a class="btn-floating btn-large waves-effect waves-light blue" style="margin: 15px;" title="Voir mon site" target="_blank" href="/site/{{ $site->site_url }}"><i class="material-icons">send</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red pulse" style="margin: 15px;" title="Ajouter des photos" href="/parameters"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light light-blue" style="margin: 15px;" title="Voir mon site" target="_blank" href="/site/{{ $site->site_url }}"><i class="material-icons">send</i></a>
     <a class="btn-floating btn-large waves-effect waves-light red" style="left: 80vw" title="Se deconnecter" href="/logout"><i class="material-icons">cancel</i></a>
     @if($isAdmin)
         <a class="btn-floating btn-large waves-effect waves-light blue" style="left: 70vw" title="Administration" target="_blank" href="/admin"><i class="material-icons">account_balance</i></a>
