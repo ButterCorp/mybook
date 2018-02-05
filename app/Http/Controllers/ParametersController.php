@@ -93,8 +93,21 @@ class ParametersController extends Controller
         $albums_user = $albums->getGraphEdge();
         $info_user = $userinfo->getGraphUser();
         if(Auth::check()){
+            $albums = User::find(Auth::id())->albums;
+            $photos = [];
+            if(!empty($albums)) {
+                foreach ($albums as $album) {
+                    if (!empty($album->photos)) {
+                        foreach ($album->photos as $photo) {
+                            if (!empty ($photo)) {
+                                $photos[] = $photo["url"];
+                            }
+                        }
+                    }
+                }
+            }
             //If the user is authenticated, we show him the pictures directly
-            return view('back/parameters', ['albums' => $albums_user]);
+            return view('back/parameters', ['albums' => $albums_user, 'selectedPhotos' => $photos]);
         }
         return redirect()->route('login')->with(['album_user' => $albums_user, 'info_user' => $info_user]);
 
@@ -109,7 +122,21 @@ class ParametersController extends Controller
             $login_url =$this->fb->getLoginUrl(['email','user_photos', 'publish_actions']);
             return redirect()->to($login_url);
         }
-        return view('back/parameters', ['albums' => $albums]);
+        $albums = User::find(Auth::id())->albums;
+        $photos = [];
+        if(!empty($albums)){
+            foreach ($albums as $album){
+                if(!empty($album->photos)){
+                    foreach ($album->photos as $photo){
+                        if(!empty ($photo)){
+                            $photos[] = $photo["url"];
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('back/parameters', ['albums' => $albums, 'selectedPhotos' => $photos]);
 
     }
 

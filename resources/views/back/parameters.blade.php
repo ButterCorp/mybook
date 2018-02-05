@@ -40,8 +40,19 @@
                                         @if (isset($link["name"]))
                                             {!! $name = $link["name"] !!}
                                          @endif
-
-                                         <option data-img-src="{{ $source }}" data-img-class="responsive-img materialboxed parameter-photo" value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}|{{ $link["comments"]->getTotalCount() }}|{{$name}}"></option>
+                                            @php $selected = false; @endphp
+                                            @if(isset($selectedPhotos))
+                                                @php
+                                                        if(in_array($source,$selectedPhotos)){
+                                                            $selected = true;
+                                                        }
+                                                @endphp
+                                            @endif
+                                         <option data-img-src="{{ $source }}"
+                                                 data-img-class="responsive-img materialboxed parameter-photo"
+                                                 value="{{ $source }}|{{ $link["likes"]->getTotalCount() }}|{{ $link["comments"]->getTotalCount() }}|{{$name}}"
+                                                 {{ ($selected)?'selected':'' }}
+                                         ></option>
 
 
                                      @endif

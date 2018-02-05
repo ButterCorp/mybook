@@ -106,12 +106,12 @@
                                 @endforeach
                             </ul>
                             <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Envoyer une photo</a>
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Importer une photo sur Facebook</a>
 
                             <!-- Modal Structure -->
                             <div id="modal1" class="modal">
                                 <div class="modal-content">
-                                    <h4>Envoyer une nouvelle photo</h4>
+                                    <h4>Uploader une photo</h4>
                                     {!! Form::open(
                                   array(
                                       'route' => 'upload',
