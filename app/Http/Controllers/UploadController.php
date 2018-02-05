@@ -30,9 +30,13 @@ class UploadController extends Controller
                 'public/images', $fileName
             );
 
-            
+            $message = '';
+            if(!empty($request->message)){
+                $message = $request->message;
+            }
+
             $data = [
-                'message' => 'Uploaded via Mybook',
+                'message' => $message,
                 'source' => $fb->fileToUpload(asset('/storage/images/' . $fileName)),
             ];
 

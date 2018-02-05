@@ -127,6 +127,9 @@
                                                 <input class="file-path validate" type="text">
                                             </div>
                                         </div>
+                                        <div class="input-field">
+                                            {!! Form::text('message','',['placeholder' => 'Publier sur Facebook avec un message']) !!}
+                                        </div>
                                         <button class="btn waves-effect waves-light" type="submit" name="action">Envoyer
                                             <i class="material-icons right">send</i>
                                         </button>
