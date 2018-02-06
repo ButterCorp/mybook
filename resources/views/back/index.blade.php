@@ -11,6 +11,21 @@
             });
         });
     </script>
+
+    @if(!Session::has('first') && !($site->template_selectionned))
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a id="menu" class="btn btn-floating btn-large cyan" onclick="$('.tap-target').tapTarget('close')"><i class="material-icons">menu</i></a>
+        </div>
+
+        <div class="tap-target cyan" data-activates="menu">
+            <div class="tap-target-content white-text">
+                <h5>Bonjour de MyBook !</h5>
+                <p class="white-text">Bienvenue sur MyBook v0.1 Bêta. <br>L'import de vos photos s'est effectué avec succès, pour pouvoir visualiser votre site il faut impérativement renseigner un
+                    template dans l'onglet MySettings puis dans la partie Utilitaire :-)</p>
+            </div>
+        </div>
+    @endif
+
     <div class="div-dashboard">
         <div class="row">
             <div class="col s12">
@@ -41,6 +56,7 @@
                                     {{--<a href="#">General </a>|
                                     <a href="#">Template </a>|
                                     <a href="#">Font</a>--}}
+
                                 </div>
                             <div class="row">
 
@@ -310,6 +326,9 @@
         $('#modal1').modal();
         $('select').material_select();
 
+        @if(!Session::has('first') && !($site->template_selectionned))
+            $('.tap-target').tapTarget('open');
+        @endif
         @if (Session::has('message'))
             Materialize.toast("{{ Session::get('message') }}", 10000);
         @endif

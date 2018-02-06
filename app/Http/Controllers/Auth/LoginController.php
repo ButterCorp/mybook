@@ -39,7 +39,7 @@ class LoginController extends Controller
         if($userToFind != "[]"){
 
             if (Auth::attempt(['id' =>  $userToFind[0]->id])) {
-                return redirect()->intended('indexBack');
+                return redirect()->intended('indexBack')->with(['first' => 0]);
             }
         }
 
