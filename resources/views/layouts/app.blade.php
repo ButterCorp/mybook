@@ -45,6 +45,9 @@
          $(document).ready(function() {
             $('select').imagepicker();
              $( "div.thumbnail" ).removeClass( "responsive-img materialboxed").addClass( "col s9" );
+             @if(!Session::has('first') && !($site->template_selectionned))
+                 $('.tap-target').tapTarget('open');
+             @endif
          });
           @if(Route::current()->getName() == 'indexBack')
           new Chart(document.getElementById("line-chart"), {

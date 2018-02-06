@@ -326,9 +326,7 @@
         $('#modal1').modal();
         $('select').material_select();
 
-        @if(!Session::has('first') && !($site->template_selectionned))
-            $('.tap-target').tapTarget('open');
-        @endif
+
         @if (Session::has('message'))
             Materialize.toast("{{ Session::get('message') }}", 10000);
         @endif
